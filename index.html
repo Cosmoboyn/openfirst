@@ -117,6 +117,23 @@
         .game-canvas-area { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; border-radius: 6px; color: #fff; position: relative; }
         .browser-layout { display: flex; flex-direction: column; gap: 6px; height: 100%; }
         .browser-viewport { flex: 1; border: 1px solid #cbd5e1; background: #fff; border-radius: 6px; padding: 10px; overflow-y: auto; font-size: 12px; }
+        /* Изменения для тем оформления */
+body.theme-dark { background: radial-gradient(circle at 70% 30%, #1e3a8a 0%, #0f172a 100%); }
+body.theme-light { background: radial-gradient(circle at 70% 30%, #e2e8f0 0%, #cbd5e1 100%); }
+body.theme-space { background: radial-gradient(circle at 70% 30%, #4c1d95 0%, #0b0b1a 100%); }
+
+body.theme-light .window-body { background: #f8fafc; color: #1e293b; }
+body.theme-space .window-body { background: #0f172a; color: #00f0ff; }
+
+/* Стиль для разворачивания окна на весь экран симулятора */
+.window.maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 45px) !important;
+    transform: none !important;
+    z-index: 10000 !important;
+}
     </style>
 </head>
 <body id="sys-body" onkeydown="handleGlobalKeys(event)">
