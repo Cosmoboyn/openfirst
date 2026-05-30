@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemeniOS v13.5 Ultimate Edition</title>
+    <title>GemeniOS v13.6 Ultimate Edition</title>
     <style>
         :root {
             --aero-bg: rgba(10, 15, 30, 0.45);
@@ -90,25 +90,19 @@
         button { background: #1f2937; color: #fff; border: none; padding: 6px 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 12px; }
         button:hover { background: #374151; }
 
-        /* ПРОГРАММА: PAINT */
+        /* PAINT */
         .paint-toolbar { display: flex; gap: 8px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid #cbd5e1; margin-bottom: 8px; }
         #paintCanvas { border: 1px solid #94a3b8; background: #fff; cursor: crosshair; display: block; }
 
-        /* ПРОГРАММА: AI CHAT */
+        /* AI CHAT */
         .ai-layout { display: flex; flex-direction: column; height: 100%; gap: 8px; }
         .ai-chat-box { flex: 1; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; min-height: 160px; }
         .ai-bubble { padding: 8px 12px; border-radius: 8px; max-width: 85%; font-size: 12px; line-height: 1.4; }
         .ai-bubble.user { background: #e0f2fe; align-self: flex-end; color: #0369a1; }
         .ai-bubble.bot { background: #f1f5f9; align-self: flex-start; border-left: 3px solid var(--accent); color: #334155; }
 
-        /* ПРОГРАММА: NOTES */
+        /* NOTES */
         .notes-layout { display: flex; flex-direction: column; gap: 8px; height: 100%; }
-
-        /* МАГАЗИН */
-        .store-grid { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .store-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 10px; display: flex; justify-content: space-between; align-items: center; color: #111827; }
-        .download-bar-container { background: #e2e8f0; width: 100%; height: 6px; border-radius: 3px; margin-top: 6px; overflow: hidden; display: none; }
-        .download-bar-fill { background: var(--accent); height: 100%; width: 0%; transition: width 0.2s; }
 
         /* МЕНЮ ПУСК */
         #start-menu { position: absolute; bottom: 50px; left: 10px; width: 320px; height: 410px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; box-shadow: var(--win-shadow); display: none; flex-direction: column; padding: 12px; z-index: 10000; }
@@ -119,7 +113,7 @@
         .start-footer { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; gap: 6px; }
         .btn-power { flex: 1; padding: 6px; font-size: 11px; text-align: center; border-radius: 4px; color:#fff; }
 
-        /* ПРОГРАММА: ПРОВОДНИК */
+        /* ПРОВОДНИК */
         .exp-layout { display: grid; grid-template-columns: 120px 1fr; gap: 10px; height: 100%; }
         .exp-tree { border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
         .exp-node { cursor: pointer; padding: 4px; border-radius: 4px; }
@@ -134,95 +128,132 @@
 </head>
 <body id="sys-body" onkeydown="handleGlobalKeys(event)">
 
+    <!-- ЭКРАН ВЫКЛЮЧЕНИЯ -->
     <div id="shutdown-screen">
-        <h1 style="font-weight: 300; margin-bottom: 10px; color: #334155;" data-lang="shutdown_title">GemeniOS Корректно Выключена</h1>
-        <p style="font-size: 13px;" data-lang="shutdown_desc">Для подачи питания на материнскую плату зажмите комбинацию: <b>O + S</b></p>
+        <h1 style="font-weight: 300; margin-bottom: 10px; color: #334155;">GemeniOS Корректно Выключена</h1>
+        <p style="font-size: 13px;">Для подачи питания на материнскую плату зажмите комбинацию: <b>O + S</b></p>
     </div>
 
+    <!-- ЭКРАН БЛОКИРОВКИ -->
     <div id="lock-screen">
         <div class="lock-card">
             <div class="lock-avatar">👤</div>
             <h2 id="lock-user-title" style="color:#fff; font-size:18px; margin-bottom:15px; font-weight:400;">Admin</h2>
-            <input type="password" id="lock-pass-input" placeholder="Пароль (дефолт: admin)" style="width:100%; text-align:center; margin-bottom:12px; padding:8px;" data-lang-placeholder="pass_placeholder">
-            <button onclick="unlockOS()" style="width:100%; background: var(--accent); color:#000;" data-lang="authorize_btn">АВТОРИЗОВАТЬСЯ</button>
-            <div id="lock-error" style="color:#ef4444; font-size:11px; margin-top:8px; display:none;" data-lang="lock_error">Ошибка ключа доступа!</div>
+            <input type="password" id="lock-pass-input" placeholder="Пароль (дефолт: admin)" style="width:100%; text-align:center; margin-bottom:12px; padding:8px;">
+            <button onclick="unlockOS()" style="width:100%; background: var(--accent); color:#000;">АВТОРИЗОВАТЬСЯ</button>
+            <div id="lock-error" style="color:#ef4444; font-size:11px; margin-top:8px; display:none;">Ошибка ключа доступа!</div>
         </div>
     </div>
 
+    <!-- ВИДЖЕТЫ -->
     <div class="sys-widget" id="w-node-1" style="top: 20px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-1')">
-        <div class="widget-title"><span data-lang="w_time_title">🕒 Время ядра</span></div>
+        <div class="widget-title"><span>🕒 Время ядра</span></div>
         <div id="w-time" style="font-size: 18px; font-weight: bold; letter-spacing: 1px;">00:00:00</div>
         <div id="w-date" style="color: #94a3b8; font-size: 11px; margin-top: 2px;">30.05.2026</div>
     </div>
 
     <div class="sys-widget" id="w-node-2" style="top: 120px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-2')">
-        <div class="widget-title"><span data-lang="w_geo_title">📍 Геолокация</span></div>
+        <div class="widget-title"><span>📍 Геолокация</span></div>
         <div id="w-loc" style="font-weight: 600;">Бишкек, Кыргызстан</div>
-        <div style="color: #34d399; font-size: 11px; margin-top: 2px;" data-lang="w_ping">🌤️ Стабильный пинг</div>
+        <div style="color: #34d399; font-size: 11px; margin-top: 2px;">🌤️ Стабильный пинг</div>
     </div>
 
     <div class="sys-widget" id="w-node-3" style="top: 220px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-3')">
-        <div class="widget-title"><span data-lang="w_sec_title">🛡️ Безопасность</span></div>
-        <div><span data-lang="w_status_lbl">Статус:</span> <span id="w-sec-status" style="color:#34d399; font-weight:bold;" data-lang="w_secure">Защищено</span></div>
-        <div style="color: #94a3b8; font-size: 10px; margin-top: 2px;" data-lang="w_firewall">Брандмауэр ядра активен</div>
+        <div class="widget-title"><span>🛡️ Безопасность</span></div>
+        <div><span>Статус:</span> <span id="w-sec-status" style="color:#34d399; font-weight:bold;">Защищено</span></div>
+        <div style="color: #94a3b8; font-size: 10px; margin-top: 2px;">Брандмауэр ядра активен</div>
     </div>
 
     <div class="sys-widget" id="w-node-4" style="top: 320px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-4')">
-        <div class="widget-title"><span data-lang="w_ram_title">📊 Ресурсы ОЗУ</span></div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span data-lang="w_load">Загрузка:</span><span id="w-ram-val">34%</span></div>
+        <div class="widget-title"><span>📊 Ресурсы ОЗУ</span></div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span>Загрузка:</span><span id="w-ram-val">34%</span></div>
         <div style="background:rgba(255,255,255,0.1); height:4px; border-radius:2px; overflow:hidden;"><div id="w-ram-bar" style="background:var(--accent); height:100%; width:34%;"></div></div>
     </div>
 
     <div class="sys-widget" id="w-node-5" style="top: 420px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-5')">
-        <div class="widget-title"><span data-lang="w_coins_title">💰 Gemeni Монеты</span></div>
+        <div class="widget-title"><span>💰 Gemeni Монеты</span></div>
         <div style="font-size:14px; font-weight:bold; margin-bottom:5px;"><span id="w-money-val">50</span> 🪙</div>
-        <button onclick="mineCoin()" style="width:100%; padding:4px; font-size:11px; background:var(--accent); color:#000;" data-lang="w_mine_btn">Майнить +1 🪙</button>
+        <button onclick="mineCoin()" style="width:100%; padding:4px; font-size:11px; background:var(--accent); color:#000;">Майнить +1 🪙</button>
     </div>
 
+    <!-- РАБОЧИЙ СТОЛ -->
     <div id="desktop" onclick="document.getElementById('start-menu').style.display='none'">
         
-        <div class="shortcut" id="sh-explorer" onmousedown="shortcutDragStart(event, 'sh-explorer')" ondblclick="openWindow('win-explorer')">
-            <div class="shortcut-icon">📂</div>
-            <div data-lang="sh_explorer">Проводник</div>
+        <!-- ЯРЛЫКИ НА ЭКРАНЕ (ТЕПЕРЬ ВСЁ СРАЗУ ЗДЕСЬ!) -->
+        <div class="shortcut" id="sh-explorer" style="left:20px; top:20px;" onmousedown="shortcutDragStart(event, 'sh-explorer')" ondblclick="openWindow('win-explorer')">
+            <div class="shortcut-icon">📂</div><div>Проводник</div>
         </div>
-        <div class="shortcut" id="sh-store" onmousedown="shortcutDragStart(event, 'sh-store')" ondblclick="openWindow('win-store')">
-            <div class="shortcut-icon">🏪</div>
-            <div data-lang="sh_store">Play Market</div>
+        <div class="shortcut" id="sh-gemetube" style="left:20px; top:120px;" onmousedown="shortcutDragStart(event, 'sh-gemetube')" ondblclick="openWindow('win-gemetube')">
+            <div class="shortcut-icon">📺</div><div style="color:#ff3e3e; font-weight:bold;">Gemetube</div>
         </div>
-        <div class="shortcut" id="sh-trash" onmousedown="shortcutDragStart(event, 'sh-trash')" ondblclick="openWindow('win-trash')" ondragover="event.preventDefault()" ondrop="dropToTrash(event)">
-            <div class="shortcut-icon">🗑️</div>
-            <div data-lang="sh_trash">Корзина</div>
+        <div class="shortcut" id="sh-game_space" style="left:20px; top:220px;" onmousedown="shortcutDragStart(event, 'sh-game_space')" ondblclick="openWindow('win-game_space')">
+            <div class="shortcut-icon">🚀</div><div style="color:#00f0ff;">Space Click</div>
         </div>
-        <div class="shortcut" id="sh-paint" onmousedown="shortcutDragStart(event, 'sh-paint')" ondblclick="openWindow('win-paint')">
-            <div class="shortcut-icon">🎨</div>
-            <div data-lang="sh_paint">Paint Pro</div>
+        <div class="shortcut" id="sh-trash" style="left:20px; top:320px;" onmousedown="shortcutDragStart(event, 'sh-trash')" ondblclick="openWindow('win-trash')" ondragover="event.preventDefault()" ondrop="dropToTrash(event)">
+            <div class="shortcut-icon">🗑️</div><div>Корзина</div>
         </div>
-        <div class="shortcut" id="sh-ai" onmousedown="shortcutDragStart(event, 'sh-ai')" ondblclick="openWindow('win-ai')">
-            <div class="shortcut-icon">🧠</div>
-            <div data-lang="sh_ai">Gemeni AI</div>
+        <div class="shortcut" id="sh-paint" style="left:120px; top:20px;" onmousedown="shortcutDragStart(event, 'sh-paint')" ondblclick="openWindow('win-paint')">
+            <div class="shortcut-icon">🎨</div><div>Paint Pro</div>
         </div>
-        <div class="shortcut" id="sh-notes" onmousedown="shortcutDragStart(event, 'sh-notes')" ondblclick="openWindow('win-notes')">
-            <div class="shortcut-icon">📝</div>
-            <div data-lang="sh_notes">Заметки</div>
+        <div class="shortcut" id="sh-ai" style="left:120px; top:120px;" onmousedown="shortcutDragStart(event, 'sh-ai')" ondblclick="openWindow('win-ai')">
+            <div class="shortcut-icon">🧠</div><div>Gemeni AI</div>
         </div>
-        <div class="shortcut" id="sh-browser" onmousedown="shortcutDragStart(event, 'sh-browser')" ondblclick="openWindow('win-browser')">
-            <div class="shortcut-icon">🌐</div>
-            <div data-lang="sh_browser">Браузер</div>
+        <div class="shortcut" id="sh-notes" style="left:120px; top:220px;" onmousedown="shortcutDragStart(event, 'sh-notes')" ondblclick="openWindow('win-notes')">
+            <div class="shortcut-icon">📝</div><div>Заметки</div>
         </div>
-        <div class="shortcut" id="sh-cmd" onmousedown="shortcutDragStart(event, 'sh-cmd')" ondblclick="openWindow('win-cmd')">
-            <div class="shortcut-icon">📟</div>
-            <div data-lang="sh_cmd">CMD Pro</div>
+        <div class="shortcut" id="sh-browser" style="left:120px; top:320px;" onmousedown="shortcutDragStart(event, 'sh-browser')" ondblclick="openWindow('win-browser')">
+            <div class="shortcut-icon">🌐</div><div>Браузер</div>
         </div>
-        <div class="shortcut" id="sh-settings" onmousedown="shortcutDragStart(event, 'sh-settings')" ondblclick="openWindow('win-settings')">
-            <div class="shortcut-icon">⚙️</div>
-            <div data-lang="sh_settings">Настройки</div>
+        <div class="shortcut" id="sh-settings" style="left:220px; top:20px;" onmousedown="shortcutDragStart(event, 'sh-settings')" ondblclick="openWindow('win-settings')">
+            <div class="shortcut-icon">⚙️</div><div>Настройки</div>
+        </div>
+        <div class="shortcut" id="sh-cmd" style="left:220px; top:120px;" onmousedown="shortcutDragStart(event, 'sh-cmd')" ondblclick="openWindow('win-cmd')">
+            <div class="shortcut-icon">📟</div><div>CMD Pro</div>
         </div>
 
-        <div id="downloaded-shortcuts" style="display:contents;"></div>
+        <!-- ОКНО: GEMETUBE -->
+        <div class="window" id="win-gemetube" style="top:50px; left:200px; width:460px; height:400px;">
+            <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
+                <div class="window-title">📺 Gemetube Hub — Видеохостинг</div>
+                <div class="win-btn-group">
+                    <div class="win-btn" onclick="toggleMaximize('win-gemetube')">🔲</div>
+                    <div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div>
+                </div>
+            </div>
+            <div class="window-body" style="background:#111827; color:#fff;">
+                <div style="margin-bottom:10px; background:#1f2937; padding:10px; border-radius:6px; border: 1px solid #374151;">
+                    <label style="font-size:11px; display:block; margin-bottom:5px; color:#9ca3af;">Выложить своё видео с внешнего ПК:</label>
+                    <input type="file" id="gemetube-file-input" accept="video/*" style="width:100%; color:#fff; font-size:11px;">
+                </div>
+                <div id="gemetube-feed" style="display:flex; flex-direction:column; gap:10px; overflow-y:auto; height:240px; padding-right:4px;">
+                    <div style="background:#1f2937; padding:8px; border-radius:6px;">
+                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" controls style="width:100%; border-radius:4px;"></video>
+                        <div style="font-size:12px; margin-top:5px; font-weight:bold; color:#f3f4f6;">Big Buck Bunny (Предустановленный трейлер)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- ОКНО: SPACE CLICKER -->
+        <div class="window" id="win-game_space" style="top:80px; left:250px; width:360px;">
+            <div class="window-header" onmousedown="dragStart(event, 'win-game_space')">
+                <div class="window-title">🚀 Space Clicker Edition</div>
+                <div class="win-btn-group">
+                    <div class="win-btn" onclick="toggleMaximize('win-game_space')">🔲</div>
+                    <div class="win-btn close-btn" onclick="closeWin('win-game_space')">✕</div>
+                </div>
+            </div>
+            <div class="window-body game-canvas-area" style="background:linear-gradient(to bottom, #0f172a, #1e1b4b); height:240px;">
+                <div style="font-size:16px; margin-bottom:5px; font-weight:bold; color:#38bdf8;">Планетарная пыль: <span id="space-clicks">0</span></div>
+                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:64px; cursor:pointer; user-select:none; margin:15px 0; transition: transform 0.1s;">🪐</div>
+                <button onclick="buySpaceUpgrade()" id="space-up-btn" style="background:#6366f1; font-size:12px; width:90%; padding:8px;">Купить Спутник (+1/сек) | Цена: 20</button>
+            </div>
+        </div>
+
+        <!-- ОКНО: PAINT -->
         <div class="window" id="win-paint" style="top:50px; left:380px; width:460px; height:360px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-paint')">
-                <div class="window-title" data-lang="title_paint">🎨 Редактор холста Gemeni Paint</div>
+                <div class="window-title">🎨 Редактор холста Gemeni Paint</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-paint')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-paint')">✕</div>
@@ -231,13 +262,13 @@
             <div class="window-body" style="display: flex; flex-direction: column;">
                 <div class="paint-toolbar">
                     <input type="color" id="paintColor" value="#00f0ff" style="width:40px; padding:0; height:25px; cursor:pointer;">
-                    <label style="font-size:11px;" data-lang="paint_size">Размер:</label>
+                    <label style="font-size:11px;">Размер:</label>
                     <select id="paintSize" style="padding:2px;">
                         <option value="3">3px</option>
                         <option value="6" selected>6px</option>
                         <option value="12">12px</option>
                     </select>
-                    <button onclick="clearCanvas()" style="background:#ef4444; padding:4px 8px;" data-lang="btn_clear">Очистить</button>
+                    <button onclick="clearCanvas()" style="background:#ef4444; padding:4px 8px;">Очистить</button>
                 </div>
                 <div style="flex:1; overflow:hidden; position:relative; background:#e2e8f0; border-radius:4px;">
                     <canvas id="paintCanvas" width="434" height="250"></canvas>
@@ -245,9 +276,10 @@
             </div>
         </div>
 
+        <!-- ОКНО: AI -->
         <div class="window" id="win-ai" style="top:110px; left:420px; width:400px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-ai')">
-                <div class="window-title" data-lang="title_ai">🧠 Модуль ИИ Ассистента Gemeni AI</div>
+                <div class="window-title">🧠 Модуль ИИ Ассистента Gemeni AI</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-ai')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-ai')">✕</div>
@@ -256,19 +288,20 @@
             <div class="window-body">
                 <div class="ai-layout">
                     <div class="ai-chat-box" id="ai-messages">
-                        <div class="ai-bubble bot" data-lang="ai-welcome">Привет! Я локальный нейросетевой module ядра GemeniOS v13. Задай мне любой технический вопрос.</div>
+                        <div class="ai-bubble bot">Привет! Я локальный нейросетевой модуль ядра GemeniOS v13. Задай мне любой технический вопрос.</div>
                     </div>
                     <div style="display:flex; gap:6px;">
-                        <input type="text" id="ai-input" placeholder="Спросить ассистента..." style="flex:1;" onkeydown="if(event.key==='Enter') sendToAI()" data-lang-placeholder="ai_placeholder">
-                        <button onclick="sendToAI()" style="background:var(--accent); color:#000;" data-lang="btn_generate">Сгенерировать</button>
+                        <input type="text" id="ai-input" placeholder="Спросить ассистента..." style="flex:1;" onkeydown="if(event.key==='Enter') sendToAI()">
+                        <button onclick="sendToAI()" style="background:var(--accent); color:#000;">Сгенерировать</button>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- ОКНО: NOTES -->
         <div class="window" id="win-notes" style="top:140px; left:320px; width:410px; height:320px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-notes')">
-                <div class="window-title" data-lang="title_notes">📝 Блокнот / Gemeni Notes</div>
+                <div class="window-title">📝 Блокнот / Gemeni Notes</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-notes')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-notes')">✕</div>
@@ -276,16 +309,17 @@
             </div>
             <div class="window-body" style="padding:10px;">
                 <div class="notes-layout">
-                    <input type="text" id="note-title" placeholder="Название заметки..." style="width:100%; font-weight:bold;" data-lang-placeholder="note_title_ph">
-                    <textarea id="note-body" placeholder="Введите ваш текст здесь..." style="flex:1; resize:none;" data-lang-placeholder="note_body_ph"></textarea>
-                    <button onclick="saveNoteFile()" style="background: #059669;" data-lang="btn_save_note">Сохранить в Проводник</button>
+                    <input type="text" id="note-title" placeholder="Название заметки..." style="width:100%; font-weight:bold;">
+                    <textarea id="note-body" placeholder="Введите ваш text здесь..." style="flex:1; resize:none;"></textarea>
+                    <button onclick="saveNoteFile()" style="background: #059669;">Сохранить в Проводник</button>
                 </div>
             </div>
         </div>
 
+        <!-- ОКНО: ПРОВОДНИК -->
         <div class="window" id="win-explorer" style="top:40px; left:40px; width:450px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-explorer')">
-                <div class="window-title" data-lang="title_explorer">📂 Проводник Диска C:</div>
+                <div class="window-title">📂 Проводник Диска C:</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-explorer')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-explorer')">✕</div>
@@ -294,48 +328,34 @@
             <div class="window-body">
                 <div class="exp-layout">
                     <div class="exp-tree">
-                        <div class="exp-node" onclick="renderExplorer('docs')" data-lang="exp_docs">📝 Документы</div>
-                        <div class="exp-node" onclick="renderExplorer('pics')" data-lang="exp_pics">🖼️ Рисунки</div>
-                        <div class="exp-node" onclick="renderExplorer('sys')" data-lang="exp_sys">⚙️ Системные</div>
+                        <div class="exp-node" onclick="renderExplorer('docs')">📝 Документы</div>
+                        <div class="exp-node" onclick="renderExplorer('pics')">🖼️ Рисунки</div>
+                        <div class="exp-node" onclick="renderExplorer('sys')">⚙️ Системные</div>
                     </div>
                     <div class="exp-content" id="explorer-grid"></div>
                 </div>
             </div>
         </div>
 
-        <div class="window" id="win-store" style="top:80px; left:120px; width:420px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-store')">
-                <div class="window-title" data-lang="title_store">🏪 Gemeni Play Market</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-store')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-store')">✕</div>
-                </div>
-            </div>
-            <div class="window-body">
-                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #e2e8f0; padding-bottom:8px; color: #111827;">
-                    <span><span data-lang="store_bal_lbl">Доступный баланс:</span> <b><span id="store-balance">50</span> 🪙</b></span>
-                </div>
-                <div class="store-grid" id="store-apps-list"></div>
-            </div>
-        </div>
-
+        <!-- ОКНО: КОРЗИНА -->
         <div class="window" id="win-trash" style="top:120px; left:80px; width:380px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-trash')">
-                <div class="window-title" data-lang="title_trash">🗑️ Корзина удаления</div>
+                <div class="window-title">🗑️ Корзина удаления</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-trash')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-trash')">✕</div>
                 </div>
             </div>
             <div class="window-body" style="display:flex; flex-direction:column; gap:10px;">
-                <div style="display:flex; justify-content:space-between;"><button onclick="emptyTrash()" style="background:#ef4444;" data-lang="btn_clear_trash">Очистить корзину</button></div>
+                <div style="display:flex; justify-content:space-between;"><button onclick="emptyTrash()" style="background:#ef4444;">Очистить корзину</button></div>
                 <div id="trash-grid" class="exp-content" style="flex:1; min-height:120px; border:1px dashed #cbd5e1; padding:10px; border-radius:6px;"></div>
             </div>
         </div>
 
+        <!-- ОКНО: БРАУЗЕР -->
         <div class="window" id="win-browser" style="top:150px; left:200px; width:480px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-browser')">
-                <div class="window-title" data-lang="title_browser">🌐 Web-Браузер Quantum</div>
+                <div class="window-title">🌐 Web-Браузер Quantum</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-browser')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-browser')">✕</div>
@@ -343,15 +363,16 @@
             </div>
             <div class="window-body">
                 <div class="browser-layout">
-                    <div style="display:flex; gap:5px;"><input type="text" id="browser-input" value="погода" style="flex:1;" onkeydown="if(event.key==='Enter') searchWeb()"><button onclick="searchWeb()" data-lang="btn_search">Поиск</button></div>
-                    <div class="browser-viewport" id="browser-view" data-lang="browser_empty">Введите поисковый запрос...</div>
+                    <div style="display:flex; gap:5px;"><input type="text" id="browser-input" value="погода" style="flex:1;" onkeydown="if(event.key==='Enter') searchWeb()"><button onclick="searchWeb()">Поиск</button></div>
+                    <div class="browser-viewport" id="browser-view">Введите поисковый запрос...</div>
                 </div>
             </div>
         </div>
 
+        <!-- ОКНО: НАСТРОЙКИ -->
         <div class="window" id="win-settings" style="top:180px; left:260px; width:380px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-settings')">
-                <div class="window-title" data-lang="title_settings">⚙️ Панель Настроек</div>
+                <div class="window-title">⚙️ Панель Настроек</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-settings')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-settings')">✕</div>
@@ -359,7 +380,7 @@
             </div>
             <div class="window-body" style="display:flex; flex-direction:column; gap:12px;">
                 <div>
-                    <label style="font-weight:bold; font-size:11px;" data-lang="set_lang_lbl">Язык системы / System Language:</label>
+                    <label style="font-weight:bold; font-size:11px;">Язык системы / System Language:</label>
                     <select id="set-lang-select" style="width:100%; margin-top:4px;" onchange="changeSystemLang(this.value)">
                         <option value="ru">Русский (RU)</option>
                         <option value="en">English (EN)</option>
@@ -374,77 +395,38 @@
                     </select>
                 </div>
                 <div>
-                    <label style="font-weight:bold; font-size:11px;" data-lang="set_loc_lbl">Локация системы:</label>
+                    <label style="font-weight:bold; font-size:11px;">Локация системы:</label>
                     <input type="text" id="set-location-input" value="Бишкек, Кыргызстан" style="width:100%; margin-top:4px;" onchange="updateSystemLocation(this.value)">
                 </div>
                 <div>
-                    <label style="font-weight:bold; font-size:11px;" data-lang="set_sec_lbl">Режим Брандмауэра (Защита):</label>
+                    <label style="font-weight:bold; font-size:11px;">Режим Брандмауэра (Защита):</label>
                     <select id="set-security-select" style="width:100%; margin-top:4px;" onchange="updateSecurityLevel(this.value)">
-                        <option value="High" data-lang="opt_high">Максимальный уровень (Защищено)</option>
-                        <option value="Low" data-lang="opt_low">Отключить файрвол (Уязвимо)</option>
+                        <option value="High">Максимальный уровень (Защищено)</option>
+                        <option value="Low">Отключить файрвол (Уязвимо)</option>
                     </select>
-                </div>
-                <div>
-                    <label style="font-weight:bold; font-size:11px;" data-lang="set_pass_lbl">Смена мастер-пароля:</label>
-                    <input type="password" id="set-pass-input" value="admin" style="width:100%; margin-top:4px;" onchange="activePass = this.value; saveState();">
                 </div>
             </div>
         </div>
 
+        <!-- ОКНО: CMD PRO -->
         <div class="window" id="win-cmd" style="top:220px; left:50px; width:460px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-cmd')">
-                <div class="window-title" data-lang="title_cmd">📟 Консоль ядра / cmd.exe</div>
+                <div class="window-title">📟 Консоль ядра / cmd.exe</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-cmd')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-cmd')">✕</div>
                 </div>
             </div>
             <div class="window-body" style="background:#000!important; color:#00f0ff!important; font-family:monospace;" id="cmd-box">
-                <div id="cmd-history" style="white-space:pre-wrap; font-size:12px;">GemeniOS Kernel Terminal [v13.5 Ultimate]&#10;Введите 'help' для вывода инструкций ядра.&#10;&#10;</div>
+                <div id="cmd-history" style="white-space:pre-wrap; font-size:12px;">GemeniOS Kernel Terminal [v13.6 Ultimate]&#10;Введите 'help' для вывода инструкций ядра.&#10;&#10;</div>
                 <div style="display:flex;"><span style="color:#ff007f;">root@gemeni:~# </span><input type="text" id="cmd-input" style="background:transparent; border:none; color:#00f0ff; flex:1; padding:0; font-family:monospace; margin-left:5px;" autocomplete="off"></div>
             </div>
         </div>
 
-        <div class="window" id="win-gemetube" style="top:70px; left:150px; width:440px; height:380px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
-                <div class="window-title">📺 Gemetube Video Hub</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-gemetube')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div>
-                </div>
-            </div>
-            <div class="window-body" style="background:#111827; color:#fff;">
-                <div style="margin-bottom:10px; background:#1f2937; padding:8px; border-radius:6px;">
-                    <label style="font-size:11px; display:block; margin-bottom:4px;">Загрузить свое видео в систему:</label>
-                    <input type="file" id="gemetube-file-input" accept="video/*" style="width:100%; color:#fff; font-size:11px;">
-                </div>
-                <div id="gemetube-feed" style="display:flex; flex-direction:column; gap:10px; overflow-y:auto; height:240px;">
-                    <div style="background:#1f2937; padding:6px; border-radius:4px;">
-                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" controls style="width:100%; border-radius:4px;"></video>
-                        <div style="font-size:12px; margin-top:4px; font-weight:bold;">Big Buck Bunny (Предустановлено)</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-game_space" style="top:90px; left:200px; width:360px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-game_space')">
-                <div class="window-title">🚀 Space Clicker Pro</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-game_space')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-game_space')">✕</div>
-                </div>
-            </div>
-            <div class="window-body game-canvas-area" style="background:linear-gradient(to bottom, #0f172a, #1e1b4b);">
-                <div style="font-size:16px; margin-bottom:5px;">Планетарная пыль: <span id="space-clicks">0</span></div>
-                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:56px; cursor:pointer; user-select:none; margin:10px 0; transition: transform 0.1s;">🪐</div>
-                <button onclick="buySpaceUpgrade()" id="space-up-btn" style="background:#6366f1; font-size:11px; width:90%;">Купить Спутник (+1/сек) | Цена: 20</button>
-            </div>
-        </div>
-
+        <!-- ОКНО: РЕДАКТОР РЕЕСТРА -->
         <div class="window" id="win-regedit" style="top:100px; left:300px; width:420px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-regedit')">
-                <div class="window-title" data-lang="title_regedit">🗲 Редактор Системного Реестра</div>
+                <div class="window-title">🗲 Редактор Системного Реестра</div>
                 <div class="win-btn-group">
                     <div class="win-btn" onclick="toggleMaximize('win-regedit')">🔲</div>
                     <div class="win-btn close-btn" onclick="closeWin('win-regedit')">✕</div>
@@ -458,35 +440,7 @@
             </div>
         </div>
 
-        <div class="window" id="win-game_clicker" style="top:60px; left:180px; width:350px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-game_clicker')">
-                <div class="window-title">🎮 Игра: Super Tapper Pro</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-game_clicker')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-game_clicker')">✕</div>
-                </div>
-            </div>
-            <div class="window-body game-canvas-area">
-                <h3 style="font-weight:400; margin-bottom:5px;"><span data-lang="click_score">Счёт тапов:</span> <span id="game-click-count">0</span></h3>
-                <button onclick="playClickerGame()" style="background:#00f0ff; color:#000; padding:10px 20px; font-size:14px;" data-lang="btn_click">КЛИКАТЬ!</button>
-                <div style="font-size:10px; color:#94a3b8; margin-top:8px;" data-lang="click_desc">Каждые 10 кликов дают +2 🪙</div>
-            </div>
-        </div>
-
-        <div class="window" id="win-game_dice" style="top:110px; left:220px; width:350px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-game_dice')">
-                <div class="window-title">🎲 Игра: Кибер-Кубики</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-game_dice')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-game_dice')">✕</div>
-                </div>
-            </div>
-            <div class="window-body game-canvas-area" style="background:#064e3b;">
-                <div id="dice-result" style="font-size:16px; margin-bottom:10px;"><span data-lang="dice_bet">Ставка: 5 🪙</span></div>
-                <button onclick="rollCyberDice()" style="background:#34d399; color:#000;" data-lang="btn_roll_dice">Бросить кубик</button>
-            </div>
-        </div>
-
+        <!-- ОКНО: ПРОСМОТР ФАЙЛОВ -->
         <div class="window" id="win-viewer" style="top:90px; left:210px; width:340px; min-height:180px; z-index:10005;">
             <div class="window-header" onmousedown="dragStart(event, 'win-viewer')">
                 <div class="window-title" id="viewer-title">📄 Файл</div>
@@ -495,29 +449,32 @@
             <div class="window-body" id="viewer-content" style="white-space:pre-wrap; font-family:monospace; background:#f8fafc; font-size:12px; color:#111;"></div>
         </div>
 
+        <!-- МЕНЮ ПУСК -->
         <div id="start-menu">
             <div class="start-header">
                 <div style="width:30px; height:30px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center;">👤</div>
                 <div style="font-weight:600; font-size:14px;" id="start-user-label">Admin</div>
             </div>
             <div class="start-apps">
-                <div class="start-app-item" onclick="openWindow('win-explorer')" data-lang="start_exp">📂 Проводник</div>
-                <div class="start-app-item" onclick="openWindow('win-paint')" data-lang="start_paint">🎨 Paint Pro</div>
-                <div class="start-app-item" onclick="openWindow('win-ai')" data-lang="start_ai">🧠 Gemeni AI Модуль</div>
-                <div class="start-app-item" onclick="openWindow('win-notes')" data-lang="start_notes">📝 Заметки / Notes</div>
-                <div class="start-app-item" onclick="openWindow('win-store')" data-lang="start_store">🏪 Play Market (Магазин)</div>
-                <div class="start-app-item" onclick="openWindow('win-browser')" data-lang="start_browser">🌐 Браузер Quantum</div>
-                <div class="start-app-item" onclick="openWindow('win-settings')" data-lang="start_settings">⚙️ Системные настройки</div>
+                <div class="start-app-item" onclick="openWindow('win-explorer')">📂 Проводник</div>
+                <div class="start-app-item" onclick="openWindow('win-gemetube')">📺 Gemetube Hub</div>
+                <div class="start-app-item" onclick="openWindow('win-game_space')">🚀 Space Clicker</div>
+                <div class="start-app-item" onclick="openWindow('win-paint')">🎨 Paint Pro</div>
+                <div class="start-app-item" onclick="openWindow('win-ai')">🧠 Gemeni AI Модуль</div>
+                <div class="start-app-item" onclick="openWindow('win-notes')">📝 Заметки / Notes</div>
+                <div class="start-app-item" onclick="openWindow('win-browser')">🌐 Браузер Quantum</div>
+                <div class="start-app-item" onclick="openWindow('win-settings')">⚙️ Системные настройки</div>
             </div>
             <div class="start-footer">
-                <button class="btn-power" style="background:#dc2626;" onclick="powerOffSystem()" data-lang="btn_power_off">Выключение</button>
-                <button class="btn-power" style="background:#d97706;" onclick="rebootSystem()" data-lang="btn_reboot">Перезагрузка</button>
-                <button class="btn-power" style="background:#4b5563;" onclick="lockOS()" data-lang="btn_lock">Блокировка</button>
+                <button class="btn-power" style="background:#dc2626;" onclick="powerOffSystem()">Выключение</button>
+                <button class="btn-power" style="background:#d97706;" onclick="rebootSystem()">Перезагрузка</button>
+                <button class="btn-power" style="background:#4b5563;" onclick="lockOS()">Блокировка</button>
             </div>
         </div>
 
     </div>
 
+    <!-- ТАСКБАР ПАНЕЛИ -->
     <div id="taskbar">
         <div id="start-button" onclick="event.stopPropagation(); document.getElementById('start-menu').style.display='flex'"></div>
         <div id="taskbar-apps"></div>
@@ -525,158 +482,6 @@
     </div>
 
     <script>
-        // СЛОВАРЬ ЛОКАЛИЗАЦИИ
-        const langs = {
-            ru: {
-                shutdown_title: "GemeniOS Корректно Выключена",
-                shutdown_desc: "Для подачи питания на материнскую плату зажмите комбинацию: O + S",
-                pass_placeholder: "Пароль (дефолт: admin)",
-                authorize_btn: "АВТОРИЗОВАТЬСЯ",
-                lock_error: "Ошибка ключа доступа!",
-                w_time_title: "🕒 Время ядра",
-                w_geo_title: "📍 Геолокация",
-                w_ping: "🌤️ Стабильный пинг",
-                w_sec_title: "🛡️ Безопасность",
-                w_status_lbl: "Статус:",
-                w_secure: "Защищено",
-                w_vulnerable: "Уязвимо",
-                w_firewall: "Брандмауэр ядра активен",
-                w_ram_title: "📊 Ресурсы ОЗУ",
-                w_load: "Загрузка:",
-                w_coins_title: "💰 Gemeni Монеты",
-                w_mine_btn: "Майнить +1 🪙",
-                sh_explorer: "Проводник",
-                sh_store: "Play Market",
-                sh_trash: "Корзина",
-                sh_paint: "Paint Pro",
-                sh_ai: "Gemeni AI",
-                sh_notes: "Заметки",
-                sh_browser: "Браузер",
-                sh_cmd: "CMD Pro",
-                sh_settings: "Настройки",
-                title_paint: "🎨 Редактор холста Gemeni Paint",
-                paint_size: "Размер:",
-                btn_clear: "Очистить",
-                title_ai: "🧠 Модуль ИИ Ассистента Gemeni AI",
-                "ai-welcome": "Привет! Я локальный нейросетевой модуль ядра GemeniOS v13. Задай мне любой технический или логический вопрос.",
-                ai_placeholder: "Спросить ассистента...",
-                btn_generate: "Сгенерировать",
-                title_notes: "📝 Блокнот / Gemeni Notes",
-                note_title_ph: "Название заметки...",
-                note_body_ph: "Введите ваш текст здесь...",
-                btn_save_note: "Сохранить в Проводник",
-                title_explorer: "📂 Проводник Диска C:",
-                exp_docs: "📝 Документы",
-                exp_pics: "🖼️ Рисунки",
-                exp_sys: "⚙️ Системные",
-                title_store: "🏪 Gemeni Play Market",
-                store_bal_lbl: "Доступный баланс:",
-                title_trash: "🗑️ Корзина удаления",
-                btn_clear_trash: "Очистить корзину",
-                title_browser: "🌐 Web-Браузер Quantum",
-                btn_search: "Поиск",
-                browser_empty: "Введите поисковый запрос...",
-                title_settings: "⚙️ Панель Настроек",
-                set_lang_lbl: "Язык системы / System Language:",
-                set_loc_lbl: "Локация системы:",
-                set_sec_lbl: "Режим Брандмауэра (Защита):",
-                opt_high: "Максимальный уровень (Защищено)",
-                opt_low: "Отключить файрвол (Уязвимо)",
-                set_pass_lbl: "Смена мастер-пароля:",
-                title_cmd: "📟 Консоль ядра / cmd.exe",
-                title_regedit: "🗲 Редактор Системного Реестра",
-                click_score: "Счёт тапов:",
-                btn_click: "КЛИКАТЬ!",
-                click_desc: "Каждые 10 кликов дают +2 🪙",
-                dice_bet: "Ставка: 5 🪙",
-                btn_roll_dice: "Бросить кубик",
-                start_exp: "📂 Проводник",
-                start_paint: "🎨 Paint Pro",
-                start_ai: "🧠 Gemeni AI Модуль",
-                start_notes: "📝 Заметки / Notes",
-                start_store: "🏪 Play Market (Магазин)",
-                start_browser: "🌐 Браузер Quantum",
-                start_settings: "⚙️ Системные настройки",
-                btn_power_off: "Выключение",
-                btn_reboot: "Перезагрузка",
-                btn_lock: "Блокировка"
-            },
-            en: {
-                shutdown_title: "GemeniOS Shut Down Successfully",
-                shutdown_desc: "To power up the motherboard hold down: O + S",
-                pass_placeholder: "Password (default: admin)",
-                authorize_btn: "LOG IN",
-                lock_error: "Invalid access key!",
-                w_time_title: "🕒 Core Time",
-                w_geo_title: "📍 Geolocation",
-                w_ping: "🌤️ Stable Ping",
-                w_sec_title: "🛡️ Security",
-                w_status_lbl: "Status:",
-                w_secure: "Secure",
-                w_vulnerable: "Vulnerable",
-                w_firewall: "Core Firewall is active",
-                w_ram_title: "📊 RAM Resources",
-                w_load: "Load:",
-                w_coins_title: "💰 Gemeni Coins",
-                w_mine_btn: "Mine +1 🪙",
-                sh_explorer: "Explorer",
-                sh_store: "Play Market",
-                sh_trash: "Trash",
-                sh_paint: "Paint Pro",
-                sh_ai: "Gemeni AI",
-                sh_notes: "Notes",
-                sh_browser: "Browser",
-                sh_cmd: "CMD Pro",
-                sh_settings: "Settings",
-                title_paint: "🎨 Gemeni Paint Canvas Editor",
-                paint_size: "Size:",
-                btn_clear: "Clear Canvas",
-                title_ai: "🧠 Gemeni AI Assistant Module",
-                "ai-welcome": "Hello! I am GemeniOS v13 local neural core. Ask me any technical or logic question.",
-                ai_placeholder: "Ask assistant...",
-                btn_generate: "Generate",
-                title_notes: "📝 Notepad / Gemeni Notes",
-                note_title_ph: "Note title...",
-                note_body_ph: "Type your text here...",
-                btn_save_note: "Save to Explorer",
-                title_explorer: "📂 Explorer Drive C:",
-                exp_docs: "📝 Documents",
-                exp_pics: "🖼️ Pictures",
-                exp_sys: "⚙️ System",
-                title_store: "🏪 Gemeni Play Market",
-                store_bal_lbl: "Available Balance:",
-                title_trash: "🗑️ Recycle Trash Bin",
-                btn_clear_trash: "Empty Trash Bin",
-                title_browser: "🌐 Quantum Web Browser",
-                btn_search: "Search",
-                browser_empty: "Enter your search query...",
-                title_settings: "⚙️ Control Settings Panel",
-                set_lang_lbl: "System Language / Язык системы:",
-                set_loc_lbl: "System Location:",
-                set_sec_lbl: "Firewall Mode (Protection):",
-                opt_high: "Maximum Level (Secure)",
-                opt_low: "Disable Firewall (Vulnerable)",
-                set_pass_lbl: "Change Master Password:",
-                title_cmd: "📟 Kernel Terminal Console / cmd.exe",
-                title_regedit: "🗲 System Registry Editor",
-                click_score: "Taps Score:",
-                btn_click: "TAP NOW!",
-                click_desc: "Every 10 taps award +2 🪙",
-                dice_bet: "Bet cost: 5 🪙",
-                btn_roll_dice: "Roll Dice",
-                start_exp: "📂 File Explorer",
-                start_paint: "🎨 Paint Pro Tool",
-                start_ai: "🧠 Gemeni AI Module",
-                start_notes: "📝 Notepad Notes",
-                start_store: "🏪 Play Market App",
-                start_browser: "🌐 Quantum Web",
-                start_settings: "⚙️ System Settings",
-                btn_power_off: "Power Off",
-                btn_reboot: "Reboot System",
-                btn_lock: "Lock Screen"
-            }
-        };
-
         // СИСТЕМНОЕ СОСТОЯНИЕ
         let systemLang = "ru";
         let systemTheme = "dark";
@@ -687,34 +492,13 @@
         let securityLevel = "High";
         let currentFolder = "docs";
 
-        let shortcutPositions = {
-            "sh-explorer": {x: 20, y: 20}, "sh-store": {x: 20, y: 120}, "sh-trash": {x: 20, y: 220},
-            "sh-paint": {x: 20, y: 320}, "sh-ai": {x: 20, y: 420}, "sh-notes": {x: 120, y: 20},
-            "sh-browser": {x: 120, y: 120}, "sh-cmd": {x: 120, y: 220}, "sh-settings": {x: 120, y: 320}
-        };
-
-        let widgetPositions = {
-            "w-node-1": {x: window.innerWidth - 240, y: 20},
-            "w-node-2": {x: window.innerWidth - 240, y: 120},
-            "w-node-3": {x: window.innerWidth - 240, y: 220},
-            "w-node-4": {x: window.innerWidth - 240, y: 320},
-            "w-node-5": {x: window.innerWidth - 240, y: 420}
-        };
-
         let fileSystem = {
             docs: [
-                { id: "d1", name: "инструкция.txt", content: "Добро пожаловать в GemeniOS v13.5!\nРеестр открывается на кнопку R.\nЯрлыки и виджеты можно свободно таскать мышкой." }
+                { id: "d1", name: "инструкция.txt", content: "Добро пожаловать в GemeniOS v13.6!\nРеестр открывается на кнопку R.\nGemetube и Space Clicker уже на рабочем столе!" }
             ], pics: [], sys: []
         };
 
         let trash = [];
-        let storeApps = [
-            { id: "game_clicker", name: "Super Tapper Pro", price: 0, downloaded: false, icon: "🎮", desc: "Быстрый кликер" },
-            { id: "game_dice", name: "Кибер-Кубики", price: 20, downloaded: false, icon: "🎲", desc: "Мини-игра" },
-            { id: "game_space", name: "Space Clicker", price: 10, downloaded: false, icon: "🚀", desc: "Кликай планету" },
-            { id: "gemetube", name: "Gemetube Hub", price: 0, downloaded: false, icon: "📺", desc: "Видеохостинг" }
-        ];
-
         let openedWindows = new Set();
         let isPowerOff = false;
         let keysPressed = {};
@@ -723,136 +507,60 @@
             localStorage.setItem("g_lang", systemLang);
             localStorage.setItem("g_theme", systemTheme);
             localStorage.setItem("g_balance", balance);
-            localStorage.setItem("g_user", activeUser);
-            localStorage.setItem("g_pass", activePass);
             localStorage.setItem("g_loc", locationData);
             localStorage.setItem("g_sec", securityLevel);
             localStorage.setItem("g_fs", JSON.stringify(fileSystem));
             localStorage.setItem("g_trash", JSON.stringify(trash));
-            localStorage.setItem("g_store", JSON.stringify(storeApps));
-            localStorage.setItem("g_sh_pos", JSON.stringify(shortcutPositions));
-            localStorage.setItem("g_w_pos", JSON.stringify(widgetPositions));
         }
 
         function loadState() {
             if(localStorage.getItem("g_lang")) systemLang = localStorage.getItem("g_lang");
             if(localStorage.getItem("g_theme")) systemTheme = localStorage.getItem("g_theme");
             if(localStorage.getItem("g_balance")) balance = parseInt(localStorage.getItem("g_balance"));
-            if(localStorage.getItem("g_user")) activeUser = localStorage.getItem("g_user");
-            if(localStorage.getItem("g_pass")) activePass = localStorage.getItem("g_pass");
             if(localStorage.getItem("g_loc")) locationData = localStorage.getItem("g_loc");
             if(localStorage.getItem("g_sec")) securityLevel = localStorage.getItem("g_sec");
             if(localStorage.getItem("g_fs")) fileSystem = JSON.parse(localStorage.getItem("g_fs"));
             if(localStorage.getItem("g_trash")) trash = JSON.parse(localStorage.getItem("g_trash"));
-            if(localStorage.getItem("g_store")) storeApps = JSON.parse(localStorage.getItem("g_store"));
-            if(localStorage.getItem("g_sh_pos")) shortcutPositions = JSON.parse(localStorage.getItem("g_sh_pos"));
-            if(localStorage.getItem("g_w_pos")) widgetPositions = JSON.parse(localStorage.getItem("g_w_pos"));
 
             document.getElementById("set-lang-select").value = systemLang;
             document.getElementById("set-theme-select").value = systemTheme;
             document.body.className = 'theme-' + systemTheme;
             
             document.getElementById("w-money-val").innerText = balance;
-            document.getElementById("store-balance").innerText = balance;
             document.getElementById("w-loc").innerText = locationData;
             document.getElementById("set-location-input").value = locationData;
             document.getElementById("set-security-select").value = securityLevel;
-            document.getElementById("start-user-label").innerText = activeUser;
-            document.getElementById("lock-user-title").innerText = activeUser;
 
-            applyLanguage();
-            renderStore();
-            renderDownloadedShortcuts();
             updateTrashUI();
-            applyPositions();
             renderExplorer(currentFolder);
         }
 
-        // ТЕМЫ ОФОРМЛЕНИЯ
         function changeSystemTheme(theme) {
             systemTheme = theme;
             document.body.className = 'theme-' + theme;
             saveState();
         }
 
-        // РАЗВЕРНУТЬ ОКНО
         function toggleMaximize(id) {
             document.getElementById(id).classList.toggle('maximized');
         }
 
-        // ПЕРЕКЛЮЧЕНИЕ ЯЗЫКОВЫХ ПАКЕТОВ
-        function changeSystemLang(val) {
-            systemLang = val;
-            saveState();
-            applyLanguage();
-            renderTabs();
-        }
-
-        function applyLanguage() {
-            const dict = langs[systemLang];
-            document.querySelectorAll("[data-lang]").forEach(el => {
-                const key = el.getAttribute("data-lang");
-                if(dict[key]) el.innerHTML = dict[key];
-            });
-            document.querySelectorAll("[data-lang-placeholder]").forEach(el => {
-                const key = el.getAttribute("data-lang-placeholder");
-                if(dict[key]) el.setAttribute("placeholder", dict[key]);
-            });
-
-            const secStat = document.getElementById("w-sec-status");
-            if (securityLevel === "High") {
-                secStat.innerText = dict.w_secure;
-                secStat.style.color = "#34d399";
-            } else {
-                secStat.innerText = dict.w_vulnerable;
-                secStat.style.color = "#ef4444";
-            }
-        }
-
-        // ПРИЛОЖЕНИЕ NOTES (БЛОКНОТ) ЛОГИКА
         function saveNoteFile() {
             let titleInput = document.getElementById("note-title");
             let bodyInput = document.getElementById("note-body");
             let name = titleInput.value.trim();
             let text = bodyInput.value;
 
-            if(name === "") {
-                name = systemLang === "ru" ? "Новая заметка.txt" : "New Note.txt";
-            }
+            if(name === "") name = "Новая заметка.txt";
             if(!name.endsWith(".txt")) name += ".txt";
 
-            fileSystem.docs.push({
-                id: "note_" + Date.now(),
-                name: name,
-                content: text
-            });
-
-            titleInput.value = "";
-            bodyInput.value = "";
-            
-            saveState();
-            renderExplorer(currentFolder);
-            alert(systemLang === "ru" ? "Заметка сохранена в Проводник -> Документы!" : "Note successfully saved to Explorer -> Documents!");
+            fileSystem.docs.push({ id: "note_" + Date.now(), name: name, content: text });
+            titleInput.value = ""; bodyInput.value = "";
+            saveState(); renderExplorer(currentFolder);
+            alert("Заметка сохранена в Проводник -> Документы!");
         }
 
-        // СКРИПТ ПЕРЕМЕЩЕНИЯ ЯРЛЫКОВ И ВИДЖЕТОВ
-        function applyPositions() {
-            for (let id in shortcutPositions) {
-                let node = document.getElementById(id);
-                if(node) {
-                    node.style.left = shortcutPositions[id].x + "px";
-                    node.style.top = shortcutPositions[id].y + "px";
-                }
-            }
-            for (let id in widgetPositions) {
-                let node = document.getElementById(id);
-                if(node) {
-                    node.style.left = widgetPositions[id].x + "px";
-                    node.style.top = widgetPositions[id].y + "px";
-                }
-            }
-        }
-
+        // ПЕРЕМЕЩЕНИЕ ЯРЛЫКОВ И ВИДЖЕТОВ
         let dragObject = null;
         let dX = 0, dY = 0;
 
@@ -875,26 +583,17 @@
 
         function objectDragMove(e) {
             if(!dragObject) return;
-            let nx = e.clientX - dX;
-            let ny = e.clientY - dY;
-            dragObject.node.style.left = nx + "px";
-            dragObject.node.style.top = ny + "px";
-            
-            if(dragObject.type === 'shortcut') {
-                shortcutPositions[dragObject.id] = {x: nx, y: ny};
-            } else {
-                widgetPositions[dragObject.id] = {x: nx, y: ny};
-            }
+            dragObject.node.style.left = (e.clientX - dX) + "px";
+            dragObject.node.style.top = (e.clientY - dY) + "px";
         }
 
         function objectDragEnd() {
             document.removeEventListener("mousemove", objectDragMove);
             document.removeEventListener("mouseup", objectDragEnd);
             dragObject = null;
-            saveState();
         }
 
-        // PAINT РИСОВАНИЕ
+        // PAINT
         const canvas = document.getElementById('paintCanvas');
         const ctx = canvas.getContext('2d');
         let drawing = false;
@@ -909,15 +608,13 @@
             ctx.lineWidth = document.getElementById('paintSize').value;
             ctx.lineCap = 'round';
             ctx.strokeStyle = document.getElementById('paintColor').value;
-
             ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-            ctx.stroke();
-            ctx.beginPath();
+            ctx.stroke(); ctx.beginPath();
             ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
         }
         function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
 
-        // ИИ МОДУЛЬ ЧАТА
+        // AI CHAT
         function sendToAI() {
             let inp = document.getElementById("ai-input");
             let box = document.getElementById("ai-messages");
@@ -925,25 +622,15 @@
             if(txt === "") return;
 
             box.innerHTML += `<div class="ai-bubble user">${txt}</div>`;
-            inp.value = "";
-            box.scrollTop = box.scrollHeight;
+            inp.value = ""; box.scrollTop = box.scrollHeight;
 
             setTimeout(() => {
-                let reply = systemLang === 'ru' ? "Модуль ИИ обработал запрос: " : "AI core processed query: ";
-                let lower = txt.toLowerCase();
-                if(lower.includes("создай") || lower.includes("код") || lower.includes("code")) {
-                    reply += systemLang === 'ru' ? "Генерация кода завершена." : "Code generation complete.";
-                } else if(lower.includes("привет") || lower.includes("hello") || lower.includes("hi")) {
-                    reply += systemLang === 'ru' ? "Привет! Я готов помочь вам." : "Hello there! I am ready to assist you.";
-                } else {
-                    reply += systemLang === 'ru' ? "Анализ завершен, статус ядра стабилен." : "Analysis finished, kernel status is stable.";
-                }
-                box.innerHTML += `<div class="ai-bubble bot">${reply}</div>`;
+                box.innerHTML += `<div class="ai-bubble bot">Запрос обработан ядром GemeniOS. Статус стабилен.</div>`;
                 box.scrollTop = box.scrollHeight;
-            }, 500);
+            }, 400);
         }
 
-        // ОКНА И ДРАГ ОКНА
+        // УПРАВЛЕНИЕ ОКНАМИ
         let activeDragWin = null;
         let winX = 0, winY = 0;
 
@@ -977,19 +664,16 @@
             openedWindows.delete(id); renderTabs();
         }
         function renderTabs() {
-            const container = document.getElementById("taskbar-apps");
-            container.innerHTML = "";
-            const dict = langs[systemLang];
+            const container = document.getElementById("taskbar-apps"); container.innerHTML = "";
             const names = {
-                "win-explorer": dict.sh_explorer,"win-store": dict.sh_store,"win-trash": dict.sh_trash,
-                "win-browser": dict.sh_browser,"win-cmd": dict.sh_cmd,"win-settings": dict.sh_settings,
-                "win-regedit": dict.title_regedit,"win-game_clicker":"Super Tapper","win-game_dice":"Dice Pro",
-                "win-paint": dict.sh_paint,"win-ai": dict.sh_ai, "win-notes": dict.sh_notes, "win-gemetube": "Gemetube", "win-game_space": "Space Clicker"
+                "win-explorer": "Проводник", "win-trash": "Корзина", "win-browser": "Браузер", 
+                "win-settings": "Настройки", "win-cmd": "cmd.exe", "win-regedit": "Реестр",
+                "win-paint": "Paint", "win-ai": "Gemeni AI", "win-notes": "Заметки",
+                "win-gemetube": "Gemetube", "win-game_space": "Space Clicker"
             };
             openedWindows.forEach(id => {
-                const tab = document.createElement("div");
-                tab.className = "taskbar-tab";
-                tab.innerText = names[id] || "Window";
+                const tab = document.createElement("div"); tab.className = "taskbar-tab";
+                tab.innerText = names[id] || "Окно";
                 tab.onclick = () => {
                     const w = document.getElementById(id);
                     w.style.display = w.style.display === "none" ? "flex" : "none";
@@ -998,33 +682,24 @@
             });
         }
 
-        // СИСТЕМНАЯ БЕЗОПАСНОСТЬ И МЕНЕДЖМЕНТ
+        // БЛОКИРОВКА И СИСТЕМА
         function unlockOS() {
             if(document.getElementById("lock-pass-input").value === activePass) {
                 document.getElementById("lock-screen").style.transform = "translateY(-100vh)";
-            } else {
-                document.getElementById("lock-error").style.display = "block";
-            }
+            } else { document.getElementById("lock-error").style.display = "block"; }
         }
         function lockOS() {
             document.getElementById("lock-pass-input").value = "";
             document.getElementById("lock-screen").style.transform = "translateY(0)";
             document.getElementById("start-menu").style.display = "none";
         }
-        function powerOffSystem() {
-            isPowerOff = true;
-            document.getElementById("shutdown-screen").style.display = "flex";
-        }
-        function rebootSystem() {
-            document.body.style.filter = "brightness(0.1)";
-            setTimeout(() => { location.reload(); }, 500);
-        }
+        function powerOffSystem() { isPowerOff = true; document.getElementById("shutdown-screen").style.display = "flex"; }
+        function rebootSystem() { document.body.style.filter = "brightness(0.1)"; setTimeout(() => { location.reload(); }, 400); }
+        
         function handleGlobalKeys(e) {
             keysPressed[e.key.toLowerCase()] = true;
             if(isPowerOff && keysPressed['o'] && keysPressed['s']) {
-                isPowerOff = false;
-                document.getElementById("shutdown-screen").style.display = "none";
-                rebootSystem();
+                isPowerOff = false; document.getElementById("shutdown-screen").style.display = "none"; rebootSystem();
             }
             if(!isPowerOff && (e.key === 'r' || e.key === 'R' || e.key === 'к' || e.key === 'К')) {
                 if(document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT' && document.activeElement.tagName !== 'TEXTAREA') {
@@ -1035,93 +710,13 @@
         document.addEventListener("keyup", (e) => { delete keysPressed[e.key.toLowerCase()]; });
 
         function mineCoin() {
-            balance += 1;
-            document.getElementById("w-money-val").innerText = balance;
-            document.getElementById("store-balance").innerText = balance;
-            saveState();
-        }
-        function updateSystemLocation(v) { locationData = v; document.getElementById("w-loc").innerText = v; saveState(); }
-        function updateSecurityLevel(v) {
-            securityLevel = v;
-            applyLanguage();
-            saveState();
+            balance += 1; document.getElementById("w-money-val").innerText = balance; saveState();
         }
 
-        // МАГАЗИН ПРИЛОЖЕНИЙ
-        function renderStore() {
-            const container = document.getElementById("store-apps-list");
-            container.innerHTML = "";
-            storeApps.forEach((app, index) => {
-                container.innerHTML += `
-                    <div class="store-card">
-                        <div>
-                            <span style="font-size:16px; margin-right:5px;">${app.icon}</span>
-                            <b>${app.name}</b> <span style="font-size:11px; color:#64748b;">(${app.desc})</span>
-                            <div class="download-bar-container" id="bar-box-${app.id}"><div class="download-bar-fill" id="bar-fill-${app.id}"></div></div>
-                        </div>
-                        <div>
-                            ${app.downloaded ? '<span style="color:#059669; font-size:12px; font-weight:bold;">Скачано</span>' : `<button onclick="buyApp(${index})">${app.price === 0 ? "Free" : app.price + " 🪙"}</button>`}
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function buyApp(index) {
-            let app = storeApps[index];
-            if(balance >= app.price) {
-                balance -= app.price;
-                document.getElementById("w-money-val").innerText = balance;
-                document.getElementById("store-balance").innerText = balance;
-                document.getElementById(`bar-box-${app.id}`).style.display = "block";
-                let fill = document.getElementById(`bar-fill-${app.id}`);
-                let p = 0;
-                let t = setInterval(() => {
-                    p += 25; fill.style.width = p + "%";
-                    if(p >= 100) {
-                        clearInterval(t); app.downloaded = true; saveState();
-                        renderStore(); renderDownloadedShortcuts();
-                    }
-                }, 300);
-            } else { alert("Insufficient coins!"); }
-        }
-
-        function renderDownloadedShortcuts() {
-            const container = document.getElementById("downloaded-shortcuts");
-            container.innerHTML = "";
-            storeApps.forEach((app, idx) => {
-                if(app.downloaded) {
-                    let dshId = `sh-dl-${app.id}`;
-                    if(!shortcutPositions[dshId]) { shortcutPositions[dshId] = {x: 220, y: 20 + (idx * 100)}; }
-                    container.innerHTML += `
-                        <div class="shortcut" id="${dshId}" style="left:${shortcutPositions[dshId].x}px; top:${shortcutPositions[dshId].y}px;" onmousedown="shortcutDragStart(event, '${dshId}')" ondblclick="openWindow('win-${app.id}')">
-                            <div class="shortcut-icon">${app.icon}</div>
-                            <div>${app.name}</div>
-                        </div>
-                    `;
-                }
-            });
-        }
-
-        // МИНИ ИГРЫ
-        let clickScore = 0;
-        function playClickerGame() {
-            clickScore++; document.getElementById("game-click-count").innerText = clickScore;
-            if(clickScore % 10 === 0) { balance += 2; document.getElementById("w-money-val").innerText = balance; saveState(); }
-        }
-        function rollCyberDice() {
-            if(balance < 5) return; balance -= 5;
-            let roll = Math.floor(Math.random() * 6) + 1;
-            let win = roll >= 4; balance += win ? 12 : 0;
-            document.getElementById("dice-result").innerHTML = `Результат: <b>${roll}</b>. ${win ? "<span style='color:#34d399;'>+12 🪙</span>" : "Проигрыш"}`;
-            document.getElementById("w-money-val").innerText = balance; saveState();
-        }
-
-        // ЛОГИКА SPACE CLICKER
+        // SPACE CLICKER
         let spaceScore = 0; let satellites = 0;
         function playSpaceClicker() {
-            spaceScore++;
-            document.getElementById("space-clicks").innerText = spaceScore;
+            spaceScore++; document.getElementById("space-clicks").innerText = spaceScore;
             let p = document.getElementById("space-planet");
             p.style.transform = "scale(0.85)"; setTimeout(() => p.style.transform="scale(1)", 100);
         }
@@ -1140,7 +735,7 @@
             }
         }, 1000);
 
-        // ПРОВOДНИК ФАЙЛОВ И ИСПРАВЛЕННАЯ КОРЗИНА
+        // ПРОВОДНИК И КОРЗИНА
         function renderExplorer(f) {
             currentFolder = f; const grid = document.getElementById("explorer-grid"); grid.innerHTML = "";
             fileSystem[f].forEach((file, index) => {
@@ -1162,14 +757,10 @@
         function dragFile(e, folder, idx) { draggedData = { folder, idx }; }
         
         function dropToTrash(e) {
-            e.preventDefault(); 
-            if(!draggedData) return;
+            e.preventDefault(); if(!draggedData) return;
             let file = fileSystem[draggedData.folder].splice(draggedData.idx, 1)[0];
-            trash.push(file); 
-            draggedData = null; 
-            saveState();
-            renderExplorer(currentFolder); 
-            updateTrashUI();
+            trash.push(file); draggedData = null; 
+            saveState(); renderExplorer(currentFolder); updateTrashUI();
         }
         
         function updateTrashUI() {
@@ -1191,50 +782,40 @@
         // БРАУЗЕР ПОИСК
         function searchWeb() {
             let q = document.getElementById("browser-input").value.toLowerCase().trim();
-            document.getElementById("browser-view").innerHTML = q.includes("погода") || q.includes("weather") ? `Прогноз погоды в ${locationData}: +22°C.` : `Результаты по запросу "${q}": Все сектора ядра работают стабильно.`;
+            document.getElementById("browser-view").innerHTML = q.includes("погода") ? `Прогноз погоды в ${locationData}: +22°C.` : `Результаты по запросу "${q}": Связь с сервером стабильна.`;
         }
 
-        // GEMETUBE ИНИЦИАЛИЗАЦИЯ
+        // GEMETUBE ВИДЕОЗАГРУЗКА
         document.getElementById("gemetube-file-input").addEventListener("change", function(e) {
             let file = e.target.files[0];
             if(file) {
                 let url = URL.createObjectURL(file);
                 let feed = document.getElementById("gemetube-feed");
                 let item = document.createElement("div");
-                item.style.background = "#1f2937";
-                item.style.padding = "6px";
-                item.style.borderRadius = "4px";
-                item.style.marginTop = "10px";
+                item.style.background = "#1f2937"; item.style.padding = "8px"; item.style.borderRadius = "6px";
                 item.innerHTML = `
                     <video src="${url}" controls style="width:100%; border-radius:4px;"></video>
-                    <div style="font-size:12px; margin-top:4px; font-weight:bold; color:#00f0ff;">🎬 ${file.name}</div>
+                    <div style="font-size:12px; margin-top:5px; font-weight:bold; color:#00f0ff;">🎬 ${file.name}</div>
                 `;
                 feed.insertBefore(item, feed.firstChild);
             }
         });
 
-        // КОМАНДЫ ДЛЯ ТЕРМИНАЛА CMD
+        // CMD ТЕРМИНАЛ
         const cmdInput = document.getElementById("cmd-input");
         const cmdHistory = document.getElementById("cmd-history");
         cmdInput.addEventListener("keydown", function(e) {
             if(e.key === "Enter") {
                 let rawVal = this.value.trim();
-                let cmd = rawVal.split(" ")[0].toLowerCase();
                 cmdHistory.innerText += `root@gemeni:~$ ${rawVal}\n`;
-                if(cmd === "help") cmdHistory.innerText += "sys-stat, geo-get, wallet-inject, fs-list, cls\n";
-                else if(cmd === "sys-stat") cmdHistory.innerText += `OS: v13.5. Темы: Активны. Монеты: ${balance}\n`;
-                else if(cmd === "geo-get") cmdHistory.innerText += `Локация: ${locationData}\n`;
-                else if(cmd === "wallet-inject") { balance += 20; saveState(); cmdHistory.innerText += "Успешный инжект +20 монет.\n"; }
-                else if(cmd === "cls") cmdHistory.innerText = "";
-                else if(rawVal !== "") cmdHistory.innerText += `Неизвестный токен ядра: "${rawVal}"\n`;
+                if(rawVal.toLowerCase() === "help") cmdHistory.innerText += "sys-stat, cls\n";
+                else if(rawVal.toLowerCase() === "sys-stat") cmdHistory.innerText += "OS: v13.6 Ultimate. Gemetube Ready.\n";
+                else if(rawVal.toLowerCase() === "cls") cmdHistory.innerText = "";
                 this.value = ""; cmdHistory.parentElement.scrollTop = cmdHistory.parentElement.scrollHeight;
             }
         });
 
-        setInterval(() => {
-            document.getElementById("w-time").innerText = new Date().toTimeString().split(" ")[0];
-        }, 1000);
-
+        setInterval(() => { document.getElementById("w-time").innerText = new Date().toTimeString().split(" ")[0]; }, 1000);
         window.onload = () => { loadState(); };
     </script>
 </body>
