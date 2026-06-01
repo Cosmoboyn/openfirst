@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemeniOS v13.6 Ultimate Edition</title>
+    <title>GemeniOS v13.7 Ultimate Edition</title>
     <style>
         :root {
             --aero-bg: rgba(10, 15, 30, 0.45);
@@ -33,7 +33,28 @@
         body.theme-space .window-body { background: #0f172a; color: #00f0ff; }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; user-select: none; }
-        body { height: 100vh; overflow: hidden; position: relative; transition: filter 0.3s ease; }
+        
+        /* СКРЫВАЕМ СТАНДАРТНЫЙ КУРСОР И ВКЛЮЧАЕМ КАСТОМНЫЙ */
+        body { height: 100vh; overflow: hidden; position: relative; transition: filter 0.3s ease; cursor: none !important; }
+        input, select, textarea, button, .win-btn, .shortcut, .start-app-item, .kids-btn, .setting-btn { cursor: none !important; }
+
+        /* СТИЛЬ КАСТОМНОГО КУРСОРA */
+        #custom-cursor {
+            width: 18px; height: 18px; border: 2px solid var(--accent); border-radius: 50%;
+            position: fixed; transform: translate(-50%, -50%); pointer-events: none; z-index: 10000000;
+            background: rgba(0, 240, 255, 0.15); box-shadow: 0 0 10px var(--accent-glow);
+            transition: transform 0.05s linear, background 0.15s ease, border-color 0.15s ease;
+        }
+        #custom-cursor.click { transform: translate(-50%, -50%) scale(0.75); background: rgba(255, 0, 127, 0.4); border-color: #ff007f; }
+
+        /* СТИЛЬ КОНТЕКСТНОГО МЕНЮ ПКМ */
+        .context-menu {
+            position: absolute; background: rgba(15, 23, 42, 0.95); border: 1px solid var(--accent);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-radius: 6px; padding: 6px 0; width: 180px;
+            display: none; z-index: 9999999; font-size: 12px; backdrop-filter: blur(10px);
+        }
+        .context-menu-item { padding: 8px 14px; color: #f1f5f9; }
+        .context-menu-item:hover { background: rgba(255,255,255,0.1); color: var(--accent); font-weight: bold; }
 
         /* ЭКРАНЫ ПИТАНИЯ И БЛОКИРОВКИ */
         #shutdown-screen {
@@ -47,7 +68,7 @@
             display: none; flex-direction: column; justify-content: center; padding: 40px; color: #fff; font-family: monospace;
         }
         
-        /* ОБНОВЛЕННЫЙ ЭКРАН БЛОКИРОВКИ (ГОЛУБОЙ GRADIENT) */
+        /* ОБНОВЛЕННЫЙ ЭКРАН БЛОКИРОВКИ */
         #lock-screen {
             position: fixed; top:0; left:0; width:100vw; height:100vh; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
@@ -67,7 +88,7 @@
         #desktop { width: 100vw; height: calc(100vh - 45px); position: relative; padding: 20px; }
         .shortcut {
             width: 85px; height: 85px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; color: #fff; font-size: 11px; text-shadow: 1px 1px 4px #000; cursor: pointer; border: 1px solid transparent; border-radius: 8px;
+            text-align: center; color: #fff; font-size: 11px; text-shadow: 1px 1px 4px #000; border: 1px solid transparent; border-radius: 8px;
             position: absolute;
         }
         .shortcut:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
@@ -94,17 +115,29 @@
         .window-header { padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; border-bottom: 1px solid rgba(0,0,0,0.15); }
         .window-title { color: #fff; font-size: 12px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 8px; }
         .win-btn-group { display: flex; gap: 4px; }
-        .win-btn { width: 24px; height: 18px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 3px; color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .win-btn { width: 24px; height: 18px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 3px; color: #fff; font-size: 10px; display: flex; align-items: center; justify-content: center; }
         .win-btn:hover { background: rgba(255,255,255,0.3); }
         .win-btn.close-btn:hover { background: #ef4444; border-color: #dc2626; }
         .window-body { flex: 1; background: #ffffff; color: var(--text-dark); padding: 12px; font-size: 13px; overflow: auto; }
 
         /* ТАСКБАР */
         #taskbar { height: 45px; background: rgba(5, 10, 20, 0.8); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.1); position: fixed; bottom:0; left:0; width:100vw; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 9999; }
-        #start-button { width: 35px; height: 35px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, #0066cc 100%); border: 2px solid rgba(255,255,255,0.4); box-shadow: 0 0 12px var(--accent-glow); cursor: pointer; }
+        #start-button { width: 35px; height: 35px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, #0066cc 100%); border: 2px solid rgba(255,255,255,0.4); box-shadow: 0 0 12px var(--accent-glow); }
         #taskbar-apps { flex: 1; display: flex; margin-left: 15px; gap: 8px; }
-        .taskbar-tab { padding: 0 12px; height: 32px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #fff; font-size: 12px; display: flex; align-items: center; gap: 6px; cursor: pointer; }
-        #system-tray { color: #fff; font-size: 12px; font-weight: bold; }
+        .taskbar-tab { padding: 0 12px; height: 32px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #fff; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+        
+        /* ПАНЕЛЬ БЫСТРЫХ НАСТРОЕК В СТИЛЕ WINDOWS */
+        #system-tray-quick { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 6px; }
+        #system-tray-quick:hover { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); }
+        
+        .quick-panel {
+            position: absolute; bottom: 50px; right: 10px; width: 240px; background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); box-shadow: var(--win-shadow);
+            border-radius: 8px; padding: 12px; display: none; flex-direction: column; gap: 10px; z-index: 100000; color: #fff;
+        }
+        .quick-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
+        .setting-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); padding: 6px; border-radius: 4px; color: #fff; width: 100%; text-align: left; font-size: 11px; }
+        .setting-btn.active { background: var(--accent); color: #000; font-weight: bold; }
 
         /* ДЕТСКАЯ ПАНЕЛЬ ТАСКБАРА */
         #kids-bar {
@@ -116,18 +149,18 @@
         .kids-btn {
             background: #ff477e; color: white; border: 2px solid white;
             padding: 6px 16px; font-weight: bold; border-radius: 20px;
-            cursor: pointer; font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         .kids-btn:hover { background: #ff1f60; transform: scale(1.05); }
         #kids-time { color: white; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
         input, select, textarea { background: #f3f4f6; border: 1px solid #d1d5db; color: #111827; padding: 6px 10px; border-radius: 6px; outline: none; font-size: 12px;}
-        button { background: #1f2937; color: #fff; border: none; padding: 6px 12px; font-weight: bold; border-radius: 6px; cursor: pointer; font-size: 12px; }
+        button { background: #1f2937; color: #fff; border: none; padding: 6px 12px; font-weight: bold; border-radius: 6px; font-size: 12px; }
         button:hover { background: #374151; }
 
         /* PAINT */
         .paint-toolbar { display: flex; gap: 8px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid #cbd5e1; margin-bottom: 8px; }
-        #paintCanvas { border: 1px solid #94a3b8; background: #fff; cursor: crosshair; display: block; }
+        #paintCanvas { border: 1px solid #94a3b8; background: #fff; display: block; }
 
         /* AI CHAT */
         .ai-layout { display: flex; flex-direction: column; height: 100%; gap: 8px; }
@@ -143,7 +176,7 @@
         #start-menu { position: absolute; bottom: 50px; left: 10px; width: 320px; height: 410px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; box-shadow: var(--win-shadow); display: none; flex-direction: column; padding: 12px; z-index: 10000; }
         .start-header { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px; color: #fff;}
         .start-apps { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
-        .start-app-item { padding: 8px; color: #fff; cursor: pointer; border-radius: 4px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+        .start-app-item { padding: 8px; color: #fff; border-radius: 4px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
         .start-app-item:hover { background: rgba(255,255,255,0.1); color: var(--accent); }
         .start-footer { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; gap: 6px; }
         .btn-power { flex: 1; padding: 6px; font-size: 11px; text-align: center; border-radius: 4px; color:#fff; }
@@ -151,10 +184,10 @@
         /* ПРОВОДНИК */
         .exp-layout { display: grid; grid-template-columns: 120px 1fr; gap: 10px; height: 100%; }
         .exp-tree { border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
-        .exp-node { cursor: pointer; padding: 4px; border-radius: 4px; }
+        .exp-node { padding: 4px; border-radius: 4px; }
         .exp-node:hover { background: #f1f5f9; }
         .exp-content { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 10px; align-content: flex-start; }
-        .exp-item { display: flex; flex-direction: column; align-items: center; text-align: center; cursor: pointer; font-size: 11px; padding: 5px; border-radius: 4px; }
+        .exp-item { display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 11px; padding: 5px; border-radius: 4px; }
         .exp-item:hover { background: #f1f5f9; }
         .game-canvas-area { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; border-radius: 6px; color: #fff; position: relative; }
         .browser-layout { display: flex; flex-direction: column; gap: 6px; height: 100%; }
@@ -167,7 +200,17 @@
         .task-mgr-table tr:hover { background: #f8fafc; }
     </style>
 </head>
-<body id="sys-body" onkeydown="handleGlobalKeys(event)">
+<body id="sys-body" onkeydown="handleGlobalKeys(event)" onclick="closeMenus()">
+
+    <div id="custom-cursor"></div>
+
+    <div id="ctx-menu" class="context-menu">
+        <div class="context-menu-item" onclick="rebootSystem()">🔄 Обновить рабочую среду</div>
+        <div class="context-menu-item" onclick="openWindow('win-settings')">⚙️ Системные параметры</div>
+        <div class="context-menu-item" onclick="openWindow('win-taskmgr')">📊 Проверить процессы ОЗУ</div>
+        <hr style="border-color:rgba(255,255,255,0.1); margin:4px 0;">
+        <div class="context-menu-item" onclick="alert('Архитектура ядра GemeniOS v13.7\nРазработчик интерфейса: Семён')">ℹ️ Свойства системы</div>
+    </div>
 
     <div id="crash-screen">
         <h2>⚠️ GEMENIOS KERNEL PANIC ⚠️</h2><br>
@@ -221,7 +264,7 @@
         <button onclick="mineCoin()" style="width:100%; padding:4px; font-size:11px; background:var(--accent); color:#000;">Майнить +1 🪙</button>
     </div>
 
-    <div id="desktop" onclick="document.getElementById('start-menu').style.display='none'">
+    <div id="desktop" onclick="closeMenus()">
         
         <div class="shortcut" id="sh-explorer" style="left:20px; top:20px;" onmousedown="shortcutDragStart(event, 'sh-explorer')" ondblclick="openWindow('win-explorer')">
             <div class="shortcut-icon">📂</div><div>Проводник</div>
@@ -286,7 +329,7 @@
             </div>
             <div class="window-body game-canvas-area" style="background:linear-gradient(to bottom, #0f172a, #1e1b4b); height:240px;">
                 <div style="font-size:16px; margin-bottom:5px; font-weight:bold; color:#38bdf8;">Планетарная пыль: <span id="space-clicks">0</span></div>
-                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:64px; cursor:pointer; user-select:none; margin:15px 0; transition: transform 0.1s;">🪐</div>
+                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:64px; user-select:none; margin:15px 0; transition: transform 0.1s;">🪐</div>
                 <button onclick="buySpaceUpgrade()" id="space-up-btn" style="background:#6366f1; font-size:12px; width:90%; padding:8px;">Купить Спутник (+1/сек) | Цена: 20</button>
             </div>
         </div>
@@ -301,7 +344,7 @@
             </div>
             <div class="window-body" style="display: flex; flex-direction: column;">
                 <div class="paint-toolbar">
-                    <input type="color" id="paintColor" value="#00f0ff" style="width:40px; padding:0; height:25px; cursor:pointer;">
+                    <input type="color" id="paintColor" value="#00f0ff" style="width:40px; padding:0; height:25px;">
                     <label style="font-size:11px;">Размер:</label>
                     <select id="paintSize" style="padding:2px;">
                         <option value="3">3px</option>
@@ -451,7 +494,7 @@
                 </div>
             </div>
             <div class="window-body" style="background:#000!important; color:#00f0ff!important; font-family:monospace;" id="cmd-box">
-                <div id="cmd-history" style="white-space:pre-wrap; font-size:12px;">GemeniOS Kernel Terminal [v13.6 Ultimate]&#10;Введите 'help' для вывода инструкций ядра.&#10;&#10;</div>
+                <div id="cmd-history" style="white-space:pre-wrap; font-size:12px;">GemeniOS Kernel Terminal [v13.7 Ultimate]&#10;Введите 'help' для вывода инструкций ядра.&#10;&#10;</div>
                 <div style="display:flex;"><span style="color:#ff007f;">root@gemeni:~# </span><input type="text" id="cmd-input" style="background:transparent; border:none; color:#00f0ff; flex:1; padding:0; font-family:monospace; margin-left:5px;" autocomplete="off"></div>
             </div>
         </div>
@@ -499,8 +542,7 @@
                                 <th>Действие</th>
                             </tr>
                         </thead>
-                        <tbody id="taskmgr-list">
-                            </tbody>
+                        <tbody id="taskmgr-list"></tbody>
                     </table>
                 </div>
                 <div style="font-size:11px; color:#94a3b8; text-align:right;">Всего выделено ядерных потоков: <span id="taskmgr-threads">0</span></div>
@@ -531,12 +573,31 @@
             </div>
         </div>
 
+        <div class="quick-panel" id="quick-settings-panel">
+            <h4 style="font-size:12px; color:var(--accent); margin-bottom:5px;">Быстрые параметры</h4>
+            <div class="quick-row">
+                <button class="setting-btn active" id="btn-wifi-toggle" onclick="toggleQuickWifi()">🌐 Wi-Fi: Подключено</button>
+            </div>
+            <div class="quick-row">
+                <button class="setting-btn" onclick="openWindow('win-settings')">🎨 Изменить оформление</button>
+            </div>
+            <div class="quick-row" style="margin-top:5px; gap:5px;">
+                <span>🔊</span> <input type="range" style="flex:1; accent-color:var(--accent);" min="0" max="100" value="80">
+            </div>
+        </div>
+
     </div>
 
     <div id="taskbar">
         <div id="start-button" onclick="event.stopPropagation(); document.getElementById('start-menu').style.display='flex'"></div>
         <div id="taskbar-apps"></div>
-        <div id="system-tray">GemeniOS Pro</div>
+        
+        <div id="system-tray-quick" onclick="event.stopPropagation(); toggleQuickPanel();">
+            <span>🔊</span>
+            <span>📶</span>
+            <span>🔋 100%</span>
+            <span id="tray-clock-time" style="margin-left:5px; font-weight:bold;">00:00</span>
+        </div>
     </div>
 
     <div id="kids-bar">
@@ -557,7 +618,7 @@
 
         let fileSystem = {
             docs: [
-                { id: "d1", name: "инструкция.txt", content: "Добро пожаловать в GemeniOS v13.6!\nРеестр открывается на кнопку R.\nGemetube и Space Clicker уже на рабочем столе!" }
+                { id: "d1", name: "инструкция.txt", content: "Добро пожаловать в GemeniOS v13.7!\nРеестр открывается на кнопку R.\nНажатие ПКМ открывает кастомное системное меню!" }
             ], pics: [], sys: []
         };
 
@@ -566,7 +627,6 @@
         let isPowerOff = false;
         let keysPressed = {};
 
-        // НАСТОЯЩИЕ МУЛЬТФИЛЬМЫ ПО 5-10 МИНУТ
         let isKidsMode = false;
         const kidsVideos = [
             { name: "🐱 ... Три Кота - Сборник Серий", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" },
@@ -575,7 +635,43 @@
         ];
         let kidsScore = 0;
 
-        // ПУНКТ 2: СИСТЕМА ПРОВЕРКИ СПАМА КНОПКИ F5 / REBOOT (МЕНЕЕ 2 СЕКУНД)
+        // ЛОГИКА ДЛЯ РАБОТЫ КАСТОМНОГО КУРСОРA МЫШИ
+        const cursorElement = document.getElementById("custom-cursor");
+        document.addEventListener("mousemove", (e) => {
+            cursorElement.style.left = e.clientX + "px";
+            cursorElement.style.top = e.clientY + "px";
+        });
+        document.addEventListener("mousedown", () => cursorElement.classList.add("click"));
+        document.addEventListener("mouseup", () => cursorElement.classList.remove("click"));
+
+        // ЛОГИКА ДЛЯ КОНТЕКСТНОГО МЕНЮ ПКМ
+        document.addEventListener("contextmenu", (e) => {
+            e.preventDefault(); // Глушим дефолтное меню браузера
+            const ctxMenu = document.getElementById("ctx-menu");
+            ctxMenu.style.display = "block";
+            ctxMenu.style.left = e.clientX + "px";
+            ctxMenu.style.top = e.clientY + "px";
+        });
+
+        // ФУНКЦИИ БЫСТРЫХ НАСТРОЕК ТРЕЯ
+        function toggleQuickPanel() {
+            const panel = document.getElementById("quick-settings-panel");
+            panel.style.display = panel.style.display === "flex" ? "none" : "flex";
+        }
+        function toggleQuickWifi() {
+            const btn = document.getElementById("btn-wifi-toggle");
+            btn.classList.toggle("active");
+            btn.innerText = btn.classList.contains("active") ? "🌐 Wi-Fi: Подключено" : "❌ Wi-Fi: Отключено";
+        }
+
+        // Закрытие менюшек при кликах в пустые области
+        function closeMenus() {
+            document.getElementById("ctx-menu").style.display = "none";
+            document.getElementById("quick-settings-panel").style.display = "none";
+            document.getElementById("start-menu").style.display = "none";
+        }
+
+        // СИСТЕМА ПРОВЕРКИ СПАМА КНОПКИ F5 / REBOOT (МЕНЕЕ 2 СЕКУНД)
         (function checkSpamReboot() {
             let lastTime = localStorage.getItem("g_last_reboot_time");
             let count = parseInt(localStorage.getItem("g_reboot_spam_count") || "0");
@@ -585,7 +681,6 @@
                 count++;
                 localStorage.setItem("g_reboot_spam_count", count);
             } else {
-                // Если пауза между F5 больше 2 сек, сбрасываем счетчик
                 localStorage.setItem("g_reboot_spam_count", "0");
                 count = 0;
             }
@@ -593,15 +688,14 @@
             localStorage.setItem("g_last_reboot_time", now);
 
             if (count >= 10) {
-                // Если обновился 10 раз подряд с интервалом менее 2 сек
-                localStorage.setItem("g_reboot_spam_count", "0"); // Сброс перед показом
+                localStorage.setItem("g_reboot_spam_count", "0");
                 window.addEventListener('DOMContentLoaded', () => {
                     document.getElementById("crash-screen").style.display = "flex";
                 });
             }
         })();
 
-        // ПУНКТ 4: СИМУЛИРОВАННАЯ ТАБЛИЦА МЕГАБАЙТ ДЛЯ ДИСПЕТЧЕРА ЗАДАЧ
+        // СИМУЛИРОВАННАЯ ТАБЛИЦА МЕГАБАЙТ ДЛЯ ДИСПЕТЧЕРА ЗАДАЧ
         const baseMemoryUsage = {
             "win-explorer": 42, "win-trash": 18, "win-browser": 156,
             "win-settings": 24, "win-cmd": 12, "win-regedit": 16,
@@ -679,7 +773,7 @@
         }
 
         function widgetDragStart(e, id) {
-            if(e.target.tagName === 'BUTTON') return;
+            if(e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
             dragObject = { id, type: 'widget', node: document.getElementById(id) };
             dX = e.clientX - dragObject.node.offsetLeft;
             dY = e.clientY - dragObject.node.offsetTop;
@@ -764,12 +858,12 @@
         function openWindow(id) {
             document.getElementById(id).style.display = "flex";
             if(!openedWindows.has(id)) { openedWindows.add(id); renderTabs(); }
-            updateTaskManagerUI(); // Обновляем диспетчер задач
+            updateTaskManagerUI();
         }
         function closeWin(id) {
             document.getElementById(id).style.display = "none";
             openedWindows.delete(id); renderTabs();
-            updateTaskManagerUI(); // Обновляем диспетчер задач
+            updateTaskManagerUI();
         }
         function renderTabs() {
             const container = document.getElementById("taskbar-apps"); container.innerHTML = "";
@@ -790,7 +884,6 @@
             });
         }
 
-        // ПУНКТ 1: СИСТЕМА ОШИБКИ И АНИМАЦИИ ПРИ НЕПРАВИЛЬНОМ ПАРОЛЕ
         function unlockOS() {
             const inputField = document.getElementById("lock-pass-input");
             const lockCard = document.getElementById("lock-card-element");
@@ -801,14 +894,11 @@
                 document.getElementById("lock-error").style.display = "none";
             } else { 
                 document.getElementById("lock-error").style.display = "block";
-                
-                // Эффект тряски окна авторизации
                 lockCard.style.transform = "translateX(10px)";
                 setTimeout(() => lockCard.style.transform = "translateX(-10px)", 50);
                 setTimeout(() => lockCard.style.transform = "translateX(10px)", 100);
                 setTimeout(() => lockCard.style.transform = "translateX(0px)", 150);
 
-                // Временная блокировка кнопки на секунду
                 btn.disabled = true;
                 btn.innerText = "БЛОКИРОВКА ЯДРА...";
                 setTimeout(() => {
@@ -842,14 +932,13 @@
             balance += 1; document.getElementById("w-money-val").innerText = balance; saveState();
         }
 
-        // SPACE CLICKER С ПУНКТОМ 3 (СООБЩЕНИЕ О ВЫИГРЫШЕ)
+        // SPACE CLICKER С ПРОВЕРКОЙ ПОБЕДЫ
         let spaceScore = 0; let satellites = 0;
         function playSpaceClicker() {
             spaceScore++; document.getElementById("space-clicks").innerText = spaceScore;
             let p = document.getElementById("space-planet");
             p.style.transform = "scale(0.85)"; setTimeout(() => p.style.transform="scale(1)", 100);
             
-            // Проверка победы на 100 очках
             if (spaceScore === 100) {
                 alert("🎉 ПОБЕДА В ОБЫЧНОМ РЕЖИМЕ Space Clicker! 🎉\nВы собрали 100 единиц планетарной пыли!\nЯдро системы начисляет вам бонус: +50 Gemeni Монет!");
                 balance += 50;
@@ -877,7 +966,7 @@
             currentFolder = f; const grid = document.getElementById("explorer-grid"); grid.innerHTML = "";
             fileSystem[f].forEach((file, index) => {
                 grid.innerHTML += `
-                    <div class="exp-item" draggable="true" ondragstart="dragFile(event, '${f}', ${index})" onclick="viewFile('${f}', ${index})">
+                    <div class="exp-item" onclick="viewFile('${f}', ${index})">
                         <div style="font-size:24px;">📄</div><div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%;">${file.name}</div>
                     </div>
                 `;
@@ -890,25 +979,13 @@
             openWindow("win-viewer");
         }
         
-        let draggedData = null;
-        function dragFile(e, folder, idx) { draggedData = { folder, idx }; }
-        
-        function dropToTrash(e) {
-            e.preventDefault(); if(!draggedData) return;
-            let file = fileSystem[draggedData.folder].splice(draggedData.idx, 1)[0];
-            trash.push(file); draggedData = null; 
-            saveState(); renderExplorer(currentFolder); updateTrashUI();
-        }
-        
+        function dropToTrash(e) { e.preventDefault(); }
         function updateTrashUI() {
             const trashGrid = document.getElementById("trash-grid");
             const icon = document.getElementById("sh-trash");
             trashGrid.innerHTML = "";
             if(trash.length > 0) {
                 icon.classList.add("trash-filled");
-                trash.forEach(file => { 
-                    trashGrid.innerHTML += `<div class="exp-item"><div style="font-size:20px;">📄</div><div style="font-size:10px;">${file.name}</div></div>`; 
-                });
             } else { 
                 icon.classList.remove("trash-filled"); 
                 trashGrid.innerHTML = "<p style='color:#94a3b8; font-size:11px; width:100%; text-align:center; padding-top:40px;'>Пусто</p>"; 
@@ -941,7 +1018,7 @@
                 feed.innerHTML = "";
                 kidsVideos.forEach(v => {
                     const videoCard = document.createElement("div");
-                    videoCard.style = "padding:8px; border-bottom:1px solid rgba(0,0,0,0.1); cursor:pointer; display:flex; align-items:center; gap:10px;";
+                    videoCard.style = "padding:8px; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:center; gap:10px;";
                     videoCard.innerHTML = `
                         <div style="font-size:20px;">🎬</div>
                         <div style="font-size:12px; font-weight:bold;">${v.name}</div>
@@ -1013,23 +1090,20 @@
             `;
         }
 
-        // ПУНКТ 3: ПРОВЕРКА ВЫИГРЫША В ДЕТСКОМ РЕЖИМЕ (100 БАЛЛОВ)
         function checkKidsAnswer() {
             let userAns = parseInt(document.getElementById("kids-answer").value);
             if(userAns === currentAnswer) {
                 kidsScore += 10;
-                
                 if (kidsScore === 100) {
                     alert("🧸 СУПЕР-ПОБЕДА В ДЕТСКОМ РЕЖИМЕ GEMEKIDS! 🧸\nТы успешно ответил на 10 правильных вопросов и набрал 100 баллов!\nТы настоящий гений математики!");
                 } else {
                     alert("Правильно! Ты молодец! 🎉 +10 баллов");
                 }
-                
                 generateKidsMathQuestion();
             } else { alert("Ой, почти! Попробуй посчитать ещё раз! 🎈"); }
         }
 
-        // ПУНКТ 4: ФУНКЦИЯ ДЛЯ ДИНАМИЧЕСКОГО ОБНОВЛЕНИЯ ДИСПЕТЧЕРА ЗАДАЧ
+        // ОБНОВЛЕНИЕ ДИСПЕТЧЕРА ЗАДАЧ
         function updateTaskManagerUI() {
             const listContainer = document.getElementById("taskmgr-list");
             const threadsContainer = document.getElementById("taskmgr-threads");
@@ -1046,7 +1120,7 @@
             };
 
             let totalThreads = 0;
-            let activeMemorySum = 120; // Базовая память самого ядра ОС
+            let activeMemorySum = 120;
 
             openedWindows.forEach(winId => {
                 if (document.getElementById(winId) && document.getElementById(winId).style.display === "flex") {
@@ -1070,7 +1144,6 @@
 
             if (threadsContainer) threadsContainer.innerText = totalThreads + " активных процессов";
             
-            // Связываем диспетчер задач с общим виджетом ОЗУ на рабочем столе
             let totalRamPercent = Math.min(Math.round((activeMemorySum / 1024) * 100), 99);
             const ramVal = document.getElementById("w-ram-val");
             const ramBar = document.getElementById("w-ram-bar");
@@ -1080,12 +1153,16 @@
 
         // ТАЙМЕРЫ И ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ
         setInterval(() => { 
-            let timeStr = new Date().toTimeString().split(" ")[0];
+            let dateObj = new Date();
+            let timeStr = dateObj.toTimeString().split(" ")[0];
+            let shortTime = timeStr.substring(0, 5); // Формат ЧЧ:ММ для панели трея
+            
             document.getElementById("w-time").innerText = timeStr; 
+            document.getElementById("tray-clock-time").innerText = shortTime;
+            
             if(isKidsMode) {
                 document.getElementById("kids-time").innerText = `👶 Детский режим | ⏰ Время: ${timeStr}`;
             }
-            // Раз в секунду мягко обновляем данные ОЗУ
             if(openedWindows.size > 0) updateTaskManagerUI();
         }, 1000);
 
