@@ -40,14 +40,18 @@
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999;
             display: none; flex-direction: column; justify-content: center; align-items: center; color: #475569; text-align: center;
         }
+        
+        /* ОБНОВЛЕННЫЙ ЭКРАН БЛОКИРОВКИ (ТЕПЕРЬ ГОЛУБОЙ GRADIENT) */
         #lock-screen {
             position: fixed; top:0; left:0; width:100vw; height:100vh; z-index: 99999;
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            backdrop-filter: blur(30px); background: linear-gradient(135deg, #4c1d95 0%, #111827 100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(30px); 
+            background: linear-gradient(135deg, #00f0ff 0%, #1e3a8a 100%); /* Голубой цвет обновы! */
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .lock-card {
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
-            padding: 30px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+            padding: 30px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
             text-align: center; width: 320px; backdrop-filter: blur(10px);
         }
         .lock-avatar { width: 70px; height: 70px; background: var(--accent); border-radius: 50%; margin: 0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow: 0 0 20px var(--accent-glow); }
@@ -170,7 +174,7 @@
     <div class="sys-widget" id="w-node-1" style="top: 20px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-1')">
         <div class="widget-title"><span>🕒 Время ядра</span></div>
         <div id="w-time" style="font-size: 18px; font-weight: bold; letter-spacing: 1px;">00:00:00</div>
-        <div id="w-date" style="color: #94a3b8; font-size: 11px; margin-top: 2px;">30.05.2026</div>
+        <div id="w-date" style="color: #94a3b8; font-size: 11px; margin-top: 2px;">01.06.2026</div>
     </div>
 
     <div class="sys-widget" id="w-node-2" style="top: 120px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-2')">
@@ -231,37 +235,24 @@
         </div>
 
         <div class="window" id="win-gemetube" style="top:50px; left:200px; width:480px; height:430px;">
-    <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
-        <div class="window-title">📺 Gemetube Hub — Видеохостинг</div>
-        <div class="win-btn-group">
-            <div class="win-btn" onclick="toggleMaximize('win-gemetube')">🔲</div>
-            <div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div>
-        </div>
-    </div>
-    <div class="window-body" style="background:#111827; color:#fff; display: flex; flex-direction: column; gap: 10px;">
-        
-        <div style="background:#000; border-radius:6px; overflow:hidden; text-align:center;">
-            <video id="gemetube-player" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls style="width:100%; max-height:200px; display:block;"></video>
-            <div id="gemetube-current-title" style="font-size:12px; padding:6px; font-weight:bold; color:var(--accent); background:#1f2937;">
-                Большой Заяц - Полный мультфильм
-            </div>
-        </div>
-
-        <div id="gemetube-feed" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; flex:1; padding-right:4px;">
-            </div>
-    </div>
-</div>
-            <div class="window-body" style="background:#111827; color:#fff;">
-                <div style="margin-bottom:10px; background:#1f2937; padding:10px; border-radius:6px; border: 1px solid #374151;">
-                    <label style="font-size:11px; display:block; margin-bottom:5px; color:#9ca3af;">Выложить своё видео с внешнего ПК:</label>
-                    <input type="file" id="gemetube-file-input" accept="video/*" style="width:100%; color:#fff; font-size:11px;">
+            <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
+                <div class="window-title">📺 Gemetube Hub — Видеохостинг</div>
+                <div class="win-btn-group">
+                    <div class="win-btn" onclick="toggleMaximize('win-gemetube')">🔲</div>
+                    <div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div>
                 </div>
-                <div id="gemetube-feed" style="display:flex; flex-direction:column; gap:10px; overflow-y:auto; height:240px; padding-right:4px;">
-                    <div style="background:#1f2937; padding:8px; border-radius:6px;">
-                        <video src="https://www.w3schools.com/html/mov_bbb.mp4" controls style="width:100%; border-radius:4px;"></video>
-                        <div style="font-size:12px; margin-top:5px; font-weight:bold; color:#f3f4f6;">Big Buck Bunny (Предустановленный трейлер)</div>
+            </div>
+            <div class="window-body" style="padding: 10px; display: flex; flex-direction: column; gap: 10px;">
+                
+                <div style="background:#000; border-radius:6px; overflow:hidden; text-align:center;">
+                    <video id="gemetube-player" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls style="width:100%; max-height:200px; display:block;"></video>
+                    <div id="gemetube-current-title" style="font-size:12px; padding:6px; font-weight:bold; background:rgba(0,0,0,0.05); border-top:1px solid rgba(0,0,0,0.1);">
+                        🎈 Большой Заяц - Полный Мультфильм
                     </div>
                 </div>
+
+                <div id="gemetube-feed" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; flex:1;">
+                    </div>
             </div>
         </div>
 
@@ -527,67 +518,13 @@
         let isPowerOff = false;
         let keysPressed = {};
 
-        // ПЕРЕМЕННЫЕ ДЛЯ ДЕТСКОГО РЕЖИМА
+        // НАСТОЯЩИЕ МУЛЬТФИЛЬМЫ ПО 5-10 МИНУТ
         let isKidsMode = false;
-       // Настоящие мультфильмы по ~5-10 минут для обычного и детского режима
-const kidsVideos = [
-    { name: "🐱 Три Кота - Сборник Серий", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" },
-    { name: "🎈 Большой Заяц - Полный Мультфильм", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-    { name: "⚙️ Фиксики - Секреты Техники", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" }
-];
-
-// Функция запуска мультика в главном плеере Gemetube
-function playGemetubeVideo(src, name) {
-    const player = document.getElementById("gemetube-player");
-    const title = document.getElementById("gemetube-current-title");
-    if(player && title) {
-        player.src = src;
-        player.load();
-        player.play();
-        title.innerText = name;
-    }
-}
-
-// Переделанная функция вывода мультиков (работает и в обычном Gemetube, и в Gemekids)
-function transformToKidsContent() {
-    const browserView = document.getElementById("browser-view");
-    if(browserView) {
-        browserView.innerHTML = `
-            <div style="text-align:center; padding:10px; color:#ff477e;">
-                <h3>🌈 Безопасный детский интернет Чебурашка</h3>
-                <p>Здесь только самые полезные сайты!</p>
-                <div style="margin-top:10px; display:flex; gap:10px; justify-content:center;">
-                    <button onclick="alert('Открываем детские аудиосказки...')" style="background:#ffbe53;">🎧 Слушать Сказки</button>
-                    <button onclick="alert('Загружаем раскраски...')" style="background:#7af5ff; color:#000;">🎨 Раскраски онлайн</button>
-                </div>
-            </div>
-        `;
-    }
-
-    // Заполняем ленту Gemetube настоящими мультиками
-    const feed = document.getElementById("gemetube-feed");
-    if(feed) {
-        feed.innerHTML = ""; // Чистим старый контент
-        kidsVideos.forEach(v => {
-            // Создаем красивую кнопку-карточку для каждого мультика
-            const videoCard = document.createElement("div");
-            videoCard.style = "background:#1f2937; padding:10px; border-radius:6px; border:1px solid #374151; cursor:pointer; display:flex; align-items:center; gap:10px; transition: background 0.2s;";
-            videoCard.innerHTML = `
-                <div style="font-size:24px;">🎬</div>
-                <div style="font-size:12px; font-weight:bold; color:#fff;">${v.name}</div>
-            `;
-            // При клике на карточку — мультик включается вверху окна
-            videoCard.onclick = () => playGemetubeVideo(v.src, v.name);
-            feed.appendChild(videoCard);
-        });
-    }
-
-    const expGrid = document.getElementById("explorer-grid");
-    if(expGrid) {
-        expGrid.style.display = "block";
-        generateKidsMathQuestion();
-    }
-}
+        const kidsVideos = [
+            { name: "🐱 Три Кота - Сборник Серий", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" },
+            { name: "🎈 Большой Заяц - Полный Мультфильм", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
+            { name: "⚙️ Фиксики - Секреты Техники", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" }
+        ];
         let kidsScore = 0;
 
         function saveState() {
@@ -872,83 +809,37 @@ function transformToKidsContent() {
             document.getElementById("browser-view").innerHTML = q.includes("погода") ? `Прогноз погоды в ${locationData}: +22°C.` : `Результаты по запросу "${q}": Связь с сервером стабильна.`;
         }
 
-        // GEMETUBE ВИДЕОЗАГРУЗКА
-        document.getElementById("gemetube-file-input").addEventListener("change", function(e) {
-            let file = e.target.files[0];
-            if(file) {
-                let url = URL.createObjectURL(file);
-                let feed = document.getElementById("gemetube-feed");
-                let item = document.createElement("div");
-                item.style.background = "#1f2937"; item.style.padding = "8px"; item.style.borderRadius = "6px";
-                item.innerHTML = `
-                    <video src="${url}" controls style="width:100%; border-radius:4px;"></video>
-                    <div style="font-size:12px; margin-top:5px; font-weight:bold; color:#00f0ff;">🎬 ${file.name}</div>
-                `;
-                feed.insertBefore(item, feed.firstChild);
-            }
-        });
-
-        // CMD ТЕРМИНАЛ
-        const cmdInput = document.getElementById("cmd-input");
-        const cmdHistory = document.getElementById("cmd-history");
-        cmdInput.addEventListener("keydown", function(e) {
-            if(e.key === "Enter") {
-                let rawVal = this.value.trim();
-                cmdHistory.innerText += `root@gemeni:~$ ${rawVal}\n`;
-                if(rawVal.toLowerCase() === "help") cmdHistory.innerText += "sys-stat, cls\n";
-                else if(rawVal.toLowerCase() === "sys-stat") cmdHistory.innerText += "OS: v13.6 Ultimate. Gemetube Ready.\n";
-                else if(rawVal.toLowerCase() === "cls") cmdHistory.innerText = "";
-                this.value = ""; cmdHistory.parentElement.scrollTop = cmdHistory.parentElement.scrollHeight;
-            }
-        });
-
-        // ФУНКЦИИ ДЛЯ GEMEKIDS РЕЖИМА
-        function enterKidsMode() {
-            isKidsMode = true;
-            document.getElementById('start-menu').style.display = 'none';
-            
-            // Переключаем панели управления
-            document.getElementById('taskbar').style.display = 'none';
-            document.getElementById('kids-bar').style.display = 'flex';
-            
-            // Включаем детскую тему
-            document.body.className = 'theme-kids';
-            
-            // Скрываем взрослые ярлыки и виджеты
-            const toHide = ['sh-settings', 'sh-cmd', 'sh-ai', 'sh-game_space', 'sh-trash', 'w-node-1', 'w-node-2', 'w-node-3', 'w-node-4', 'w-node-5'];
-            toHide.forEach(id => { if(document.getElementById(id)) document.getElementById(id).style.display = 'none'; });
-            
-            // Запускаем трансформацию контента под детей
-            transformToKidsContent();
-        }
-
-        function exitKidsMode() {
-            let pass = prompt("Введи взрослый пароль для выхода:");
-            if (pass === "admin") {
-                isKidsMode = false;
-                
-                // Возвращаем стандартный таскбар
-                document.getElementById('taskbar').style.display = 'flex';
-                document.getElementById('kids-bar').style.display = 'none';
-                
-                // Восстанавливаем прошлую тему
-                document.body.className = 'theme-' + (localStorage.getItem("g_theme") || "dark");
-                
-                // Показываем обратно все скрытые ярлыки
-                const toShow = ['sh-settings', 'sh-cmd', 'sh-ai', 'sh-game_space', 'sh-trash', 'w-node-1', 'w-node-2', 'w-node-3', 'w-node-4', 'w-node-5'];
-                toShow.forEach(id => { if(document.getElementById(id)) document.getElementById(id).style.display = 'flex'; });
-                
-                // Перезагружаем страницу, чтобы сбросить детские изменения
-                location.reload(); 
-            } else {
-                alert("Неправильный пароль! Доступ ограничен ⛔");
+        // ФУНКЦИЯ ЗАПУСКА КОРРЕКТНЫХ МУЛЬТИКОВ В GEMETUBE
+        function playGemetubeVideo(src, name) {
+            const player = document.getElementById("gemetube-player");
+            const title = document.getElementById("gemetube-current-title");
+            if(player && title) {
+                player.src = src;
+                player.load();
+                player.play();
+                title.innerText = name;
             }
         }
 
+        // ДЕТСКИЙ И ОБЫЧНЫЙ ВЫВОД КОНТЕНТА
         function transformToKidsContent() {
-            // 1. Детский Браузер
+            const feed = document.getElementById("gemetube-feed");
+            if(feed) {
+                feed.innerHTML = ""; // Очищаем обманки, ставим реальные мульты
+                kidsVideos.forEach(v => {
+                    const videoCard = document.createElement("div");
+                    videoCard.style = "padding:8px; border-bottom:1px solid rgba(0,0,0,0.1); cursor:pointer; display:flex; align-items:center; gap:10px;";
+                    videoCard.innerHTML = `
+                        <div style="font-size:20px;">🎬</div>
+                        <div style="font-size:12px; font-weight:bold;">${v.name}</div>
+                    `;
+                    videoCard.onclick = () => playGemetubeVideo(v.src, v.name);
+                    feed.appendChild(videoCard);
+                });
+            }
+
             const browserView = document.getElementById("browser-view");
-            if(browserView) {
+            if(isKidsMode && browserView) {
                 browserView.innerHTML = `
                     <div style="text-align:center; padding:10px; color:#ff477e;">
                         <h3>🌈 Безопасный детский интернет Чебурашка</h3>
@@ -960,27 +851,35 @@ function transformToKidsContent() {
                     </div>
                 `;
             }
-            
-            // 2. Детский Gemetube
-            const feed = document.getElementById("gemetube-feed");
-            if(feed) {
-                feed.innerHTML = ""; // Стираем взрослые ролики
-                kidsVideos.forEach(v => {
-                    feed.innerHTML += `
-                        <div style="background:#fff; padding:8px; border-radius:6px; border:2px solid #ff7eb9; margin-bottom:10px;">
-                            <video src="${v.src}" controls style="width:100%; border-radius:4px;"></video>
-                            <div style="font-size:12px; margin-top:5px; font-weight:bold; color:#ff477e;">${v.name}</div>
-                        </div>
-                    `;
-                });
-            }
-            
-            // 3. Перестраиваем Проводник в развивающую игру
             const expGrid = document.getElementById("explorer-grid");
-            if(expGrid) {
+            if(isKidsMode && expGrid) {
                 expGrid.style.display = "block";
                 generateKidsMathQuestion();
             }
+        }
+
+        function enterKidsMode() {
+            isKidsMode = true;
+            document.getElementById('start-menu').style.display = 'none';
+            document.getElementById('taskbar').style.display = 'none';
+            document.getElementById('kids-bar').style.display = 'flex';
+            document.body.className = 'theme-kids';
+            const toHide = ['sh-settings', 'sh-cmd', 'sh-ai', 'sh-game_space', 'sh-trash', 'w-node-1', 'w-node-2', 'w-node-3', 'w-node-4', 'w-node-5'];
+            toHide.forEach(id => { if(document.getElementById(id)) document.getElementById(id).style.display = 'none'; });
+            transformToKidsContent();
+        }
+
+        function exitKidsMode() {
+            let pass = prompt("Введи взрослый пароль для выхода:");
+            if (pass === "admin") {
+                isKidsMode = false;
+                document.getElementById('taskbar').style.display = 'flex';
+                document.getElementById('kids-bar').style.display = 'none';
+                document.body.className = 'theme-' + (localStorage.getItem("g_theme") || "dark");
+                const toShow = ['sh-settings', 'sh-cmd', 'sh-ai', 'sh-game_space', 'sh-trash', 'w-node-1', 'w-node-2', 'w-node-3', 'w-node-4', 'w-node-5'];
+                toShow.forEach(id => { if(document.getElementById(id)) document.getElementById(id).style.display = 'flex'; });
+                location.reload(); 
+            } else { alert("Неправильный пароль! Доступ ограничен ⛔"); }
         }
 
         let currentAnswer = 0;
@@ -1007,22 +906,23 @@ function transformToKidsContent() {
                 kidsScore += 10;
                 alert("Правильно! Ты молодец! 🎉 +10 баллов");
                 generateKidsMathQuestion();
-            } else {
-                alert("Ой, почти! Попробуй посчитать ещё раз! 🎈");
-            }
+            } else { alert("Ой, почти! Попробуй посчитать ещё раз! 🎈"); }
         }
 
-        // СИСТЕМНЫЙ ТАЙМЕР И ЗАПУСК ЯДРА
+        // ТАЙМЕРЫ И ИНИЦИАЛИЗАЦИЯ СИСТЕМЫ
         setInterval(() => { 
             let timeStr = new Date().toTimeString().split(" ")[0];
             document.getElementById("w-time").innerText = timeStr; 
-            
             if(isKidsMode) {
                 document.getElementById("kids-time").innerText = `👶 Детский режим | ⏰ Время: ${timeStr}`;
             }
         }, 1000);
 
-       window.onload = () => { loadState(); transformToKidsContent(); };
+        // ЗАПУСК ЯДРА
+        window.onload = () => { 
+            loadState(); 
+            transformToKidsContent(); // Подгружаем реальные мультики в ленту сразу
+        };
     </script>
 </body>
 </html>
