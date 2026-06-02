@@ -15,30 +15,26 @@
             --win-shadow: 0 15px 35px rgba(0,0,0,0.7), inset 0 0 15px rgba(255,255,255,0.1);
         }
 
-        /* ТЕМЫ ОФОРМЛЕНИЯ */
-        body.theme-dark { background: radial-gradient(circle at 70% 30%, #1e3a8a 0%, #0f172a 100%); }
-        body.theme-light { background: radial-gradient(circle at 70% 30%, #e2e8f0 0%, #cbd5e1 100%); }
+        /* ТЕМЫ ОФОРМЛЕНИЯ (ИЗ КАРТИНКИ "Человек паук.png") */
         body.theme-space { background: radial-gradient(circle at 70% 30%, #4c1d95 0%, #0b0b1a 100%); }
-        
-        /* КИДС РЕЖИМ: СТИЛИ */
-        body.theme-kids { 
-            background: radial-gradient(circle at 50% 50%, #ff7eb9 0%, #7af5ff 100%) !important; 
-        }
-        body.theme-kids .window-body { 
-            background: #fffdf0; 
-            color: #ff477e; 
-        }
+        body.theme-sky { background: radial-gradient(circle at 50% 100%, #bae6fd 0%, #0284c7 100%); }
+        body.theme-office { background: radial-gradient(circle at 30% 30%, #f1f5f9 0%, #94a3b8 100%); }
+        body.theme-default { background: radial-gradient(circle at 70% 30%, #1e3a8a 0%, #0f172a 100%); }
+        body.theme-v1cod { background: #000000; background-image: linear-gradient(rgba(0, 24f, 255, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 240, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px; }
 
-        body.theme-light .window-body { background: #f8fafc; color: #1e293b; }
-        body.theme-space .window-body { background: #0f172a; color: #00f0ff; }
+        body.theme-office .window-body { background: #f8fafc; color: #1e293b; }
+        body.theme-v1cod .window-body { background: #050505; color: #00ffcc; border: 1px solid #00ffcc; }
+        body.theme-v1cod * { font-family: 'Courier New', monospace !important; }
+
+        /* КИДС РЕЖИМ */
+        body.theme-kids { background: radial-gradient(circle at 50% 50%, #ff7eb9 0%, #7af5ff 100%) !important; }
+        body.theme-kids .window-body { background: #fffdf0; color: #ff477e; }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; user-select: none; }
-        
-        /* СКРЫВАЕМ СТАНДАРТНЫЙ КУРСОР И ВКЛЮЧАЕМ КАСТОМНЫЙ */
         body { height: 100vh; overflow: hidden; position: relative; transition: filter 0.3s ease; cursor: none !important; }
-        input, select, textarea, button, .win-btn, .shortcut, .start-app-item, .kids-btn, .setting-btn, .settings-tab { cursor: none !important; }
+        input, select, textarea, button, .win-btn, .shortcut, .start-app-item, .kids-btn, .setting-category-btn, .subtab-btn { cursor: none !important; }
 
-        /* СТИЛЬ КАСТОМНОГО КУРСОРA */
+        /* КАСТОМНЫЙ КУРСОР МЫШИ С ДИНАМИЧЕСКИМ ЦВЕТОМ */
         #custom-cursor {
             width: 18px; height: 18px; border: 2px solid var(--accent); border-radius: 50%;
             position: fixed; transform: translate(-50%, -50%); pointer-events: none; z-index: 10000000;
@@ -47,7 +43,7 @@
         }
         #custom-cursor.click { transform: translate(-50%, -50%) scale(0.75); background: rgba(255, 0, 127, 0.4); border-color: #ff007f; }
 
-        /* СТИЛЬ КОНТЕКСТНОГО МЕНЮ ПКМ */
+        /* КОНТЕКСТНОЕ МЕНЮ */
         .context-menu {
             position: absolute; background: rgba(15, 23, 42, 0.95); border: 1px solid var(--accent);
             box-shadow: 0 10px 25px rgba(0,0,0,0.5); border-radius: 6px; padding: 6px 0; width: 180px;
@@ -56,62 +52,25 @@
         .context-menu-item { padding: 8px 14px; color: #f1f5f9; }
         .context-menu-item:hover { background: rgba(255,255,255,0.1); color: var(--accent); font-weight: bold; }
 
-        /* ЭКРАНЫ ПИТАНИЯ И БЛОКИРОВКИ */
-        #shutdown-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999;
-            display: none; flex-direction: column; justify-content: center; align-items: center; color: #475569; text-align: center;
-        }
+        #shutdown-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; display: none; flex-direction: column; justify-content: center; align-items: center; color: #475569; text-align: center; }
+        #crash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0000aa; z-index: 1000000; display: none; flex-direction: column; justify-content: center; padding: 40px; color: #fff; font-family: monospace; }
         
-        /* КРИТИЧЕСКИЙ ЭКРАН КРАША СИСТЕМЫ ПРИ 10 REBOOTS */
-        #crash-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0000aa; z-index: 1000000;
-            display: none; flex-direction: column; justify-content: center; padding: 40px; color: #fff; font-family: monospace;
-        }
-        
-        /* ОБНОВЛЕННЫЙ ЭКРАН БЛОКИРОВКИ */
-        #lock-screen {
-            position: fixed; top:0; left:0; width:100vw; height:100vh; z-index: 99999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
-            backdrop-filter: blur(30px); 
-            background: linear-gradient(135deg, #00f0ff 0%, #1e3a8a 100%);
-            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .lock-card {
-            background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
-            padding: 30px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.4);
-            text-align: center; width: 320px; backdrop-filter: blur(10px);
-            transition: transform 0.1s ease;
-        }
+        #lock-screen { position: fixed; top:0; left:0; width:100vw; height:100vh; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(30px); background: linear-gradient(135deg, #00f0ff 0%, #1e3a8a 100%); transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .lock-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); padding: 30px; border-radius: 16px; box-shadow: 0 20px 50px rgba(0,0,0,0.4); text-align: center; width: 320px; backdrop-filter: blur(10px); }
         .lock-avatar { width: 70px; height: 70px; background: var(--accent); border-radius: 50%; margin: 0 auto 15px; display:flex; align-items:center; justify-content:center; font-size:28px; box-shadow: 0 0 20px var(--accent-glow); }
 
-        /* РАБОЧИЙ СТОЛ И ИКОНКИ */
         #desktop { width: 100vw; height: calc(100vh - 45px); position: relative; padding: 20px; }
-        .shortcut {
-            width: 85px; height: 85px; display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; color: #fff; font-size: 11px; text-shadow: 1px 1px 4px #000; border: 1px solid transparent; border-radius: 8px;
-            position: absolute;
-        }
+        .shortcut { width: 85px; height: 85px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; font-size: 11px; text-shadow: 1px 1px 4px #000; border: 1px solid transparent; border-radius: 8px; position: absolute; }
         .shortcut:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
         .shortcut-icon { font-size: 32px; margin-bottom: 4px; position: relative; }
         .shortcut.trash-filled .shortcut-icon::after { content: "🍂"; position: absolute; bottom: -2px; right: 10px; font-size: 12px; }
 
-        /* ПЕРЕМЕЩАЕМЫЕ СИСТЕМНЫЕ ВИДЖЕТЫ */
-        .sys-widget {
-            position: absolute; width: 220px; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(16px); 
-            border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; color: #fff; 
-            font-size: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: move; z-index: 5;
-        }
+        .sys-widget { position: absolute; width: 220px; background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.15); border-radius: 12px; padding: 12px; color: #fff; font-size: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: move; z-index: 5; }
         .widget-title { font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; color: var(--accent); display: flex; justify-content: space-between; pointer-events: none; }
 
         /* ОКНА */
-        .window {
-            position: absolute; background: var(--aero-bg); backdrop-filter: blur(25px) saturate(140%); border: 1px solid var(--aero-border);
-            border-radius: 8px 8px 0 0; box-shadow: var(--win-shadow); display: none; flex-direction: column; min-width: 380px; min-height: 280px; z-index: 10;
-        }
-        .window.maximized {
-            top: 0 !important; left: 0 !important; width: 100vw !important; height: calc(100vh - 45px) !important;
-            transform: none !important; z-index: 10000 !important; border-radius: 0 !important;
-        }
+        .window { position: absolute; background: var(--aero-bg); backdrop-filter: blur(25px) saturate(140%); border: 1px solid var(--aero-border); border-radius: 8px 8px 0 0; box-shadow: var(--win-shadow); display: none; flex-direction: column; min-width: 400px; min-height: 300px; z-index: 10; }
+        .window.maximized { top: 0 !important; left: 0 !important; width: 100vw !important; height: calc(100vh - 45px) !important; transform: none !important; z-index: 10000 !important; border-radius: 0 !important; }
         .window-header { padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; cursor: move; border-bottom: 1px solid rgba(0,0,0,0.15); }
         .window-title { color: #fff; font-size: 12px; font-weight: bold; text-shadow: 0 1px 3px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 8px; }
         .win-btn-group { display: flex; gap: 4px; }
@@ -120,68 +79,60 @@
         .win-btn.close-btn:hover { background: #ef4444; border-color: #dc2626; }
         .window-body { flex: 1; background: #ffffff; color: var(--text-dark); padding: 12px; font-size: 13px; overflow: auto; }
 
+        /* АРХИТЕКТУРА ИНТЕРФЕЙСА НАСТРОЕК (ДВУХПАНЕЛЬНАЯ ИЗ СХЕМЫ) */
+        .settings-layout { display: grid; grid-template-columns: 140px 1fr; gap: 10px; height: 100%; min-height: 320px; }
+        .settings-sidebar { border-right: 1px solid #cbd5e1; display: flex; flex-direction: column; gap: 6px; padding-right: 8px; }
+        .setting-category-btn { width: 100%; text-align: left; padding: 8px; border-radius: 6px; border: 1px solid transparent; background: transparent; color: #334155; font-size: 12px; font-weight: bold; display: flex; align-items: center; gap: 6px; }
+        body.theme-dark .setting-category-btn { color: #f1f5f9; }
+        .setting-category-btn.active { background: rgba(0, 240, 255, 0.15); border-color: var(--accent); color: var(--accent) !important; }
+        
+        .settings-main-area { display: flex; flex-direction: column; gap: 10px; }
+        .subtabs-bar { display: flex; gap: 4px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
+        .subtab-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 4px 10px; font-size: 11px; border-radius: 4px; color: #475569; }
+        .subtab-btn.active { background: #3b82f6; color: white; border-color: #3b82f6; font-weight: bold; }
+        
+        .settings-panel-content { flex: 1; display: none; flex-direction: column; gap: 10px; }
+        .settings-panel-content.active { display: flex; }
+
         /* ТАСКБАР */
         #taskbar { height: 45px; background: rgba(5, 10, 20, 0.8); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.1); position: fixed; bottom:0; left:0; width:100vw; display: flex; justify-content: space-between; align-items: center; padding: 0 15px; z-index: 9999; }
         #start-button { width: 35px; height: 35px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, #0066cc 100%); border: 2px solid rgba(255,255,255,0.4); box-shadow: 0 0 12px var(--accent-glow); }
         #taskbar-apps { flex: 1; display: flex; margin-left: 15px; gap: 8px; }
         .taskbar-tab { padding: 0 12px; height: 32px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; color: #fff; font-size: 12px; display: flex; align-items: center; gap: 6px; }
-        
-        /* ПАНЕЛЬ БЫСТРЫХ НАСТРОЕК В СТИЛЕ WINDOWS */
         #system-tray-quick { display: flex; align-items: center; gap: 10px; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 6px; }
-        #system-tray-quick:hover { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); }
-        
-        .quick-panel {
-            position: absolute; bottom: 50px; right: 10px; width: 240px; background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); box-shadow: var(--win-shadow);
-            border-radius: 8px; padding: 12px; display: none; flex-direction: column; gap: 10px; z-index: 100000; color: #fff;
-        }
+        #system-tray-quick:hover { background: rgba(255, 255, 255, 0.1); }
+
+        /* ПАНЕЛИ УПРАВЛЕНИЯ */
+        .quick-panel { position: absolute; bottom: 50px; right: 10px; width: 240px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 12px; display: none; flex-direction: column; gap: 10px; z-index: 100000; color: #fff; }
         .quick-row { display: flex; justify-content: space-between; align-items: center; font-size: 12px; }
         .setting-btn { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); padding: 6px; border-radius: 4px; color: #fff; width: 100%; text-align: left; font-size: 11px; }
-        .setting-btn.active { background: var(--accent); color: #000; font-weight: bold; }
 
-        /* ДЕТСКАЯ ПАНЕЛЬ ТАСКБАРА */
-        #kids-bar {
-            position: fixed; bottom: 0; left: 0; width: 100vw; height: 50px;
-            background: linear-gradient(to right, #ff7eb9, #ffbe53, #7af5ff);
-            border-top: 3px solid #fff; display: none; justify-content: space-between;
-            align-items: center; padding: 0 20px; z-index: 99999; box-shadow: 0 -5px 15px rgba(0,0,0,0.2);
-        }
-        .kids-btn {
-            background: #ff477e; color: white; border: 2px solid white;
-            padding: 6px 16px; font-weight: bold; border-radius: 20px;
-            font-size: 14px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .kids-btn:hover { background: #ff1f60; transform: scale(1.05); }
+        /* ДЕТСКИЙ ТАСКБАР */
+        #kids-bar { position: fixed; bottom: 0; left: 0; width: 100vw; height: 50px; background: linear-gradient(to right, #ff7eb9, #ffbe53, #7af5ff); border-top: 3px solid #fff; display: none; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 99999; }
+        .kids-btn { background: #ff477e; color: white; border: 2px solid white; padding: 6px 16px; font-weight: bold; border-radius: 20px; font-size: 14px; }
         #kids-time { color: white; font-weight: bold; font-size: 16px; text-shadow: 1px 1px 3px rgba(0,0,0,0.3); }
 
         input, select, textarea { background: #f3f4f6; border: 1px solid #d1d5db; color: #111827; padding: 6px 10px; border-radius: 6px; outline: none; font-size: 12px;}
         button { background: #1f2937; color: #fff; border: none; padding: 6px 12px; font-weight: bold; border-radius: 6px; font-size: 12px; }
         button:hover { background: #374151; }
 
-        /* PAINT */
         .paint-toolbar { display: flex; gap: 8px; align-items: center; padding-bottom: 8px; border-bottom: 1px solid #cbd5e1; margin-bottom: 8px; }
         #paintCanvas { border: 1px solid #94a3b8; background: #fff; display: block; }
 
-        /* AI CHAT */
         .ai-layout { display: flex; flex-direction: column; height: 100%; gap: 8px; }
-        .ai-chat-box { flex: 1; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; min-height: 160px; }
-        .ai-bubble { padding: 8px 12px; border-radius: 8px; max-width: 85%; font-size: 12px; line-height: 1.4; }
+        .ai-chat-box { flex: 1; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 6px; padding: 10px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; min-height: 140px; }
+        .ai-bubble { padding: 8px 12px; border-radius: 8px; max-width: 85%; font-size: 12px; }
         .ai-bubble.user { background: #e0f2fe; align-self: flex-end; color: #0369a1; }
         .ai-bubble.bot { background: #f1f5f9; align-self: flex-start; border-left: 3px solid var(--accent); color: #334155; }
 
-        /* NOTES */
-        .notes-layout { display: flex; flex-direction: column; gap: 8px; height: 100%; }
-
-        /* МЕНЮ ПУСК */
         #start-menu { position: absolute; bottom: 50px; left: 10px; width: 320px; height: 410px; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(25px); border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; box-shadow: var(--win-shadow); display: none; flex-direction: column; padding: 12px; z-index: 10000; }
         .start-header { display: flex; align-items: center; gap: 10px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; margin-bottom: 10px; color: #fff;}
         .start-apps { flex: 1; display: flex; flex-direction: column; gap: 4px; overflow-y: auto; }
         .start-app-item { padding: 8px; color: #fff; border-radius: 4px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
         .start-app-item:hover { background: rgba(255,255,255,0.1); color: var(--accent); }
-        .start-footer { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; gap: 6px; }
-        .btn-power { flex: 1; padding: 6px; font-size: 11px; text-align: center; border-radius: 4px; color:#fff; }
+        .start-footer { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px; gap: 4px; }
+        .btn-power { flex: 1; padding: 6px; font-size: 10px; text-align: center; border-radius: 4px; color:#fff; }
 
-        /* ПРОВОДНИК */
         .exp-layout { display: grid; grid-template-columns: 120px 1fr; gap: 10px; height: 100%; }
         .exp-tree { border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 5px; font-size: 12px; }
         .exp-node { padding: 4px; border-radius: 4px; }
@@ -189,25 +140,16 @@
         .exp-content { display: grid; grid-template-columns: repeat(auto-fill, minmax(75px, 1fr)); gap: 10px; align-content: flex-start; }
         .exp-item { display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 11px; padding: 5px; border-radius: 4px; }
         .exp-item:hover { background: #f1f5f9; }
-        .game-canvas-area { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; border-radius: 6px; color: #fff; position: relative; }
+        .game-canvas-area { background: #111827; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 180px; border-radius: 6px; color: #fff; }
         .browser-layout { display: flex; flex-direction: column; gap: 6px; height: 100%; }
         .browser-viewport { flex: 1; border: 1px solid #cbd5e1; background: #fff; border-radius: 6px; padding: 10px; overflow-y: auto; font-size: 12px; }
         
-        /* СТИЛЬ ДЛЯ ТАБЛИЦЫ ДИСПЕТЧЕРА ЗАДАЧ */
-        .task-mgr-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 5px; }
+        .task-mgr-table { width: 100%; border-collapse: collapse; font-size: 12px; }
         .task-mgr-table th, .task-mgr-table td { border-bottom: 1px solid #e2e8f0; padding: 6px 8px; text-align: left; }
         .task-mgr-table th { background: #f1f5f9; font-weight: bold; }
-        .task-mgr-table tr:hover { background: #f8fafc; }
 
-        /* НАСТРОЙКИ: ВКЛАДКИ И ТЕХНИЧЕСКИЙ БЛОК */
-        .settings-nav { display: flex; gap: 4px; border-bottom: 1px solid #cbd5e1; padding-bottom: 6px; margin-bottom: 10px; }
-        .settings-tab { background: #e2e8f0; color: #334155; padding: 4px 10px; font-size: 11px; border-radius: 4px; border: 1px solid #cbd5e1; }
-        .settings-tab.active { background: var(--accent); color: #000; font-weight: bold; border-color: var(--accent); }
-        .settings-content-section { display: none; flex-direction: column; gap: 12px; }
-        .settings-content-section.active { display: flex; }
-        .specs-list { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; list-style: none; font-family: monospace; font-size: 11px; display: flex; flex-direction: column; gap: 5px; }
-        .specs-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed #cbd5e1; padding-bottom: 3px; }
-        .specs-list li:last-child { border-bottom: none; padding-bottom: 0; }
+        .specs-list { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; list-style: none; font-family: monospace; font-size: 11px; display: flex; flex-direction: column; gap: 4px; }
+        .specs-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed #cbd5e1; padding-bottom: 2px; }
         .specs-list span:first-child { color: #475569; font-weight: bold; }
         .specs-list span:last-child { color: #0284c7; font-weight: bold; }
     </style>
@@ -217,7 +159,7 @@
     <div id="custom-cursor"></div>
 
     <div id="ctx-menu" class="context-menu">
-        <div class="context-menu-item" onclick="rebootSystem()">🔄 Обновить рабочую среду</div>
+        <div class="context-menu-item" onclick="rebootSystem()">🔄 Обновить систему</div>
         <div class="context-menu-item" onclick="openWindow('win-settings')">⚙️ Системные параметры</div>
         <div class="context-menu-item" onclick="openWindow('win-taskmgr')">📊 Проверить процессы ОЗУ</div>
         <hr style="border-color:rgba(255,255,255,0.1); margin:4px 0;">
@@ -227,65 +169,64 @@
     <div id="crash-screen">
         <h2>⚠️ GEMENIOS KERNEL PANIC ⚠️</h2><br>
         <p>A fatal execution exception occurred in core process thread [0x00F5FF].</p>
-        <p>Reason: DDoS Flooding Alert! System reloaded too frequently (10 times within 2s threshold).</p><br>
-        <p>To recover system integrity and flush system registers, please refresh manually or wait for kernel cool down.</p>
+        <p>Reason: DDoS Flooding Alert! System reloaded too frequently.</p>
     </div>
 
     <div id="shutdown-screen">
         <h1 style="font-weight: 300; margin-bottom: 10px; color: #334155;">GemeniOS Корректно Выключена</h1>
-        <p style="font-size: 13px;">Для подачи питания на материнскую плату зажмите комбинацию: <b>O + S</b></p>
+        <p style="font-size: 13px;">Для запуска зажмите комбинацию: <b>O + S</b></p>
     </div>
 
     <div id="lock-screen">
-        <div class="lock-card" id="lock-card-element">
+        <div class="lock-card">
             <div class="lock-avatar">👤</div>
             <h2 id="lock-user-title" style="color:#fff; font-size:18px; margin-bottom:15px; font-weight:400;">Admin</h2>
-            <input type="password" id="lock-pass-input" placeholder="Пароль (дефолт: admin)" style="width:100%; text-align:center; margin-bottom:12px; padding:8px;">
-            <button id="lock-btn" onclick="unlockOS()" style="width:100%; background: var(--accent); color:#000;">АВТОРИЗОВАТЬСЯ</button>
-            <div id="lock-error" style="color:#ef4444; font-size:11px; margin-top:8px; display:none; font-weight:bold;">Ошибка ключа доступа! Регистрация сбоя.</div>
+            <input type="password" id="lock-pass-input" placeholder="Пароль" style="width:100%; text-align:center; margin-bottom:12px; padding:8px;">
+            <button onclick="unlockOS()" style="width:100%; background: var(--accent); color:#000;">АВТОРИЗОВАТЬСЯ</button>
+            <div id="lock-error" style="color:#ef4444; font-size:11px; margin-top:8px; display:none; font-weight:bold;">Ошибка ключа доступа!</div>
         </div>
     </div>
 
+    <!-- ВИДЖЕТЫ -->
     <div class="sys-widget" id="w-node-1" style="top: 20px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-1')">
         <div class="widget-title"><span>🕒 Время ядра</span></div>
-        <div id="w-time" style="font-size: 18px; font-weight: bold; letter-spacing: 1px;">00:00:00</div>
-        <div id="w-date" style="color: #94a3b8; font-size: 11px; margin-top: 2px;">01.06.2026</div>
+        <div id="w-time" style="font-size: 16px; font-weight: bold;">00:00:00</div>
+        <div id="w-date" style="color: #94a3b8; font-size: 11px;">01.06.2026</div>
     </div>
 
-    <div class="sys-widget" id="w-node-2" style="top: 120px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-2')">
+    <div class="sys-widget" id="w-node-2" style="top: 110px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-2')">
         <div class="widget-title"><span>📍 Геолокация</span></div>
-        <div id="w-loc" style="font-weight: 600;">Бишкек, Кыргызстан</div>
-        <div style="color: #34d399; font-size: 11px; margin-top: 2px;">🌤️ Стабильный пинг</div>
+        <div id="w-loc" style="font-weight: 600;">Бишкек, Kyrgyzstan</div>
     </div>
 
-    <div class="sys-widget" id="w-node-3" style="top: 220px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-3')">
+    <div class="sys-widget" id="w-node-3" style="top: 190px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-3')">
         <div class="widget-title"><span>🛡️ Безопасность</span></div>
-        <div><span>Статус:</span> <span id="w-sec-status" style="color:#34d399; font-weight:bold;">Защищено</span></div>
-        <div style="color: #94a3b8; font-size: 10px; margin-top: 2px;">Брандмауэр ядра активен</div>
+        <div><span>Файрвол:</span> <span id="w-sec-status" style="color:#34d399; font-weight:bold;">Активен</span></div>
     </div>
 
-    <div class="sys-widget" id="w-node-4" style="top: 320px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-4')">
+    <div class="sys-widget" id="w-node-4" style="top: 270px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-4')">
         <div class="widget-title"><span>📊 Ресурсы ОЗУ</span></div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span>Загрузка:</span><span id="w-ram-val">34%</span></div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:3px;"><span id="w-ram-val">34%</span></div>
         <div style="background:rgba(255,255,255,0.1); height:4px; border-radius:2px; overflow:hidden;"><div id="w-ram-bar" style="background:var(--accent); height:100%; width:34%;"></div></div>
     </div>
 
-    <div class="sys-widget" id="w-node-5" style="top: 420px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-5')">
-        <div class="widget-title"><span>💰 Gemeni Монеты</span></div>
-        <div style="font-size:14px; font-weight:bold; margin-bottom:5px;"><span id="w-money-val">50</span> 🪙</div>
-        <button onclick="mineCoin()" style="width:100%; padding:4px; font-size:11px; background:var(--accent); color:#000;">Майнить +1 🪙</button>
+    <div class="sys-widget" id="w-node-5" style="top: 350px; right: 20px;" onmousedown="widgetDragStart(event, 'w-node-5')">
+        <div class="widget-title"><span>🪙 Баланс</span></div>
+        <div style="font-size:13px; font-weight:bold; margin-bottom:4px;"><span id="w-money-val">50</span> 🪙</div>
+        <button onclick="mineCoin()" style="width:100%; padding:2px; font-size:11px; background:var(--accent); color:#000;">Майнить</button>
     </div>
 
+    <!-- РАБОЧИЙ СТОЛ -->
     <div id="desktop" onclick="closeMenus()">
         
         <div class="shortcut" id="sh-explorer" style="left:20px; top:20px;" onmousedown="shortcutDragStart(event, 'sh-explorer')" ondblclick="openWindow('win-explorer')">
             <div class="shortcut-icon">📂</div><div>Проводник</div>
         </div>
         <div class="shortcut" id="sh-gemetube" style="left:20px; top:120px;" onmousedown="shortcutDragStart(event, 'sh-gemetube')" ondblclick="openWindow('win-gemetube')">
-            <div class="shortcut-icon">📺</div><div style="color:#ff3e3e; font-weight:bold;">Gemetube</div>
+            <div class="shortcut-icon">📺</div><div>Gemetube</div>
         </div>
         <div class="shortcut" id="sh-game_space" style="left:20px; top:220px;" onmousedown="shortcutDragStart(event, 'sh-game_space')" ondblclick="openWindow('win-game_space')">
-            <div class="shortcut-icon">🚀</div><div style="color:#00f0ff;">Space Click</div>
+            <div class="shortcut-icon">🚀</div><div>Space Click</div>
         </div>
         <div class="shortcut" id="sh-trash" style="left:20px; top:320px;" onmousedown="shortcutDragStart(event, 'sh-trash')" ondblclick="openWindow('win-trash')" ondragover="event.preventDefault()" ondrop="dropToTrash(event)">
             <div class="shortcut-icon">🗑️</div><div>Корзина</div>
@@ -309,113 +250,211 @@
             <div class="shortcut-icon">📟</div><div>CMD Pro</div>
         </div>
         <div class="shortcut" id="sh-taskmgr" style="left:220px; top:220px;" onmousedown="shortcutDragStart(event, 'sh-taskmgr')" ondblclick="openWindow('win-taskmgr')">
-            <div class="shortcut-icon">📊</div><div style="color:#22c55e;">Диспетчер</div>
+            <div class="shortcut-icon">📊</div><div>Диспетчер</div>
         </div>
 
-        <div class="window" id="win-gemetube" style="top:50px; left:200px; width:480px; height:430px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
-                <div class="window-title">📺 Gemetube Hub — Видеохостинг</div>
+        <!-- ОКНО: НАСТРОЙКИ С МОДУЛЬНОЙ СХЕМОЙ ИЗ КАРТИНКИ "Человек паук.png" -->
+        <div class="window" id="win-settings" style="top:60px; left:260px; width:540px; height:380px;">
+            <div class="window-header" onmousedown="dragStart(event, 'win-settings')">
+                <div class="window-title">⚙️ Панель управления Системой</div>
                 <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-gemetube')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div>
+                    <div class="win-btn" onclick="toggleMaximize('win-settings')">🔲</div>
+                    <div class="win-btn close-btn" onclick="closeWin('win-settings')">✕</div>
                 </div>
             </div>
-            <div class="window-body" style="padding: 10px; display: flex; flex-direction: column; gap: 10px;">
-                <div style="background:#000; border-radius:6px; overflow:hidden; text-align:center;">
-                    <video id="gemetube-player" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls style="width:100%; max-height:200px; display:block;"></video>
-                    <div id="gemetube-current-title" style="font-size:12px; padding:6px; font-weight:bold; background:rgba(0,0,0,0.05); border-top:1px solid rgba(0,0,0,0.1);">
-                        🎈 Большой Заяц - Полный Мультфильм
+            <div class="window-body" style="padding:10px;">
+                <div class="settings-layout">
+                    
+                    <!-- ЛЕВАЯ ПАНЕЛЬ: ГЛАВНЫЕ КАТЕГОРИИ (Фиолетовый, Зеленый, Лавандовый из схемы) -->
+                    <div class="settings-sidebar">
+                        <button class="setting-category-btn active" id="cat-btn-system" onclick="changeSettingsCategory('system')">🟣 Система</button>
+                        <button class="setting-category-btn" id="cat-btn-security" onclick="changeSettingsCategory('security')">🟢 Безопасность</button>
+                        <button class="setting-category-btn" id="cat-btn-personal" onclick="changeSettingsCategory('personal')">🟪 Персонализация</button>
+                    </div>
+
+                    <!-- ПРАВАЯ ЧАСТЬ: ПОДКАТЕГОРИИ И РАБОЧИЙ ФУНКЦИОНАЛ -->
+                    <div class="settings-main-area">
+                        
+                        <!-- ================= КАТЕГОРИЯ: СИСТЕМА ================= -->
+                        <div id="cat-content-system" class="settings-panel-content active">
+                            <div class="subtabs-bar">
+                                <button class="subtab-btn active" id="subtab-sys-info" onclick="changeSubTab('sys', 'info')">Информация</button>
+                                <button class="subtab-btn" id="subtab-sys-apps" onclick="changeSubTab('sys', 'apps')">Приложения</button>
+                                <button class="subtab-btn" id="subtab-sys-time" onclick="changeSubTab('sys', 'time')">Время и язык</button>
+                                <button class="subtab-btn" id="subtab-sys-destroy" onclick="changeSubTab('sys', 'destroy')" style="color:#ef4444; font-weight:bold;">Уничтожить</button>
+                            </div>
+                            
+                            <div id="subcontent-sys-info" class="subpanel-content" style="display:flex; flex-direction:column; gap:8px;">
+                                <ul class="specs-list">
+                                    <li><span>Система:</span> <span>GemeniOS KSU v.13.7</span></li>
+                                    <li><span>Память:</span> <span>1 TB (1000 GB)</span></li>
+                                    <li><span>Процессор:</span> <span>TPU v5p</span></li>
+                                    <li><span>Сборка:</span> <span>GSLA KSU</span></li>
+                                    <li><span>НейроСистема:</span> <span>Gemeni AI 3.5 Flash</span></li>
+                                    <li><span>Оперативная Система:</span> <span>50 GB</span></li>
+                                    <li><span>Тип системы:</span> <span>64х</span></li>
+                                </ul>
+                            </div>
+                            <div id="subcontent-sys-apps" class="subpanel-content" style="display:none;">
+                                <p style="font-weight:bold; margin-bottom:5px;">Разрешение ярлыков и список:</p>
+                                <select id="app-permission-select" style="width:100%; margin-bottom:8px;">
+                                    <option value="all">Разрешить запуск всех приложений</option>
+                                    <option value="restricted">Только верифицированные ядром</option>
+                                </select>
+                                <div style="background:#f1f5f9; padding:6px; border-radius:4px; font-size:11px; max-height:100px; overflow-y:auto;">
+                                    • Проводник ядра v1.0<br>• Paint Pro Engine v2.4<br>• Quantum Browser Sandbox<br>• Модуль Gemeni ИИ Локальный
+                                </div>
+                            </div>
+                            <div id="subcontent-sys-time" class="subpanel-content" style="display:none; flex-direction:column; gap:6px;">
+                                <label style="font-weight:bold; font-size:11px;">Синхронизация времени:</label>
+                                <input type="text" id="sys-time-sync" value="По умолчанию: RTC Ядро" style="width:100%;">
+                                <label style="font-weight:bold; font-size:11px; margin-top:4px;">Язык интерфейса:</label>
+                                <select id="sys-lang-select" onchange="changeSystemLang(this.value)" style="width:100%;">
+                                    <option value="ru">Русский (RU)</option>
+                                    <option value="en">English (EN)</option>
+                                </select>
+                            </div>
+                            <div id="subcontent-sys-destroy" class="subpanel-content" style="display:none; text-align:center;">
+                                <p style="color:#ef4444; font-weight:bold; margin-bottom:10px;">⚠️ ВНИМАНИЕ: Очистка локальных секторов реестра!</p>
+                                <button onclick="destroySystemData()" style="background:#ef4444; width:100%; padding:10px;">УДАЛИТЬ ДАННЫЕ СИСТЕМЫ</button>
+                            </div>
+                        </div>
+
+                        <!-- ================= КАТЕГОРИЯ: БЕЗОПАСНОСТЬ ================= -->
+                        <div id="cat-content-security" class="settings-panel-content">
+                            <div class="subtabs-bar">
+                                <button class="subtab-btn active" id="subtab-sec-acc" onclick="changeSubTab('sec', 'acc')">Аккаунт</button>
+                                <button class="subtab-btn" id="subtab-sec-kids" onclick="changeSubTab('sec', 'kids')">Детский режим</button>
+                                <button class="subtab-btn" id="subtab-sec-pass" onclick="changeSubTab('sec', 'pass')">Пароль</button>
+                                <button class="subtab-btn" id="subtab-sec-geo" onclick="changeSubTab('sec', 'geo')">Геолокация</button>
+                            </div>
+                            
+                            <div id="subcontent-sec-acc" class="subpanel-content" style="display:flex; flex-direction:column; gap:6px;">
+                                <label style="font-weight:bold; font-size:11px;">Имя текущего профиля:</label>
+                                <input type="text" id="sec-username-input" value="Admin" style="width:100%;">
+                                <button onclick="updateUsername()" style="background:#10b981; margin-top:4px;">Изменить имя</button>
+                            </div>
+                            <div id="subcontent-sec-kids" class="subpanel-content" style="display:none; text-align:center;">
+                                <p style="margin-bottom:8px; font-size:12px;">Запуск изолированной детской среды Gemekids с блокировкой терминала.</p>
+                                <button onclick="enterKidsMode()" style="background:#ff477e; width:100%;">Активировать детский режим 🧸</button>
+                            </div>
+                            <div id="subcontent-sec-pass" class="subpanel-content" style="display:none; flex-direction:column; gap:6px;">
+                                <label style="font-weight:bold; font-size:11px;">Новый ключ доступа:</label>
+                                <input type="password" id="sec-password-input" placeholder="Введите новый пароль" style="width:100%;">
+                                <button onclick="updatePassword()" style="background:#3b82f6;">Изменить системный пароль</button>
+                            </div>
+                            <div id="subcontent-sec-geo" class="subpanel-content" style="display:none; flex-direction:column; gap:6px;">
+                                <label style="font-weight:bold; font-size:11px;">Координаты расположения системы:</label>
+                                <input type="text" id="sec-geo-input" value="Бишкек, Kyrgyzstan" style="width:100%;">
+                                <button onclick="toggleGeoStatus(false)" style="background:#b91c1c;">откл./выкл. трекинг</button>
+                            </div>
+                        </div>
+
+                        <!-- ================= КАТЕГОРИЯ: ПЕРСОНАЛИЗАЦИЯ ================= -->
+                        <div id="cat-content-personal" class="settings-panel-content">
+                            <div class="subtabs-bar">
+                                <button class="subtab-btn active" id="subtab-per-wall" onclick="changeSubTab('per', 'wall')">Обои</button>
+                                <button class="subtab-btn" id="subtab-per-theme" onclick="changeSubTab('per', 'theme')">Тема</button>
+                                <button class="subtab-btn" id="subtab-per-colors" onclick="changeSubTab('per', 'colors')">Цвета</button>
+                            </div>
+                            
+                            <div id="subcontent-per-wall" class="subpanel-content" style="display:grid; grid-template-columns: 1fr 1fr; gap:6px;">
+                                <button onclick="changeSystemTheme('space')" style="background:#4c1d95; font-size:11px;">Космос 🌌</button>
+                                <button onclick="changeSystemTheme('sky')" style="background:#0284c7; font-size:11px;">Небо 🌤️</button>
+                                <button onclick="changeSystemTheme('office')" style="background:#94a3b8; color:#000; font-size:11px;">Офис 🖥️</button>
+                            </div>
+                            <div id="subcontent-per-theme" class="subpanel-content" style="display:flex; flex-direction:column; gap:6px;">
+                                <button onclick="changeSystemTheme('default')" style="background:#1e3a8a; font-size:12px;">Стандарт (Синий)</button>
+                                <button onclick="changeSystemTheme('v1cod')" style="background:#000; color:#00ffcc; border:1px solid #00ffcc; font-size:12px; font-weight:bold;">v1-Cod (Первая ИИ-Битва) 📟</button>
+                            </div>
+                            <div id="subcontent-per-colors" class="subpanel-content" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:4px;">
+                                <button onclick="setCursorColor('#ff477e')" style="background:#ff477e; font-size:10px; padding:4px;">Красный</button>
+                                <button onclick="setCursorColor('#eab308')" style="background:#eab308; font-size:10px; padding:4px;">Жёлтый</button>
+                                <button onclick="setCursorColor('#22c55e')" style="background:#22c55e; font-size:10px; padding:4px;">Зелёный</button>
+                                <button onclick="setCursorColor('#3b82f6')" style="background:#3b82f6; font-size:10px; padding:4px;">Синий</button>
+                                <button onclick="setCursorColor('#111827')" style="background:#111827; font-size:10px; padding:4px;">Чёрный</button>
+                                <button onclick="setCursorColor('#f8fafc')" style="background:#ffffff; color:#000; font-size:10px; padding:4px;">Белый</button>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
-                <div id="gemetube-feed" style="display:flex; flex-direction:column; gap:8px; overflow-y:auto; flex:1;"></div>
             </div>
         </div>
 
-        <div class="window" id="win-game_space" style="top:80px; left:250px; width:360px;">
+        <!-- ОСТАЛЬНЫЕ СИСТЕМНЫЕ ОКНА -->
+        <div class="window" id="win-gemetube" style="top:50px; left:200px; width:440px; height:360px;">
+            <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
+                <div class="window-title">📺 Gemetube Hub</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div></div>
+            </div>
+            <div class="window-body" style="padding: 6px; display: flex; flex-direction: column; gap: 8px;">
+                <video id="gemetube-player" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls style="width:100%; max-height:160px;"></video>
+                <div id="gemetube-feed" style="overflow-y:auto; flex:1; font-size:11px;"></div>
+            </div>
+        </div>
+
+        <div class="window" id="win-game_space" style="top:80px; left:220px; width:340px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-game_space')">
-                <div class="window-title">🚀 Space Clicker Edition</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-game_space')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-game_space')">✕</div>
-                </div>
+                <div class="window-title">🚀 Space Clicker</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-game_space')">✕</div></div>
             </div>
-            <div class="window-body game-canvas-area" style="background:linear-gradient(to bottom, #0f172a, #1e1b4b); height:240px;">
-                <div style="font-size:16px; margin-bottom:5px; font-weight:bold; color:#38bdf8;">Планетарная пыль: <span id="space-clicks">0</span></div>
-                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:64px; user-select:none; margin:15px 0; transition: transform 0.1s;">🪐</div>
-                <button onclick="buySpaceUpgrade()" id="space-up-btn" style="background:#6366f1; font-size:12px; width:90%; padding:8px;">Купить Спутник (+1/сек) | Цена: 20</button>
+            <div class="window-body game-canvas-area">
+                <div>Пыль: <span id="space-clicks">0</span></div>
+                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:48px; margin:10px 0; transition: transform 0.1s;">🪐</div>
+                <button onclick="buySpaceUpgrade()" id="space-up-btn" style="font-size:11px;">Спутник (Цена: 20)</button>
             </div>
         </div>
 
-        <div class="window" id="win-paint" style="top:50px; left:380px; width:460px; height:360px;">
+        <div class="window" id="win-paint" style="top:50px; left:300px; width:440px; height:340px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-paint')">
-                <div class="window-title">🎨 Редактор холста Gemeni Paint</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-paint')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-paint')">✕</div>
-                </div>
+                <div class="window-title">🎨 Paint Pro</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-paint')">✕</div></div>
             </div>
             <div class="window-body" style="display: flex; flex-direction: column;">
                 <div class="paint-toolbar">
-                    <input type="color" id="paintColor" value="#00f0ff" style="width:40px; padding:0; height:25px;">
-                    <label style="font-size:11px;">Размер:</label>
-                    <select id="paintSize" style="padding:2px;">
-                        <option value="3">3px</option>
-                        <option value="6" selected>6px</option>
-                        <option value="12">12px</option>
-                    </select>
-                    <button onclick="clearCanvas()" style="background:#ef4444; padding:4px 8px;">Очистить</button>
+                    <input type="color" id="paintColor" value="#00f0ff" style="width:30px; height:20px;">
+                    <select id="paintSize"><option value="3">3px</option><option value="6" selected>6px</option></select>
+                    <button onclick="clearCanvas()" style="background:#ef4444; padding:2px 6px;">Сброс</button>
                 </div>
-                <div style="flex:1; overflow:hidden; position:relative; background:#e2e8f0; border-radius:4px;">
-                    <canvas id="paintCanvas" width="434" height="250"></canvas>
-                </div>
+                <canvas id="paintCanvas" width="414" height="240" style="background:#fff; border:1px solid #ccc;"></canvas>
             </div>
         </div>
 
-        <div class="window" id="win-ai" style="top:110px; left:420px; width:400px;">
+        <div class="window" id="win-ai" style="top:110px; left:320px; width:380px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-ai')">
-                <div class="window-title">🧠 Модуль ИИ Ассистента Gemeni AI</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-ai')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-ai')">✕</div>
-                </div>
+                <div class="window-title">🧠 Gemeni AI</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-ai')">✕</div></div>
             </div>
             <div class="window-body">
                 <div class="ai-layout">
                     <div class="ai-chat-box" id="ai-messages">
-                        <div class="ai-bubble bot">Привет! Я локальный нейросетевой модуль ядра GemeniOS v13. Задай мне любой технический вопрос.</div>
+                        <div class="ai-bubble bot">Локальный нейромодуль готов к компиляции кода.</div>
                     </div>
-                    <div style="display:flex; gap:6px;">
-                        <input type="text" id="ai-input" placeholder="Спросить ассистента..." style="flex:1;" onkeydown="if(event.key==='Enter') sendToAI()">
-                        <button onclick="sendToAI()" style="background:var(--accent); color:#000;">Сгенерировать</button>
+                    <div style="display:flex; gap:4px;">
+                        <input type="text" id="ai-input" style="flex:1;" onkeydown="if(event.key==='Enter') sendToAI()">
+                        <button onclick="sendToAI()">Отправить</button>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="window" id="win-notes" style="top:140px; left:320px; width:410px; height:320px;">
+        <div class="window" id="win-notes" style="top:140px; left:240px; width:360px; height:280px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-notes')">
-                <div class="window-title">📝 Блокнот / Gemeni Notes</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-notes')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-notes')">✕</div>
-                </div>
+                <div class="window-title">📝 Заметки</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-notes')">✕</div></div>
             </div>
-            <div class="window-body" style="padding:10px;">
-                <div class="notes-layout">
-                    <input type="text" id="note-title" placeholder="Название заметки..." style="width:100%; font-weight:bold;">
-                    <textarea id="note-body" placeholder="Введите ваш text здесь..." style="flex:1; resize:none;"></textarea>
-                    <button onclick="saveNoteFile()" style="background: #059669;">Сохранить в Проводник</button>
-                </div>
+            <div class="window-body" style="display:flex; flex-direction:column; gap:6px;">
+                <input type="text" id="note-title" placeholder="Имя..." style="width:100%;">
+                <textarea id="note-body" style="flex:1; resize:none;"></textarea>
+                <button onclick="saveNoteFile()" style="background: #059669;">Записать в C:</button>
             </div>
         </div>
 
-        <div class="window" id="win-explorer" style="top:40px; left:40px; width:450px;">
+        <div class="window" id="win-explorer" style="top:40px; left:40px; width:400px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-explorer')">
-                <div class="window-title">📂 Проводник Диска C:</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-explorer')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-explorer')">✕</div>
-                </div>
+                <div class="window-title">📂 Проводник</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-explorer')">✕</div></div>
             </div>
             <div class="window-body">
                 <div class="exp-layout">
@@ -429,245 +468,132 @@
             </div>
         </div>
 
-        <div class="window" id="win-trash" style="top:120px; left:80px; width:380px;">
+        <div class="window" id="win-trash" style="top:120px; left:80px; width:360px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-trash')">
-                <div class="window-title">🗑️ Корзина удаления</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-trash')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-trash')">✕</div>
-                </div>
+                <div class="window-title">🗑️ Корзина</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-trash')">✕</div></div>
             </div>
-            <div class="window-body" style="padding:10px; display:flex; flex-direction:column; gap:10px;">
-                <div style="display:flex; justify-content:space-between;"><button onclick="emptyTrash()" style="background:#ef4444;">Очистить корзину</button></div>
-                <div id="trash-grid" class="exp-content" style="flex:1; min-height:120px; border:1px dashed #cbd5e1; padding:10px; border-radius:6px;"></div>
+            <div class="window-body">
+                <button onclick="emptyTrash()" style="background:#ef4444; margin-bottom:6px;">Очистить</button>
+                <div id="trash-grid" class="exp-content"></div>
             </div>
         </div>
 
-        <div class="window" id="win-browser" style="top:150px; left:200px; width:480px;">
+        <div class="window" id="win-browser" style="top:150px; left:180px; width:420px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-browser')">
-                <div class="window-title">🌐 Web-Браузер Quantum</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-browser')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-browser')">✕</div>
-                </div>
+                <div class="window-title">🌐 Браузер Quantum</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-browser')">✕</div></div>
             </div>
             <div class="window-body">
                 <div class="browser-layout">
-                    <div style="display:flex; gap:5px;"><input type="text" id="browser-input" value="погода" style="flex:1;" onkeydown="if(event.key==='Enter') searchWeb()"><button onclick="searchWeb()">Поиск</button></div>
-                    <div class="browser-viewport" id="browser-view">Введите поисковый запрос...</div>
+                    <div style="display:flex; gap:4px;"><input type="text" id="browser-input" value="погода" style="flex:1;"><button onclick="searchWeb()">Поиск</button></div>
+                    <div class="browser-viewport" id="browser-view">Поисковый буфер готов.</div>
                 </div>
             </div>
         </div>
 
-        <div class="window" id="win-settings" style="top:180px; left:260px; width:410px; height:340px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-settings')">
-                <div class="window-title">⚙️ Панель Настроек</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-settings')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-settings')">✕</div>
-                </div>
-            </div>
-            <div class="window-body" style="display:flex; flex-direction:column; padding:10px;">
-                <div class="settings-nav">
-                    <button class="settings-tab active" id="tab-btn-main" onclick="switchSettingsTab('main')">Параметры</button>
-                    <button class="settings-tab" id="tab-btn-about" onclick="switchSettingsTab('about')">О системе</button>
-                </div>
-
-                <div class="settings-content-section active" id="set-sect-main">
-                    <div>
-                        <label style="font-weight:bold; font-size:11px;">Язык системы / System Language:</label>
-                        <select id="set-lang-select" style="width:100%; margin-top:4px;" onchange="changeSystemLang(this.value)">
-                            <option value="ru">Русский (RU)</option>
-                            <option value="en">English (EN)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style="font-weight:bold; font-size:11px;">Тема оформления / OS Theme:</label>
-                        <select id="set-theme-select" style="width:100%; margin-top:4px;" onchange="changeSystemTheme(this.value)">
-                            <option value="dark">Космическая синяя (Дефолт)</option>
-                            <option value="light">Светлая офисная (Light)</option>
-                            <option value="space">Фиолетовый космос (Space)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label style="font-weight:bold; font-size:11px;">Локация системы:</label>
-                        <input type="text" id="set-location-input" value="Бишкек, Кыргызстан" style="width:100%; margin-top:4px;" onchange="updateSystemLocation(this.value)">
-                    </div>
-                    <div>
-                        <label style="font-weight:bold; font-size:11px;">Режим Брандмауэра (Защита):</label>
-                        <select id="set-security-select" style="width:100%; margin-top:4px;" onchange="updateSecurityLevel(this.value)">
-                            <option value="High">Максимальный уровень (Защищено)</option>
-                            <option value="Low">Отключить файрвол (Уязвимо)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="settings-content-section" id="set-sect-about">
-                    <h4 style="font-size:12px; margin-bottom:5px; color:#0284c7;">Спецификация устройства:</h4>
-                    <ul class="specs-list">
-                        <li><span>Система:</span> <span>GemeniOS KSU v.13.7</span></li>
-                        <li><span>Память:</span> <span>1 TB (1000 GB)</span></li>
-                        <li><span>Процессор:</span> <span>TPU v5p</span></li>
-                        <li><span>Сборка:</span> <span>GSLA KSU</span></li>
-                        <li><span>НейроСистема:</span> <span>Gemeni AI 3.5 Flash</span></li>
-                        <li><span>Оперативная память:</span> <span>50 GB</span></li>
-                        <li><span>Тип системы:</span> <span>64х архитектура</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-cmd" style="top:220px; left:50px; width:460px;">
+        <div class="window" id="win-cmd" style="top:220px; left:50px; width:440px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-cmd')">
                 <div class="window-title">📟 Консоль ядра / cmd.exe</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-cmd')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-cmd')">✕</div>
-                </div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-cmd')">✕</div></div>
             </div>
             <div class="window-body" style="background:#000!important; color:#00f0ff!important; font-family:monospace;" id="cmd-box">
-                <div id="cmd-history" style="white-space:pre-wrap; font-size:12px;">GemeniOS Kernel Terminal [v13.7 Ultimate]&#10;Введите 'help' для вывода инструкций ядра.&#10;&#10;</div>
-                <div style="display:flex;"><span style="color:#ff007f;">root@gemeni:~# </span><input type="text" id="cmd-input" style="background:transparent; border:none; color:#00f0ff; flex:1; padding:0; font-family:monospace; margin-left:5px;" autocomplete="off"></div>
+                <div id="cmd-history" style="white-space:pre-wrap; font-size:11px;">GemeniOS Terminal v13.7 Ultimate&#10;&#10;</div>
+                <div style="display:flex;"><span style="color:#ff007f;">root@gemeni:~# </span><input type="text" id="cmd-input" style="background:transparent; border:none; color:#00f0ff; flex:1; font-family:monospace; margin-left:5px;"></div>
             </div>
         </div>
 
-        <div class="window" id="win-regedit" style="top:100px; left:300px; width:420px;">
+        <div class="window" id="win-regedit" style="top:100px; left:280px; width:380px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-regedit')">
-                <div class="window-title">𗲢 Редактор Системного Реестра</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-regedit')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-regedit')">✕</div>
-                </div>
+                <div class="window-title">𗲢 Редактор Реестра</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-regedit')">✕</div></div>
             </div>
             <div class="window-body" style="font-family:monospace; font-size:11px;">
                 <h4 style="color:var(--accent);">HKEY_LOCAL_MACHINE\\SYSTEM</h4><br>
                 <div>🔹 IntegrityMode — REG_SZ — [Verified]</div>
                 <div>🔹 CoreSecurity — REG_SZ — [Active]</div>
-                <div>🔹 LocalStorageSync — REG_SZ — [Succeeded]</div>
             </div>
         </div>
 
-        <div class="window" id="win-viewer" style="top:90px; left:210px; width:340px; min-height:180px; z-index:10005;">
+        <div class="window" id="win-viewer" style="top:90px; left:210px; width:320px; z-index:10005;">
             <div class="window-header" onmousedown="dragStart(event, 'win-viewer')">
                 <div class="window-title" id="viewer-title">📄 Файл</div>
                 <div class="win-btn close-btn" onclick="closeWin('win-viewer')">✕</div>
             </div>
-            <div class="window-body" id="viewer-content" style="white-space:pre-wrap; font-family:monospace; background:#f8fafc; font-size:12px; color:#111;"></div>
+            <div class="window-body" id="viewer-content" style="white-space:pre-wrap; font-family:monospace; font-size:11px;"></div>
         </div>
 
-        <div class="window" id="win-taskmgr" style="top:100px; left:100px; width:420px; height:320px;">
+        <div class="window" id="win-taskmgr" style="top:100px; left:100px; width:400px; height:280px;">
             <div class="window-header" onmousedown="dragStart(event, 'win-taskmgr')">
-                <div class="window-title">📊 Диспетчер задач GemeniOS</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-taskmgr')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-taskmgr')">✕</div>
-                </div>
+                <div class="window-title">📊 Диспетчер задач</div>
+                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-taskmgr')">✕</div></div>
             </div>
-            <div class="window-body" style="padding:10px; display:flex; flex-direction:column; gap:10px;">
-                <div style="font-size:12px; font-weight:bold; color:#475569;">Активные процессы системного ядра:</div>
-                <div style="flex:1; overflow:auto; border:1px solid #cbd5e1; border-radius:6px; background:#fff;">
-                    <table class="task-mgr-table">
-                        <thead>
-                            <tr>
-                                <th>Имя процесса</th>
-                                <th>Память ОЗУ</th>
-                                <th>Действие</th>
-                            </tr>
-                        </thead>
-                        <tbody id="taskmgr-list"></tbody>
-                    </table>
-                </div>
-                <div style="font-size:11px; color:#94a3b8; text-align:right;">Всего выделено ядерных потоков: <span id="taskmgr-threads">0</span></div>
+            <div class="window-body">
+                <table class="task-mgr-table">
+                    <thead><tr><th>Процесс</th><th>ОЗУ</th><th>Действие</th></tr></thead>
+                    <tbody id="taskmgr-list"></tbody>
+                </table>
             </div>
         </div>
 
+        <!-- МЕНЮ ПУСК -->
         <div id="start-menu">
             <div class="start-header">
                 <div style="width:30px; height:30px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center;">👤</div>
-                <div style="font-weight:600; font-size:14px;" id="start-user-label">Admin</div>
+                <div style="font-weight:600; font-size:13px;" id="start-user-label">Admin</div>
             </div>
             <div class="start-apps">
                 <div class="start-app-item" onclick="openWindow('win-explorer')">📂 Проводник</div>
                 <div class="start-app-item" onclick="openWindow('win-gemetube')">📺 Gemetube Hub</div>
                 <div class="start-app-item" onclick="openWindow('win-game_space')">🚀 Space Clicker</div>
                 <div class="start-app-item" onclick="openWindow('win-paint')">🎨 Paint Pro</div>
-                <div class="start-app-item" onclick="openWindow('win-ai')">🧠 Gemeni AI Модуль</div>
-                <div class="start-app-item" onclick="openWindow('win-notes')">📝 Заметки / Notes</div>
-                <div class="start-app-item" onclick="openWindow('win-browser')">🌐 Браузер Quantum</div>
-                <div class="start-app-item" onclick="openWindow('win-settings')">⚙️ Системные настройки</div>
-                <div class="start-app-item" onclick="openWindow('win-taskmgr')">📊 Диспетчер Задач</div>
+                <div class="start-app-item" onclick="openWindow('win-ai')">🧠 Gemeni AI</div>
+                <div class="start-app-item" onclick="openWindow('win-settings')">⚙️ Настройки</div>
             </div>
             <div class="start-footer">
-                <button class="btn-power" style="background:#dc2626;" onclick="powerOffSystem()">Выключение</button>
-                <button class="btn-power" style="background:#d97706;" onclick="rebootSystem()">Перезагрузка</button>
-                <button class="btn-power" style="background:#ff477e; font-weight: bold;" onclick="enterKidsMode()">Gemekids 🧸</button>
-                <button class="btn-power" style="background:#4b5563;" onclick="lockOS()">Блокировка</button>
-            </div>
-        </div>
-
-        <div class="quick-panel" id="quick-settings-panel">
-            <h4 style="font-size:12px; color:var(--accent); margin-bottom:5px;">Быстрые параметры</h4>
-            <div class="quick-row">
-                <button class="setting-btn active" id="btn-wifi-toggle" onclick="toggleQuickWifi()">🌐 Wi-Fi: Подключено</button>
-            </div>
-            <div class="quick-row">
-                <button class="setting-btn" onclick="openWindow('win-settings')">🎨 Изменить оформление</button>
-            </div>
-            <div class="quick-row" style="margin-top:5px; gap:5px;">
-                <span>🔊</span> <input type="range" style="flex:1; accent-color:var(--accent);" min="0" max="100" value="80">
+                <button class="btn-power" style="background:#dc2626;" onclick="powerOffSystem()">Выкл</button>
+                <button class="btn-power" style="background:#d97706;" onclick="rebootSystem()">Ребут</button>
+                <button class="btn-power" style="background:#ff477e; font-weight:bold;" onclick="enterKidsMode()">Kids 🧸</button>
+                <button class="btn-power" style="background:#4b5563;" onclick="lockOS()">Блок</button>
             </div>
         </div>
 
     </div>
 
+    <!-- ТАСКБАР -->
     <div id="taskbar">
         <div id="start-button" onclick="event.stopPropagation(); document.getElementById('start-menu').style.display='flex'"></div>
         <div id="taskbar-apps"></div>
-        
-        <div id="system-tray-quick" onclick="event.stopPropagation(); toggleQuickPanel();">
-            <span>🔊</span>
-            <span>📶</span>
+        <div id="system-tray-quick" onclick="event.stopPropagation();">
             <span>🔋 100%</span>
-            <span id="tray-clock-time" style="margin-left:5px; font-weight:bold;">00:00</span>
+            <span id="tray-clock-time" style="font-weight:bold;">00:00</span>
         </div>
     </div>
 
+    <!-- ДЕТСКАЯ ПАНЕЛЬ -->
     <div id="kids-bar">
         <button class="kids-btn" onclick="exitKidsMode()">Выйти из Gemekids 🚪</button>
-        <div id="kids-time">👶 Детский режим | 00:00:00</div>
+        <div id="kids-time">👶 Детский режим</div>
     </div>
 
     <script>
-        // СИСТЕМНОЕ СОСТОЯНИЕ (MAIN CORE)
+        // СИСТЕМНОЕ СОСТОЯНИЕ
         let systemLang = "ru";
-        let systemTheme = "dark";
+        let systemTheme = "default";
         let balance = 50;
         let activeUser = "Admin";
         let activePass = "admin";
-        let locationData = "Бишкек, Кыргызстан";
-        let securityLevel = "High";
+        let locationData = "Бишкек, Kyrgyzstan";
+        let isKidsMode = false;
         let currentFolder = "docs";
 
-        let fileSystem = {
-            docs: [
-                { id: "d1", name: "инструкция.txt", content: "Добро пожаловать в GemeniOS KSU v13.7!\nРеестр открывается на кнопку R.\nНажатие ПКМ открывает кастомное системное меню!" }
-            ], pics: [], sys: []
-        };
-
+        let fileSystem = { docs: [{ id: "d1", name: "инструкция.txt", content: "GemeniOS KSU v13.7!\nРеестр на кнопку R.\nПКМ открывает свойства!" }], pics: [], sys: [] };
         let trash = [];
         let openedWindows = new Set();
         let isPowerOff = false;
         let keysPressed = {};
 
-        let isKidsMode = false;
-        const kidsVideos = [
-            { name: "🐱 ... Три Кота - Сборник Серий", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4" },
-            { name: "🎈 ... Большой Заяц - Полный Мультфильм", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-            { name: "⚙️ ... Фиксики - Секреты Техники", src: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" }
-        ];
-        let kidsScore = 0;
-
-        // ЛОГИКА ДЛЯ РАБОТЫ КАСТОМНОГО КУРСОРA МЫШИ
+        // ДИНАМИЧЕСКИЙ КУРСОР МЫШИ
         const cursorElement = document.getElementById("custom-cursor");
         document.addEventListener("mousemove", (e) => {
             cursorElement.style.left = e.clientX + "px";
@@ -676,7 +602,7 @@
         document.addEventListener("mousedown", () => cursorElement.classList.add("click"));
         document.addEventListener("mouseup", () => cursorElement.classList.remove("click"));
 
-        // ЛОГИКА ДЛЯ КОНТЕКСТНОГО МЕНЮ ПКМ
+        // КОНТЕКСТНОЕ МЕНЮ ПКМ
         document.addEventListener("contextmenu", (e) => {
             e.preventDefault(); 
             const ctxMenu = document.getElementById("ctx-menu");
@@ -685,113 +611,80 @@
             ctxMenu.style.top = e.clientY + "px";
         });
 
-        // ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК В НАСТРОЙКАХ
-        function switchSettingsTab(tabName) {
-            document.querySelectorAll('.settings-tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.settings-content-section').forEach(s => s.classList.remove('active'));
+        // ЛОГИКА ДВУХУРОВНЕВОЙ НАСТРОЙКИ (ИЗ СХЕМЫ)
+        function changeSettingsCategory(categoryName) {
+            document.querySelectorAll('.setting-category-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.settings-panel-content').forEach(p => p.classList.remove('active'));
             
-            if(tabName === 'main') {
-                document.getElementById('tab-btn-main').classList.add('active');
-                document.getElementById('set-sect-main').classList.add('active');
-            } else if(tabName === 'about') {
-                document.getElementById('tab-btn-about').classList.add('active');
-                document.getElementById('set-sect-about').classList.add('active');
+            document.getElementById(`cat-btn-${categoryName}`).classList.add('active');
+            document.getElementById(`cat-content-${categoryName}`).classList.add('active');
+        }
+
+        function changeSubTab(categoryPrefix, tabName) {
+            // Выключаем все вкладки и панели внутри конкретной категории
+            document.querySelectorAll(`#cat-content-${categoryPrefix === 'sys' ? 'system' : categoryPrefix === 'sec' ? 'security' : 'personal'} .subtab-btn`).forEach(b => b.classList.remove('active'));
+            document.querySelectorAll(`#cat-content-${categoryPrefix === 'sys' ? 'system' : categoryPrefix === 'sec' ? 'security' : 'personal'} .subpanel-content`).forEach(p => p.style.display = 'none');
+            
+            document.getElementById(`subtab-${categoryPrefix}-${tabName}`).classList.add('active');
+            document.getElementById(`subcontent-${categoryPrefix}-${tabName}`).style.display = (tabName === 'destroy' || tabName === 'kids' || tabName === 'theme') ? 'block' : 'flex';
+        }
+
+        // РЕАЛЬНЫЕ РАБОЧИЕ ФУНКЦИИ ИЗ СХЕМЫ "Человек паук.png"
+        function destroySystemData() {
+            if(confirm("Вы действительно хотите полностью уничтожить данные системы и сбросить ядро?")) {
+                localStorage.clear();
+                alert("Локальные сектора очищены. GemeniOS уходит в перезагрузку для пересоздания таблиц.");
+                location.reload();
             }
         }
 
-        // АЛЕРТ ДЛЯ КНОПКИ "СВОЙСТВА СИСТЕМЫ" НА ПКМ
-        function showSystemPropertiesAlert() {
-            alert(
-                "⚙️ Свойства архитектуры GemeniOS KSU:\n\n" +
-                "• Система: GemeniOS KSU v.13.7\n" +
-                "• Память: 1 TB (1000 GB)\n" +
-                "• Процессор: TPU v5p\n" +
-                "• Сборка: GSLA KSU\n" +
-                "• НейроСистема: Gemeni AI 3.5 Flash\n" +
-                "• Оперативная память: 50 GB\n" +
-                "• Тип системы: 64х"
-            );
-        }
-
-        // ФУНКЦИИ БЫСТРЫХ НАСТРОЕК ТРЕЯ
-        function toggleQuickPanel() {
-            const panel = document.getElementById("quick-settings-panel");
-            panel.style.display = panel.style.display === "flex" ? "none" : "flex";
-        }
-        function toggleQuickWifi() {
-            const btn = document.getElementById("btn-wifi-toggle");
-            btn.classList.toggle("active");
-            btn.innerText = btn.classList.contains("active") ? "🌐 Wi-Fi: Подключено" : "❌ Wi-Fi: Отключено";
-        }
-
-        // Закрытие менюшек при кликах в пустые области
-        function closeMenus() {
-            document.getElementById("ctx-menu").style.display = "none";
-            document.getElementById("quick-settings-panel").style.display = "none";
-            document.getElementById("start-menu").style.display = "none";
-        }
-
-        // СИСТЕМА ПРОВЕРКИ СПАМА КНОПКИ F5 / REBOOT
-        (function checkSpamReboot() {
-            let lastTime = localStorage.getItem("g_last_reboot_time");
-            let count = parseInt(localStorage.getItem("g_reboot_spam_count") || "0");
-            let now = Date.now();
-
-            if (lastTime && (now - parseInt(lastTime) < 2000)) {
-                count++;
-                localStorage.setItem("g_reboot_spam_count", count);
-            } else {
-                localStorage.setItem("g_reboot_spam_count", "0");
-                count = 0;
+        function updateUsername() {
+            let newName = document.getElementById("sec-username-input").value.trim();
+            if(newName) {
+                activeUser = newName;
+                document.getElementById("start-user-label").innerText = activeUser;
+                document.getElementById("lock-user-title").innerText = activeUser;
+                alert(`Имя пользователя изменено на: ${activeUser}`);
+                saveState();
             }
-            
-            localStorage.setItem("g_last_reboot_time", now);
-
-            if (count >= 10) {
-                localStorage.setItem("g_reboot_spam_count", "0");
-                window.addEventListener('DOMContentLoaded', () => {
-                    document.getElementById("crash-screen").style.display = "flex";
-                });
-            }
-        })();
-
-        const baseMemoryUsage = {
-            "win-explorer": 42, "win-trash": 18, "win-browser": 156,
-            "win-settings": 24, "win-cmd": 12, "win-regedit": 16,
-            "win-paint": 88, "win-ai": 210, "win-notes": 28,
-            "win-gemetube": 184, "win-game_space": 65, "win-taskmgr": 32, "win-viewer": 14
-        };
-
-        function saveState() {
-            localStorage.setItem("g_lang", systemLang);
-            localStorage.setItem("g_theme", systemTheme);
-            localStorage.setItem("g_balance", balance);
-            localStorage.setItem("g_loc", locationData);
-            localStorage.setItem("g_sec", securityLevel);
-            localStorage.setItem("g_fs", JSON.stringify(fileSystem));
-            localStorage.setItem("g_trash", JSON.stringify(trash));
         }
 
-        function loadState() {
-            if(localStorage.getItem("g_lang")) systemLang = localStorage.getItem("g_lang");
-            if(localStorage.getItem("g_theme")) systemTheme = localStorage.getItem("g_theme");
-            if(localStorage.getItem("g_balance")) balance = parseInt(localStorage.getItem("g_balance"));
-            if(localStorage.getItem("g_loc")) locationData = localStorage.getItem("g_loc");
-            if(localStorage.getItem("g_sec")) securityLevel = localStorage.getItem("g_sec");
-            if(localStorage.getItem("g_fs")) fileSystem = JSON.parse(localStorage.getItem("g_fs"));
-            if(localStorage.getItem("g_trash")) trash = JSON.parse(localStorage.getItem("g_trash"));
-
-            document.getElementById("set-lang-select").value = systemLang;
-            document.getElementById("set-theme-select").value = systemTheme;
-            document.body.className = 'theme-' + systemTheme;
-            
-            document.getElementById("w-money-val").innerText = balance;
+        document.getElementById("sec-geo-input").addEventListener("change", function() {
+            locationData = this.value;
             document.getElementById("w-loc").innerText = locationData;
-            document.getElementById("set-location-input").value = locationData;
-            document.getElementById("set-security-select").value = securityLevel;
+            saveState();
+        });
 
-            updateTrashUI();
-            renderExplorer(currentFolder);
+        function toggleGeoStatus(status) {
+            let el = document.getElementById("w-loc");
+            if(el.style.opacity === "0.2") {
+                el.style.opacity = "1";
+                alert("Геолокационный спутник активирован.");
+            } else {
+                el.style.opacity = "0.2";
+                alert("Геолокация скрыта. Режим инкогнито.");
+            }
+        }
+
+        function updatePassword() {
+            let newPass = document.getElementById("sec-password-input").value.trim();
+            if(newPass) {
+                activePass = newPass;
+                alert("Ключ доступа успешно обновлен в реестре HKEY_LOCAL_MACHINE!");
+                saveState();
+            }
+        }
+
+        function setCursorColor(hex) {
+            document.documentElement.style.setProperty('--accent', hex);
+            document.documentElement.style.setProperty('--accent-glow', hex + "66");
+            alert(`Цвет системных элементов переключен!`);
+        }
+
+        function changeSystemLang(lang) {
+            systemLang = lang;
+            alert(lang === 'ru' ? "Язык ядра: Русский" : "Kernel Language: English");
+            saveState();
         }
 
         function changeSystemTheme(theme) {
@@ -800,433 +693,148 @@
             saveState();
         }
 
-        function toggleMaximize(id) {
-            document.getElementById(id).classList.toggle('maximized');
+        function showSystemPropertiesAlert() {
+            alert("⚙️ Свойства GemeniOS KSU v.13.7\nПамять: 1 TB\nПроцессор: TPU v5p\nНейроСистема: Gemeni AI 3.5 Flash\nОЗУ: 50 GB");
         }
 
-        function saveNoteFile() {
-            let titleInput = document.getElementById("note-title");
-            let bodyInput = document.getElementById("note-body");
-            let name = titleInput.value.trim();
-            let text = bodyInput.value;
-
-            if(name === "") name = "Новая заметка.txt";
-            if(!name.endsWith(".txt")) name += ".txt";
-
-            fileSystem.docs.push({ id: "note_" + Date.now(), name: name, content: text });
-            titleInput.value = ""; bodyInput.value = "";
-            saveState(); renderExplorer(currentFolder);
-            alert("Заметка сохранена в Проводник -> Документы!");
+        function closeMenus() {
+            document.getElementById("ctx-menu").style.display = "none";
+            document.getElementById("start-menu").style.display = "none";
         }
 
-        let dragObject = null;
-        let dX = 0, dY = 0;
-
-        function shortcutDragStart(e, id) {
-            dragObject = { id, type: 'shortcut', node: document.getElementById(id) };
-            dX = e.clientX - dragObject.node.offsetLeft;
-            dY = e.clientY - dragObject.node.offsetTop;
-            document.addEventListener("mousemove", objectDragMove);
-            document.addEventListener("mouseup", objectDragEnd);
+        // ОСТАЛЬНАЯ БАЗОВАЯ ЛОГИКА И СИНХРОНИЗАЦИЯ
+        function saveState() {
+            localStorage.setItem("g_lang", systemLang);
+            localStorage.setItem("g_theme", systemTheme);
+            localStorage.setItem("g_balance", balance);
+            localStorage.setItem("g_user", activeUser);
+            localStorage.setItem("g_pass", activePass);
+            localStorage.setItem("g_loc", locationData);
         }
 
-        function widgetDragStart(e, id) {
-            if(e.target.tagName === 'BUTTON' || e.target.tagName === 'INPUT') return;
-            dragObject = { id, type: 'widget', node: document.getElementById(id) };
-            dX = e.clientX - dragObject.node.offsetLeft;
-            dY = e.clientY - dragObject.node.offsetTop;
-            document.addEventListener("mousemove", objectDragMove);
-            document.addEventListener("mouseup", objectDragEnd);
+        function loadState() {
+            if(localStorage.getItem("g_lang")) systemLang = localStorage.getItem("g_lang");
+            if(localStorage.getItem("g_theme")) systemTheme = localStorage.getItem("g_theme");
+            if(localStorage.getItem("g_balance")) balance = parseInt(localStorage.getItem("g_balance"));
+            if(localStorage.getItem("g_user")) activeUser = localStorage.getItem("g_user");
+            if(localStorage.getItem("g_pass")) activePass = localStorage.getItem("g_pass");
+            if(localStorage.getItem("g_loc")) locationData = localStorage.getItem("g_loc");
+
+            document.body.className = 'theme-' + systemTheme;
+            document.getElementById("w-money-val").innerText = balance;
+            document.getElementById("start-user-label").innerText = activeUser;
+            document.getElementById("lock-user-title").innerText = activeUser;
+            document.getElementById("sec-username-input").value = activeUser;
+            document.getElementById("w-loc").innerText = locationData;
+            document.getElementById("sec-geo-input").value = locationData;
+            renderExplorer(currentFolder);
         }
 
-        function objectDragMove(e) {
-            if(!dragObject) return;
-            dragObject.node.style.left = (e.clientX - dX) + "px";
-            dragObject.node.style.top = (e.clientY - dY) + "px";
-        }
+        function openWindow(id) { document.getElementById(id).style.display = "flex"; openedWindows.add(id); renderTabs(); updateTaskManagerUI(); }
+        function closeWin(id) { document.getElementById(id).style.display = "none"; openedWindows.delete(id); renderTabs(); updateTaskManagerUI(); }
+        function toggleMaximize(id) { document.getElementById(id).classList.toggle('maximized'); }
 
-        function objectDragEnd() {
-            document.removeEventListener("mousemove", objectDragMove);
-            document.removeEventListener("mouseup", objectDragEnd);
-            dragObject = null;
-        }
-
-        // PAINT
-        const canvas = document.getElementById('paintCanvas');
-        const ctx = canvas.getContext('2d');
-        let drawing = false;
-
-        canvas.addEventListener('mousedown', () => drawing = true);
-        canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
-        canvas.addEventListener('mousemove', draw);
-
-        function draw(e) {
-            if(!drawing) return;
-            const rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = document.getElementById('paintSize').value;
-            ctx.lineCap = 'round';
-            ctx.strokeStyle = document.getElementById('paintColor').value;
-            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-            ctx.stroke(); ctx.beginPath();
-            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-        }
-        function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-        // AI CHAT
-        function sendToAI() {
-            let inp = document.getElementById("ai-input");
-            let box = document.getElementById("ai-messages");
-            let txt = inp.value.trim();
-            if(txt === "") return;
-
-            box.innerHTML += `<div class="ai-bubble user">${txt}</div>`;
-            inp.value = ""; box.scrollTop = box.scrollHeight;
-
-            setTimeout(() => {
-                box.innerHTML += `<div class="ai-bubble bot">Запрос обработан ядром GemeniOS. Статус стабилен.</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 400);
-        }
-
-        // УПРАВЛЕНИЕ ОКНАМИ
-        let activeDragWin = null;
-        let winX = 0, winY = 0;
-
-        function dragStart(e, id) {
-            if(document.getElementById(id).classList.contains('maximized')) return;
-            activeDragWin = document.getElementById(id);
-            document.querySelectorAll(".window").forEach(w => w.style.zIndex = "10");
-            activeDragWin.style.zIndex = "100";
-            winX = e.clientX - activeDragWin.offsetLeft;
-            winY = e.clientY - activeDragWin.offsetTop;
-            document.addEventListener("mousemove", windowDragMove);
-            document.addEventListener("mouseup", windowDragEnd);
-        }
-        function windowDragMove(e) {
-            if(!activeDragWin) return;
-            activeDragWin.style.left = (e.clientX - winX) + "px";
-            activeDragWin.style.top = (e.clientY - winY) + "px";
-        }
-        function windowDragEnd() {
-            document.removeEventListener("mousemove", windowDragMove);
-            document.removeEventListener("mouseup", windowDragEnd);
-            activeDragWin = null;
-        }
-
-        function openWindow(id) {
-            document.getElementById(id).style.display = "flex";
-            if(!openedWindows.has(id)) { openedWindows.add(id); renderTabs(); }
-            updateTaskManagerUI();
-        }
-        function closeWin(id) {
-            document.getElementById(id).style.display = "none";
-            openedWindows.delete(id); renderTabs();
-            updateTaskManagerUI();
-        }
         function renderTabs() {
             const container = document.getElementById("taskbar-apps"); container.innerHTML = "";
-            const names = {
-                "win-explorer": "Проводник", "win-trash": "Корзина", "win-browser": "Браузер", 
-                "win-settings": "Настройки", "win-cmd": "cmd.exe", "win-regedit": "Реестр",
-                "win-paint": "Paint", "win-ai": "Gemeni AI", "win-notes": "Заметки",
-                "win-gemetube": "Gemetube", "win-game_space": "Space Clicker", "win-taskmgr": "Диспетчер"
-            };
             openedWindows.forEach(id => {
                 const tab = document.createElement("div"); tab.className = "taskbar-tab";
-                tab.innerText = names[id] || "Окно";
-                tab.onclick = () => {
-                    const w = document.getElementById(id);
-                    w.style.display = w.style.display === "none" ? "flex" : "none";
-                };
+                tab.innerText = id.replace("win-", "");
+                tab.onclick = () => { const w = document.getElementById(id); w.style.display = w.style.display === "none" ? "flex" : "none"; };
                 container.appendChild(tab);
             });
         }
 
         function unlockOS() {
-            const inputField = document.getElementById("lock-pass-input");
-            const lockCard = document.getElementById("lock-card-element");
-            const btn = document.getElementById("lock-btn");
-
-            if(inputField.value === activePass) {
+            if(document.getElementById("lock-pass-input").value === activePass) {
                 document.getElementById("lock-screen").style.transform = "translateY(-100vh)";
-                document.getElementById("lock-error").style.display = "none";
-            } else { 
-                document.getElementById("lock-error").style.display = "block";
-                lockCard.style.transform = "translateX(10px)";
-                setTimeout(() => lockCard.style.transform = "translateX(-10px)", 50);
-                setTimeout(() => lockCard.style.transform = "translateX(10px)", 100);
-                setTimeout(() => lockCard.style.transform = "translateX(0px)", 150);
-
-                btn.disabled = true;
-                btn.innerText = "БЛОКИРОВКА ЯДРА...";
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btn.innerText = "АВТОРИЗОВАТЬСЯ";
-                }, 1000);
-            }
+            } else { document.getElementById("lock-error").style.display = "block"; }
         }
-        function lockOS() {
-            document.getElementById("lock-pass-input").value = "";
-            document.getElementById("lock-screen").style.transform = "translateY(0)";
-            document.getElementById("start-menu").style.display = "none";
-        }
+        function lockOS() { document.getElementById("lock-pass-input").value = ""; document.getElementById("lock-screen").style.transform = "translateY(0)"; }
         function powerOffSystem() { isPowerOff = true; document.getElementById("shutdown-screen").style.display = "flex"; }
-        function rebootSystem() { document.body.style.filter = "brightness(0.1)"; setTimeout(() => { location.reload(); }, 400); }
-        
+        function rebootSystem() { document.body.style.filter = "brightness(0.1)"; setTimeout(() => { location.reload(); }, 300); }
+
         function handleGlobalKeys(e) {
             keysPressed[e.key.toLowerCase()] = true;
-            if(isPowerOff && keysPressed['o'] && keysPressed['s']) {
-                isPowerOff = false; document.getElementById("shutdown-screen").style.display = "none"; rebootSystem();
-            }
+            if(isPowerOff && keysPressed['o'] && keysPressed['s']) { isPowerOff = false; document.getElementById("shutdown-screen").style.display = "none"; rebootSystem(); }
             if(!isPowerOff && (e.key === 'r' || e.key === 'R' || e.key === 'к' || e.key === 'К')) {
-                if(document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'SELECT' && document.activeElement.tagName !== 'TEXTAREA') {
-                    openWindow('win-regedit');
-                }
+                if(document.activeElement.tagName !== 'INPUT') openWindow('win-regedit');
             }
         }
         document.addEventListener("keyup", (e) => { delete keysPressed[e.key.toLowerCase()]; });
 
-        function mineCoin() {
-            balance += 1; document.getElementById("w-money-val").innerText = balance; saveState();
-        }
+        function mineCoin() { balance++; document.getElementById("w-money-val").innerText = balance; saveState(); }
 
         // SPACE CLICKER
         let spaceScore = 0; let satellites = 0;
-        function playSpaceClicker() {
-            spaceScore++; document.getElementById("space-clicks").innerText = spaceScore;
-            let p = document.getElementById("space-planet");
-            p.style.transform = "scale(0.85)"; setTimeout(() => p.style.transform="scale(1)", 100);
-            
-            if (spaceScore === 100) {
-                alert("🎉 ПОБЕДА В ОБЫЧНОМ РЕЖИМЕ Space Clicker! 🎉\nВы собрали 100 единиц планетарной пыли!\nЯдро системы начисляет вам бонус: +50 Gemeni Монет!");
-                balance += 50;
-                document.getElementById("w-money-val").innerText = balance;
-                saveState();
-            }
-        }
-        function buySpaceUpgrade() {
-            if(spaceScore >= 20) {
-                spaceScore -= 20; satellites++;
-                document.getElementById("space-clicks").innerText = spaceScore;
-                document.getElementById("space-up-btn").innerText = `Спутники: ${satellites} (+${satellites}/с)`;
-            }
-        }
-        setInterval(() => {
-            if(satellites > 0) {
-                spaceScore += satellites;
-                let el = document.getElementById("space-clicks");
-                if(el) el.innerText = spaceScore;
-            }
-        }, 1000);
+        function playSpaceClicker() { spaceScore++; document.getElementById("space-clicks").innerText = spaceScore; }
+        function buySpaceUpgrade() { if(spaceScore >= 20) { spaceScore -= 20; satellites++; document.getElementById("space-up-btn").innerText = `Спутники: ${satellites}`; } }
+        setInterval(() => { if(satellites > 0) { spaceScore += satellites; if(document.getElementById("space-clicks")) document.getElementById("space-clicks").innerText = spaceScore; } }, 1000);
 
-        // ПРОВОДНИК И КОРЗИНА
+        // PAINT
+        const canvas = document.getElementById('paintCanvas'); const ctx = canvas.getContext('2d'); let drawing = false;
+        canvas.addEventListener('mousedown', () => drawing = true); canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
+        canvas.addEventListener('mousemove', (e) => {
+            if(!drawing) return; const rect = canvas.getBoundingClientRect();
+            ctx.lineWidth = document.getElementById('paintSize').value; ctx.lineCap = 'round';
+            ctx.strokeStyle = document.getElementById('paintColor').value;
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top); ctx.stroke(); ctx.beginPath(); ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        });
+        function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+
+        function sendToAI() {
+            let inp = document.getElementById("ai-input"); let box = document.getElementById("ai-messages");
+            if(!inp.value.trim()) return; box.innerHTML += `<div><b>Вы:</b> ${inp.value}</div>`;
+            inp.value = ""; setTimeout(() => { box.innerHTML += `<div><b>ИИ:</b> Сектора стабильны. v1-Cod активен.</div>`; }, 300);
+        }
+
+        function saveNoteFile() {
+            let t = document.getElementById("note-title").value || "note.txt";
+            fileSystem.docs.push({ id: Date.now(), name: t, content: document.getElementById("note-body").value });
+            renderExplorer(currentFolder); alert("Файл записан на диск C:");
+        }
+
         function renderExplorer(f) {
             currentFolder = f; const grid = document.getElementById("explorer-grid"); grid.innerHTML = "";
-            fileSystem[f].forEach((file, index) => {
-                grid.innerHTML += `
-                    <div class="exp-item" onclick="viewFile('${f}', ${index})">
-                        <div style="font-size:24px;">📄</div><div style="overflow:hidden; text-overflow:ellipsis; white-space:nowrap; width:100%;">${file.name}</div>
-                    </div>
-                `;
+            fileSystem[f].forEach((file, idx) => {
+                grid.innerHTML += `<div class="exp-item" onclick="viewFile('${f}', ${idx})">📄<br>${file.name}</div>`;
             });
         }
         function viewFile(f, idx) {
-            let file = fileSystem[f][idx];
-            document.getElementById("viewer-title").innerText = file.name;
-            document.getElementById("viewer-content").innerText = file.content;
+            document.getElementById("viewer-title").innerText = fileSystem[f][idx].name;
+            document.getElementById("viewer-content").innerText = fileSystem[f][idx].content;
             openWindow("win-viewer");
         }
-        
+        function emptyTrash() { trash = []; renderExplorer(currentFolder); }
         function dropToTrash(e) { e.preventDefault(); }
-        function updateTrashUI() {
-            const trashGrid = document.getElementById("trash-grid");
-            const icon = document.getElementById("sh-trash");
-            trashGrid.innerHTML = "";
-            if(trash.length > 0) {
-                icon.classList.add("trash-filled");
-            } else { 
-                icon.classList.remove("trash-filled"); 
-                trashGrid.innerHTML = "<p style='color:#94a3b8; font-size:11px; width:100%; text-align:center; padding-top:40px;'>Пусто</p>"; 
-            }
-        }
-        function emptyTrash() { trash = []; saveState(); updateTrashUI(); }
+        function searchWeb() { document.getElementById("browser-view").innerText = "Запрос выполнен через шлюз безопасности."; }
 
-        // БРАУЗЕР ПОИСК
-        function searchWeb() {
-            let q = document.getElementById("browser-input").value.toLowerCase().trim();
-            document.getElementById("browser-view").innerHTML = q.includes("погода") ? `Прогноз погоды в ${locationData}: +22°C.` : `Результаты по запросу "${q}": Связь с сервером стабильна.`;
-        }
+        let dragObject = null; let dX = 0, dY = 0;
+        function shortcutDragStart(e, id) { dragObject = { node: document.getElementById(id) }; dX = e.clientX - dragObject.node.offsetLeft; dY = e.clientY - dragObject.node.offsetTop; document.addEventListener("mousemove", objectDragMove); document.addEventListener("mouseup", objectDragEnd); }
+        function widgetDragStart(e, id) { if(e.target.tagName === 'BUTTON') return; dragObject = { node: document.getElementById(id) }; dX = e.clientX - dragObject.node.offsetLeft; dY = e.clientY - dragObject.node.offsetTop; document.addEventListener("mousemove", objectDragMove); document.addEventListener("mouseup", objectDragEnd); }
+        function objectDragMove(e) { if(dragObject) { dragObject.node.style.left = (e.clientX - dX) + "px"; dragObject.node.style.top = (e.clientY - dY) + "px"; } }
+        function objectDragEnd() { document.removeEventListener("mousemove", objectDragMove); document.removeEventListener("mouseup", objectDragEnd); dragObject = null; }
 
-        function playGemetubeVideo(src, name) {
-            const player = document.getElementById("gemetube-player");
-            const title = document.getElementById("gemetube-current-title");
-            if(player && title) {
-                player.src = src;
-                player.load();
-                player.play();
-                title.innerText = name;
-            }
-        }
+        let activeDragWin = null; let winX = 0, winY = 0;
+        function dragStart(e, id) { if(document.getElementById(id).classList.contains('maximized')) return; activeDragWin = document.getElementById(id); winX = e.clientX - activeDragWin.offsetLeft; winY = e.clientY - activeDragWin.offsetTop; document.addEventListener("mousemove", windowDragMove); document.addEventListener("mouseup", windowDragEnd); }
+        function windowDragMove(e) { if(activeDragWin) { activeDragWin.style.left = (e.clientX - winX) + "px"; activeDragWin.style.top = (e.clientY - winY) + "px"; } }
+        function windowDragEnd() { document.removeEventListener("mousemove", windowDragMove); document.removeEventListener("mouseup", windowDragEnd); activeDragWin = null; }
 
-        function transformToKidsContent() {
-            const feed = document.getElementById("gemetube-feed");
-            if(feed) {
-                feed.innerHTML = "";
-                kidsVideos.forEach(v => {
-                    const videoCard = document.createElement("div");
-                    videoCard.style = "padding:8px; border-bottom:1px solid rgba(0,0,0,0.1); display:flex; align-items:center; gap:10px;";
-                    videoCard.innerHTML = `
-                        <div style="font-size:20px;">🎬</div>
-                        <div style="font-size:12px; font-weight:bold;">${v.name}</div>
-                    `;
-                    videoCard.onclick = () => playGemetubeVideo(v.src, v.name);
-                    feed.appendChild(videoCard);
-                });
-            }
+        function enterKidsMode() { isKidsMode = true; document.getElementById('taskbar').style.display = 'none'; document.getElementById('kids-bar').style.display = 'flex'; changeSystemTheme('kids'); }
+        function exitKidsMode() { if(prompt("Пароль:") === activePass) { isKidsMode = false; document.getElementById('taskbar').style.display = 'flex'; document.getElementById('kids-bar').style.display = 'none'; changeSystemTheme('default'); } }
 
-            const browserView = document.getElementById("browser-view");
-            if(isKidsMode && browserView) {
-                browserView.innerHTML = `
-                    <div style="text-align:center; padding:10px; color:#ff477e;">
-                        <h3>🌈 Безопасный детский интернет Чебурашка</h3>
-                        <p>Здесь только самые полезные сайты!</p>
-                        <div style="margin-top:10px; display:flex; gap:10px; justify-content:center;">
-                            <button onclick="alert('Открываем детские аудиосказки...')" style="background:#ffbe53;">🎧 Слушать Сказки</button>
-                            <button onclick="alert('Загружаем раскраски...')" style="background:#7af5ff; color:#000;">🎨 Раскраски онлайн</button>
-                        </div>
-                    </div>
-                `;
-            }
-            const expGrid = document.getElementById("explorer-grid");
-            if(isKidsMode && expGrid) {
-                expGrid.style.display = "block";
-                generateKidsMathQuestion();
-            }
-        }
-
-        function enterKidsMode() {
-            isKidsMode = true;
-            document.getElementById('start-menu').style.display = 'none';
-            document.getElementById('taskbar').style.display = 'none';
-            document.getElementById('kids-bar').style.display = 'flex';
-            document.body.className = 'theme-kids';
-            const toHide = ['sh-settings', 'sh-cmd', 'sh-ai', 'sh-game_space', 'sh-trash', 'sh-taskmgr', 'w-node-1', 'w-node-2', 'w-node-3', 'w-node-4', 'w-node-5'];
-            toHide.forEach(id => { if(document.getElementById(id)) document.getElementById(id).style.display = 'none'; });
-            transformToKidsContent();
-        }
-
-        function exitKidsMode() {
-            let pass = prompt("Введи взрослый пароль для выхода:");
-            if (pass === "admin") {
-                isKidsMode = false;
-                document.getElementById('taskbar').style.display = 'flex';
-                document.getElementById('kids-bar').style.display = 'none';
-                document.body.className = 'theme-' + (localStorage.getItem("g_theme") || "dark");
-                const toShow = ['sh-settings', 'sh-cmd', 'sh-ai', 'sh-game_space', 'sh-trash', 'sh-taskmgr', 'w-node-1', 'w-node-2', 'w-node-3', 'w-node-4', 'w-node-5'];
-                toShow.forEach(id => { if(document.getElementById(id)) document.getElementById(id).style.display = 'flex'; });
-                location.reload(); 
-            } else { alert("Неправильный пароль! Доступ ограничен ⛔"); }
-        }
-
-        let currentAnswer = 0;
-        function generateKidsMathQuestion() {
-            const expGrid = document.getElementById("explorer-grid");
-            if(!isKidsMode || !expGrid) return;
-            let num1 = Math.floor(Math.random() * 10) + 1;
-            let num2 = Math.floor(Math.random() * 10) + 1;
-            currentAnswer = num1 + num2;
-            expGrid.innerHTML = `
-                <div style="background:#fffdf0; padding:15px; border-radius:10px; border:3px dashed #ffbe53; text-align:center; color:#111; width:100%;">
-                    <h3 style="color:#ff477e; margin-bottom:10px;">🧠 Развивающая игра: Математик!</h3>
-                    <p style="font-size:18px; font-weight:bold; margin-bottom:10px;">Сколько будет: ${num1} + ${num2} = ?</p>
-                    <input type="number" id="kids-answer" style="width:80px; text-align:center; font-size:16px; padding:4px;" placeholder="?">
-                    <button onclick="checkKidsAnswer()" style="background:#ff477e; margin-left:10px;">Проверить!</button>
-                    <div style="margin-top:10px; font-weight:bold; color:#059669;">⭐ Твои баллы: <span id="kids-score-val">${kidsScore}</span></div>
-                </div>
-            `;
-        }
-
-        function checkKidsAnswer() {
-            let userAns = parseInt(document.getElementById("kids-answer").value);
-            if(userAns === currentAnswer) {
-                kidsScore += 10;
-                if (kidsScore === 100) {
-                    alert("🧸 СУПЕР-ПОБЕДА В ДЕТСКОМ РЕЖИМЕ GEMEKIDS! 🧸\nТы успешно ответил на 10 правильных вопросов и набрал 100 баллов!\nТы настоящий гений математики!");
-                } else {
-                    alert("Правильно! Ты молодец! 🎉 +10 баллов");
-                }
-                generateKidsMathQuestion();
-            } else { alert("Ой, почти! Попробуй посчитать ещё раз! 🎈"); }
-        }
-
-        // ОБНОВЛЕНИЕ ДИСПЕТЧЕРА ЗАДАЧ
         function updateTaskManagerUI() {
-            const listContainer = document.getElementById("taskmgr-list");
-            const threadsContainer = document.getElementById("taskmgr-threads");
-            if (!listContainer) return;
-
-            listContainer.innerHTML = "";
-            
-            const windowNames = {
-                "win-explorer": "📂 Проводник Ядра", "win-trash": "🗑️ Корзина Системы", "win-browser": "🌐 Браузер Quantum", 
-                "win-settings": "⚙️ Системные настройки", "win-cmd": "📟 Консоль cmd.exe", "win-regedit": "𗲢 Редактор Реестра",
-                "win-paint": "🎨 Графика Paint Pro", "win-ai": "🧠 Модуль Gemeni AI", "win-notes": "📝 Заметки Блокнота",
-                "win-gemetube": "📺 Видеохостинг Gemetube", "win-game_space": "🚀 Игра Space Clicker", "win-taskmgr": "📊 Диспетчер Задач",
-                "win-viewer": "📄 Просмотрщик файлов"
-            };
-
-            let totalThreads = 0;
-            let activeMemorySum = 120;
-
-            openedWindows.forEach(winId => {
-                if (document.getElementById(winId) && document.getElementById(winId).style.display === "flex") {
-                    totalThreads++;
-                    let memory = baseMemoryUsage[winId] || 25;
-                    activeMemorySum += memory;
-
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-                        <td style="font-weight:600; color:#1e293b;">${windowNames[winId] || winId}</td>
-                        <td style="color:#0284c7; font-weight:bold;">${memory} МБ</td>
-                        <td><button style="background:#ef4444; padding:2px 6px; font-size:10px;" onclick="closeWin('${winId}')">Завершить</button></td>
-                    `;
-                    listContainer.appendChild(row);
-                }
+            const list = document.getElementById("taskmgr-list"); if(!list) return; list.innerHTML = "";
+            openedWindows.forEach(w => {
+                list.innerHTML += `<tr><td>${w}</td><td>42 МБ</td><td><button onclick="closeWin('${w}')">Kill</button></td></tr>`;
             });
-
-            if (totalThreads === 0) {
-                listContainer.innerHTML = `<tr><td colspan="3" style="text-align:center; color:#94a3b8; padding:20px;">Нет запущенных пользовательских процессов</td></tr>`;
-            }
-
-            if (threadsContainer) threadsContainer.innerText = totalThreads + " активных процессов";
-            
-            let totalRamPercent = Math.min(Math.round((activeMemorySum / 1024) * 100), 99);
-            const ramVal = document.getElementById("w-ram-val");
-            const ramBar = document.getElementById("w-ram-bar");
-            if(ramVal) ramVal.innerText = totalRamPercent + "% (" + activeMemorySum + " МБ)";
-            if(ramBar) ramBar.style.width = totalRamPercent + "%";
         }
 
-        // ТАЙМЕРЫ
         setInterval(() => { 
-            let dateObj = new Date();
-            let timeStr = dateObj.toTimeString().split(" ")[0];
-            let shortTime = timeStr.substring(0, 5); 
-            
-            document.getElementById("w-time").innerText = timeStr; 
-            document.getElementById("tray-clock-time").innerText = shortTime;
-            
-            if(isKidsMode) {
-                document.getElementById("kids-time").innerText = `👶 Детский режим | ⏰ Время: ${timeStr}`;
-            }
-            if(openedWindows.size > 0) updateTaskManagerUI();
+            let d = new Date(); document.getElementById("w-time").innerText = d.toTimeString().split(" ")[0];
+            document.getElementById("tray-clock-time").innerText = d.toTimeString().split(" ")[0].substring(0, 5);
         }, 1000);
 
-        window.onload = () => { 
-            loadState(); 
-            transformToKidsContent();
-            updateTaskManagerUI();
-        };
+        window.onload = loadState;
     </script>
 </body>
 </html>
