@@ -3,949 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GemeniOS KSU v13.7 Ultimate Edition - Heavy Core Pro</title>
+    <title>Скачать OPENFIRST</title>
     <style>
         :root {
-            --aero-bg: rgba(10, 15, 30, 0.6);
-            --aero-border: rgba(255, 255, 255, 0.3);
-            --accent: #00f0ff;
-            --accent-glow: rgba(0, 240, 255, 0.5);
-            --text-main: #f1f5f9;
-            --text-dark: #0f172a;
-            --win-shadow: 0 25px 50px rgba(0,0,0,0.8), inset 0 0 20px rgba(255,255,255,0.15);
+            --bg-color: #000000;
+            --main-green: #00a050;
+            --text-color: #a0be28;
+            --dark-green: #05200a;
         }
 
-        /* ПОЛНЫЙ НАБОР СИСТЕМНЫХ ТЕМ ОФОРМЛЕНИЯ */
-        body.theme-default { background: radial-gradient(circle at 70% 30%, #1e3a8a 0%, #0f172a 100%); }
-        body.theme-space { background: radial-gradient(circle at 70% 30%, #4c1d95 0%, #0b0b1a 100%); }
-        body.theme-sky { background: radial-gradient(circle at 50% 100%, #bae6fd 0%, #0284c7 100%); }
-        body.theme-office { background: radial-gradient(circle at 30% 30%, #f1f5f9 0%, #94a3b8 100%); }
-        
-        /* РЕТРО-ТЕМА v1-cod ДЛЯ СРАЖЕНИЙ */
-        body.theme-v1cod { 
-            background: #020202; 
-            background-image: linear-gradient(rgba(0, 255, 204, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 204, 0.05) 1px, transparent 1px); 
-            background-size: 20px 20px; 
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-        body.theme-v1cod .window { background: rgba(5, 12, 10, 0.9); border: 1px solid #00ffcc; box-shadow: 0 0 20px rgba(0,255,204,0.4); }
-        body.theme-v1cod .window-header { background: #001a14; border-bottom: 1px solid #00ffcc; }
-        body.theme-v1cod .window-body { background: #000000; color: #00ffcc; }
-        body.theme-v1cod * { font-family: 'Courier New', monospace !important; }
-        body.theme-v1cod button { background: #00261f; border: 1px solid #00ffcc; color: #00ffcc; }
-        body.theme-v1cod button:hover { background: #00ffcc; color: #000; }
-        body.theme-v1cod input, body.theme-v1cod select, body.theme-v1cod textarea { background: #00110d; border: 1px solid #00ffcc; color: #00ffcc; }
 
-        /* ИЗОЛИРОВАННЫЙ ДЕТСКИЙ РЕЖИМ ГЕМЕКИДС */
-        body.theme-kids { background: radial-gradient(circle at 50% 50%, #ff9ebb 0%, #a7f3d0 100%) !important; }
-        body.theme-kids .window { background: rgba(255, 255, 252, 0.95); border: 3px solid #ff477e; border-radius: 20px; }
-        body.theme-kids .window-header { background: #ffbe53; border-radius: 16px 16px 0 0; }
-        body.theme-kids .window-body { background: #fffdf5; color: #ff477e; }
-        body.theme-kids button { background: #ff477e; color: white; border-radius: 14px; }
-
-        /* БАЗОВЫЕ СТИЛИ ИНТЕРФЕЙСА */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; user-select: none; }
-        body { height: 100vh; overflow: hidden; position: relative; cursor: none !important; }
-        input, select, textarea, button, .win-btn, .shortcut, .start-app-item, .kids-btn, .setting-category-btn, .subtab-btn, .video-track { cursor: none !important; }
-
-        /* НЕЙРОННЫЙ КУРСОР МЫШИ */
-        #custom-cursor {
-            width: 20px; height: 20px; border: 2px solid var(--accent); border-radius: 50%;
-            position: fixed; transform: translate(-50%, -50%); pointer-events: none; z-index: 10000000;
-            background: rgba(0, 240, 255, 0.2); box-shadow: 0 0 12px var(--accent-glow);
-            transition: transform 0.04s linear;
+        .content {
+            max-width: 900px;
+            flex-grow: 1;
         }
-        #custom-cursor.click { transform: translate(-50%, -50%) scale(0.7); background: rgba(239, 68, 68, 0.5); border-color: #ef4444; }
 
-        /* СИСТЕМНОЕ КОНТЕКСТНОЕ МЕНЮ */
-        .context-menu {
-            position: absolute; background: rgba(15, 23, 42, 0.95); border: 1px solid var(--accent);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6); border-radius: 8px; padding: 6px 0; width: 200px;
-            display: none; z-index: 9999999; font-size: 13px; backdrop-filter: blur(12px);
+        h1 {
+            color: var(--main-green);
+            font-size: 42px;
+            font-weight: normal;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-family: sans-serif; /* Для точного соответствия шрифту заголовка */
         }
-        .context-menu-item { padding: 10px 16px; color: #f1f5f9; transition: background 0.2s; }
-        .context-menu-item:hover { background: rgba(255,255,255,0.15); color: var(--accent); font-weight: bold; }
 
-        /* ЭКРАНЫ СОСТОЯНИЙ ЯДРА */
-        #shutdown-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 999999; display: none; flex-direction: column; justify-content: center; align-items: center; color: #64748b; text-align: center; }
-        
-        /* КРИТИЧЕСКИЙ ЭКРАН СБОЯ DDOS С БЕГУЩИМИ ЛОГАМИ */
-        #crash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0000aa; z-index: 1000000; display: none; flex-direction: column; justify-content: flex-start; padding: 40px; color: #fff; font-family: monospace; overflow: hidden; }
-        #crash-log-box { flex: 1; border: 1px dashed rgba(255,255,255,0.3); background: #000055; margin-top: 20px; padding: 15px; border-radius: 6px; overflow-y: auto; font-size: 12px; line-height: 1.5; color: #38bdf8; }
-        
-        #lock-screen { position: fixed; top:0; left:0; width:100vw; height:100vh; z-index: 99999; display: flex; flex-direction: column; justify-content: center; align-items: center; backdrop-filter: blur(35px); background: linear-gradient(135deg, #090d16 0%, #1e3a8a 100%); transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1); }
-        .lock-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); padding: 35px; border-radius: 20px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); text-align: center; width: 340px; backdrop-filter: blur(15px); }
-        .lock-avatar { width: 80px; height: 80px; background: var(--accent); border-radius: 50%; margin: 0 auto 20px; display:flex; align-items:center; justify-content:center; font-size:32px; box-shadow: 0 0 25px var(--accent-glow); }
+        .meta {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
 
-        /* ОРГАНИЗАЦИЯ РАБОЧЕГО СТОЛА */
-        #desktop { width: 100vw; height: calc(100vh - 45px); position: relative; padding: 25px; }
-        .shortcut { width: 90px; height: 90px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #fff; font-size: 12px; text-shadow: 2px 2px 5px #000; border: 1px solid transparent; border-radius: 10px; position: absolute; transition: transform 0.1s; }
-        .shortcut:hover { background: rgba(255, 255, 255, 0.12); border-color: rgba(255, 255, 255, 0.25); transform: scale(1.03); }
-        .shortcut-icon { font-size: 36px; margin-bottom: 6px; }
+        .tagline {
+            font-size: 18px;
+            margin-bottom: 40px;
+        }
 
-        /* ИНФОРМАЦИОННЫЕ МОНИТОРЫ (ВИДЖЕТЫ) */
-        .sys-widget { position: absolute; width: 240px; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); border-radius: 14px; padding: 14px; color: #fff; font-size: 13px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); cursor: move; z-index: 5; }
-        .widget-title { font-weight: bold; font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 8px; color: var(--accent); display: flex; justify-content: space-between; pointer-events: none; }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 750px;
+        }
 
-        /* АЭРО-ИНТЕРФЕЙС СИСТЕМНЫХ ОКОН */
-        .window { position: absolute; background: var(--aero-bg); backdrop-filter: blur(30px) saturate(150%); border: 1px solid var(--aero-border); border-radius: 10px 10px 0 0; box-shadow: var(--win-shadow); display: none; flex-direction: column; min-width: 450px; min-height: 340px; z-index: 10; overflow: hidden; }
-        .window.maximized { top: 0 !important; left: 0 !important; width: 100vw !important; height: calc(100vh - 45px) !important; transform: none !important; z-index: 10000 !important; border-radius: 0 !important; }
-        .window-header { padding: 12px 16px; display: flex; justify-content: space-between; align-items: center; cursor: move; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2); }
-        .window-title { color: #fff; font-size: 13px; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.8); display: flex; align-items: center; gap: 10px; }
-        .win-btn-group { display: flex; gap: 6px; }
-        .win-btn { width: 26px; height: 20px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); border-radius: 4px; color: #fff; font-size: 11px; display: flex; align-items: center; justify-content: center; }
-        .win-btn:hover { background: rgba(255,255,255,0.35); }
-        .win-btn.close-btn:hover { background: #ef4444; border-color: #ef4444; }
-        .window-body { flex: 1; background: #ffffff; color: var(--text-dark); padding: 15px; font-size: 14px; overflow: auto; position: relative; }
+        .features-title {
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
 
-        /* ДВУХПАНЕЛЬНЫЕ РАЗМЕТКИ СЕТИ НАСТРОЕК */
-        .settings-layout { display: grid; grid-template-columns: 170px 1fr; gap: 16px; height: 100%; min-height: 350px; }
-        .settings-sidebar { border-right: 1px solid #cbd5e1; display: flex; flex-direction: column; gap: 10px; padding-right: 10px; }
-        .setting-category-btn { width: 100%; text-align: left; padding: 12px; border-radius: 8px; border: 1px solid transparent; background: transparent; color: #334155; font-size: 13px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
-        body.theme-v1cod .setting-category-btn { color: #00ffcc; }
-        .setting-category-btn.active { background: rgba(0, 240, 255, 0.15); border-color: var(--accent); color: var(--accent) !important; }
-        
-        .settings-main-area { display: flex; flex-direction: column; gap: 14px; }
-        .subtabs-bar { display: flex; gap: 8px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px; flex-wrap: wrap; }
-        .subtab-btn { background: #f1f5f9; border: 1px solid #cbd5e1; padding: 8px 14px; font-size: 12px; border-radius: 6px; color: #475569; font-weight: 500; }
-        .subtab-btn.active { background: #2563eb; color: white; border-color: #2563eb; font-weight: bold; }
-        
-        .settings-panel-content { flex: 1; display: none; flex-direction: column; gap: 12px; }
-        .settings-panel-content.active { display: flex; }
-        .subpanel-content { display: flex; flex-direction: column; gap: 10px; }
+        .feature-item {
+            margin-bottom: 25px;
+            max-width: 750px;
+        }
 
-        /* КОРНЕВАЯ ПАНЕЛЬ ТАСКБАРА */
-        #taskbar { height: 45px; background: rgba(10, 15, 30, 0.85); backdrop-filter: blur(25px); border-top: 1px solid rgba(255,255,255,0.15); position: fixed; bottom:0; left:0; width:100vw; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; z-index: 9999; }
-        #start-button { width: 36px; height: 36px; border-radius: 50%; background: radial-gradient(circle, var(--accent) 0%, #1d4ed8 100%); border: 2px solid rgba(255,255,255,0.5); box-shadow: 0 0 15px var(--accent-glow); transition: transform 0.2s; }
-        #start-button:hover { transform: rotate(45deg) scale(1.05); }
-        #taskbar-apps { flex: 1; display: flex; margin-left: 20px; gap: 10px; overflow-x: auto; }
-        .taskbar-tab { padding: 0 16px; height: 34px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; color: #fff; font-size: 13px; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
-        #system-tray-quick { display: flex; align-items: center; gap: 12px; color: #fff; font-size: 13px; padding: 4px 12px; border-radius: 8px; }
+        /* --- Секция Лицензии и Файлов --- */
+        .license-section {
+            margin-top: 50px;
+            border-top: 1px dashed var(--main-green);
+            padding-top: 30px;
+            max-width: 750px;
+        }
 
-        /* КИДС-БАР ТАСКБАР */
-        #kids-bar { position: fixed; bottom: 0; left: 0; width: 100vw; height: 55px; background: linear-gradient(to right, #ff7eb9, #ffbe53, #6ee7b7); border-top: 4px solid #fff; display: none; justify-content: space-between; align-items: center; padding: 0 25px; z-index: 99999; }
-        .kids-btn { background: #ff477e; color: white; border: 2px solid white; padding: 8px 20px; font-weight: bold; border-radius: 25px; font-size: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        #kids-time { color: white; font-weight: bold; font-size: 18px; text-shadow: 1px 2px 4px rgba(0,0,0,0.25); }
+        .license-box {
+            background-color: #050505;
+            border: 1px solid var(--main-green);
+            padding: 15px;
+            height: 120px;
+            overflow-y: scroll;
+            font-size: 14px;
+            color: var(--text-color);
+            margin-bottom: 15px;
+        }
 
-        /* СИСТЕМНЫЕ ФОРМЫ СЕТИ ВВОДА */
-        input, select, textarea { background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; padding: 8px 14px; border-radius: 8px; outline: none; font-size: 13px; transition: border 0.2s; }
-        input:focus, select:focus { border-color: var(--accent); }
-        button { background: #0f172a; color: #fff; border: none; padding: 8px 16px; font-weight: bold; border-radius: 8px; font-size: 13px; transition: background 0.2s; }
-        button:hover { background: #1e293b; }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+            margin-bottom: 30px;
+            cursor: pointer;
+        }
 
-        /* ПАКЕТ МЕДИА-ПРИЛОЖЕНИЙ */
-        .paint-toolbar { display: flex; gap: 10px; align-items: center; padding-bottom: 10px; border-bottom: 1px solid #cbd5e1; margin-bottom: 10px; }
-        #paintCanvas { border: 1px solid #cbd5e1; background: #fff; display: block; border-radius: 6px; box-shadow: inset 0 2px 5px rgba(0,0,0,0.05); }
+        .checkbox-container input {
+            accent-color: var(--main-green);
+            cursor: pointer;
+        }
 
-        .ai-layout { display: flex; flex-direction: column; height: 100%; gap: 10px; }
-        .ai-chat-box { flex: 1; border: 1px solid #e2e8f0; background: #f8fafc; border-radius: 8px; padding: 12px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; min-height: 185px; }
-        .ai-bubble { padding: 10px 14px; border-radius: 10px; max-width: 80%; font-size: 13px; line-height: 1.4; word-wrap: break-word; }
-        .ai-bubble.user { background: #bae6fd; align-self: flex-end; color: #0369a1; font-weight: 500; }
-        .ai-bubble.bot { background: #f1f5f9; align-self: flex-start; border-left: 4px solid var(--accent); color: #334155; }
+        /* --- Нижняя панель с кнопкой --- */
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+        }
 
-        /* МЕНЮ ПУСК */
-        #start-menu { position: absolute; bottom: 55px; left: 15px; width: 340px; height: 440px; background: rgba(15, 23, 42, 0.96); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; box-shadow: var(--win-shadow); display: none; flex-direction: column; padding: 15px; z-index: 10000; }
-        .start-header { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px; margin-bottom: 12px; color: #fff;}
-        .start-apps { flex: 1; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
-        .start-app-item { padding: 10px; color: #fff; border-radius: 6px; font-size: 14px; display: flex; align-items: center; gap: 10px; transition: background 0.2s; }
-        .start-app-item:hover { background: rgba(255,255,255,0.12); color: var(--accent); }
-        .start-footer { display: flex; justify-content: space-between; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 12px; gap: 6px; }
-        .btn-power { flex: 1; padding: 8px; font-size: 11px; text-align: center; border-radius: 6px; color:#fff; font-weight: bold; }
+        /* Фирменная кнопка-логотип из правого угла image_918101.png */
+        .logo-btn {
+            background-color: var(--dark-green);
+            color: var(--main-green);
+            border: 4px double var(--main-green);
+            border-radius: 12px;
+            padding: 10px 25px;
+            font-size: 32px;
+            font-family: sans-serif;
+            font-weight: bold;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-block;
+        }
 
-        /* СТРУКТУРА ПРОВОДНИКА */
-        .exp-layout { display: grid; grid-template-columns: 140px 1fr; gap: 12px; height: 100%; }
-        .exp-tree { border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; gap: 6px; font-size: 13px; }
-        .exp-node { padding: 8px; border-radius: 6px; font-weight: bold; color: #475569; }
-        .exp-node:hover { background: #f1f5f9; color: var(--accent); }
-        .exp-content { display: grid; grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); gap: 12px; align-content: flex-start; }
-        .exp-item { display: flex; flex-direction: column; align-items: center; text-align: center; font-size: 12px; padding: 8px; border-radius: 6px; transition: background 0.2s; }
-        .exp-item:hover { background: #f1f5f9; color: #2563eb; }
-        
-        /* КОНТЕЙНЕРЫ ДЛЯ ИГР И СЕТЕЙ */
-        .game-canvas-area { background: #0f172a; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 220px; border-radius: 8px; color: #fff; box-shadow: inset 0 4px 10px rgba(0,0,0,0.5); }
-        .browser-layout { display: flex; flex-direction: column; gap: 8px; height: 100%; }
-        .browser-viewport { flex: 1; border: 1px solid #cbd5e1; background: #fff; border-radius: 8px; padding: 12px; overflow-y: auto; font-size: 13px; }
-        
-        .task-mgr-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-        .task-mgr-table th, .task-mgr-table td { border-bottom: 1px solid #e2e8f0; padding: 10px; text-align: left; }
-        .task-mgr-table th { background: #f1f5f9; font-weight: bold; color: #334155; }
+        .logo-btn:hover:not(:disabled) {
+            background-color: var(--main-green);
+            color: var(--bg-color);
+            box-shadow: 0 0 15px var(--main-green);
+        }
 
-        .specs-list { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px; list-style: none; font-family: monospace; font-size: 12px; display: flex; flex-direction: column; gap: 8px; }
-        .specs-list li { display: flex; justify-content: space-between; border-bottom: 1px dashed #cbd5e1; padding-bottom: 6px; }
-        .specs-list span:first-child { color: #475569; font-weight: bold; }
-        .specs-list span:last-child { color: #2563eb; font-weight: bold; }
-
-        .gemetube-layout { display: grid; grid-template-columns: 1fr 160px; gap: 10px; height: 100%; }
-        .video-playlist { border-left: 1px solid #cbd5e1; padding-left: 10px; display: flex; flex-direction: column; gap: 6px; overflow-y: auto; }
-        .video-track { font-size: 12px; padding: 8px; background: #f1f5f9; border-radius: 6px; border: 1px solid transparent; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; color: #334155; }
-        .video-track:hover { background: #e2e8f0; }
-        .video-track.active-track { background: rgba(0,240,255,0.15); border-color: var(--accent); font-weight: bold; color: #0369a1; }
+        .logo-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #11331a;
+            color: #11331a;
+        }
     </style>
 </head>
-<body id="sys-body" onkeydown="handleGlobalKeys(event)" onclick="closeMenus()">
+<body>
 
-    <div id="custom-cursor"></div>
+    <div class="content">
+        <h1>Скачать OPENFIRST</h1>
+        <div class="meta">OPENFIRST</div>
+        <div class="tagline">Что скрывается за первой дверью?</div>
 
-    <div id="ctx-menu" class="context-menu">
-        <div class="context-menu-item" onclick="rebootSystem()">🔄 Перезагрузить систему</div>
-        <div class="context-menu-item" onclick="openWindow('win-settings')">⚙️ Системные параметры</div>
-        <div class="context-menu-item" onclick="openWindow('win-taskmgr')">📊 Диспетчер ОЗУ</div>
-        <hr style="border-color:rgba(255,255,255,0.1); margin:6px 0;">
-        <div class="context-menu-item" onclick="showSystemPropertiesAlert()">ℹ️ Свойства системы</div>
-    </div>
+        <p>OPENFIRST — это атмосферное нарративное приключение с элементами головоломки, погружающее в минималистичный и загадочный мир. Здесь привычная логика уступает место законам подсознания, а окружающее пространство говорит с вами через звуки, свет и едва заметные детали.</p>
 
-    <div id="crash-screen">
-        <h2 style="font-size: 36px; color: #ef4444; margin-bottom: 15px; letter-spacing: 2px;">⚠️ GEMENIOS KERNEL PANIC ⚠️</h2>
-        <p style="font-size: 16px; margin-bottom: 8px; color: #94a3b8;">A fatal execution exception occurred in core process thread [0x00F5FF].</p>
-        <p style="font-size: 18px; color: #f59e0b; font-weight: bold; margin-bottom: 10px;">Reason: DDoS Flooding Alert! System reloaded too frequently or over-mined.</p>
-        <p style="font-size: 14px; color: #cbd5e1;">Локальные вычислители TPU заблокированы. Бесконечный буфер логов ядра развернут во избежание перегрева:</p>
+        <p>Вам предстоит искать ответы в замкнутом цикле комнат, где каждое действие меняет восприятие реальности. Сюжет не ведёт за руку — история собирается по крупицам из ваших собственных догадок и выборов.</p>
+
+        <div class="features-title">Особенности:</div>
         
-        <div id="crash-log-box"></div>
-        <p style="font-size: 13px; color: #f43f5e; margin-top: 15px; font-weight: bold; text-align: center;">Для восстановления работы принудительно обновите страницу браузера (F5 / Перезагрузка).</p>
-    </div>
+        <div class="feature-item">
+            Густая атмосфера: завораживающий аудиовизуальный стиль и постоянное чувство тайны.
+        </div>
+        <div class="feature-item">
+            Интуитивные загадки: мир, который нужно не просто пройти, а почувствовать и понять.
+        </div>
+        <div class="feature-item">
+            Нарративный минимализм: история, которая раскрывается исключительно через ваши действия.
+        </div>
 
-    <div id="shutdown-screen">
-        <h1 style="font-weight: 300; margin-bottom: 15px; color: #475569; font-size: 32px;">GemeniOS Корректно Выключена</h1>
-        <p style="font-size: 14px; color: #94a3b8;">Для запуска ядра зажмите комбинацию на клавиатуре: <b style="color:#f1f5f9;">O + S</b></p>
-    </div>
+        <!-- Блок лицензии -->
+        <div class="license-section">
+            <div class="features-title">ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ (EULA):</div>
+            <div class="license-box">
+                1. НАСТОЯЩЕЕ СОГЛАШЕНИЕ РЕГУЛИРУЕТ ИСПОЛЬЗОВАНИЕ ПАКЕТА ДАННЫХ "OPENFIRST".<br>
+                2. ПОЛЬЗОВАТЕЛЬ ПРИЗНАЕТ, ЧТО ОЗНАКОМЛЕН С ПРЕДУПРЕЖДЕНИЕМ НАЗВАНИЯ ВНУТРЕННИХ ФАЙЛОВ.<br>
+                3. АВТОР НЕ НЕСЕТ ОТВЕТСТВЕННОСТИ ЗА ПОСЛЕДСТВИЯ ОТКРЫТИЯ "dontstartingthis.html".<br>
+                4. СБОРКА РАСПРОСТРАНЯЕТСЯ КАК ЕСТЬ. ВНУТРЕННЯЯ ХРОНОЛОГИЯ ЗАФИКСИРОВАНА.
+            </div>
 
-    <div id="lock-screen">
-        <div class="lock-card">
-            <div class="lock-avatar">👤</div>
-            <h2 id="lock-user-title" style="color:#fff; font-size:20px; margin-bottom:20px; font-weight:400;">Admin</h2>
-            <input type="password" id="lock-pass-input" placeholder="Введите ключ безопасности" style="width:100%; text-align:center; margin-bottom:15px; padding:10px;">
-            <button onclick="unlockOS()" style="width:100%; background: var(--accent); color:#000; font-size:14px; letter-spacing:1px;">АВТОРИЗОВАТЬСЯ</button>
-            <div id="lock-error" style="color:#ef4444; font-size:12px; margin-top:10px; display:none; font-weight:bold;">Ошибка ключа доступа! Доступ отклонен ядрами ИИ.</div>
+            <label class="checkbox-container">
+                <input type="checkbox" id="license-check" onchange="toggleDownload()">
+                Я принимаю условия лицензии и беру на себя ответственность за запуск файлов
+            </label>
         </div>
     </div>
 
-    <div class="sys-widget" id="w-node-1" style="top: 25px; right: 25px;" onmousedown="widgetDragStart(event, 'w-node-1')">
-        <div class="widget-title"><span>🕒 Время ядра</span></div>
-        <div id="w-time" style="font-size: 18px; font-weight: bold; letter-spacing: 1px;">00:00:00</div>
-        <div id="w-date" style="color: #94a3b8; font-size: 12px; margin-top: 2px;">02.06.2026</div>
-    </div>
-
-    <div class="sys-widget" id="w-node-2" style="top: 125px; right: 25px;" onmousedown="widgetDragStart(event, 'w-node-2')">
-        <div class="widget-title"><span>📍 Геолокация</span></div>
-        <div id="w-loc" style="font-weight: bold; color: #f1f5f9;">Бишкек, Kyrgyzstan</div>
-    </div>
-
-    <div class="sys-widget" id="w-node-3" style="top: 215px; right: 25px;" onmousedown="widgetDragStart(event, 'w-node-3')">
-        <div class="widget-title"><span>🛡️ Безопасность</span></div>
-        <div><span>Файрвол:</span> <span id="w-sec-status" style="color:#34d399; font-weight:bold;">Активен</span></div>
-        <div style="font-size:10px; color:#94a3b8; margin-top:3px;">Защита от DDoS-потоков включена</div>
-    </div>
-
-    <div class="sys-widget" id="w-node-4" style="top: 325px; right: 25px;" onmousedown="widgetDragStart(event, 'w-node-4')">
-        <div class="widget-title"><span>📊 Ресурсы ОЗУ</span></div>
-        <div style="display:flex; justify-content:space-between; margin-bottom:5px;"><span id="w-ram-val">34%</span><span style="font-size:10px; color:#94a3b8;">Потоки ИИ</span></div>
-        <div style="background:rgba(255,255,255,0.1); height:6px; border-radius:3px; overflow:hidden;"><div id="w-ram-bar" style="background:var(--accent); height:100%; width:34%; transition: width 0.3s;"></div></div>
-    </div>
-
-    <div class="sys-widget" id="w-node-5" style="top: 435px; right: 25px;" onmousedown="widgetDragStart(event, 'w-node-5')">
-        <div class="widget-title"><span>🪙 Баланс Системы</span></div>
-        <div style="font-size:15px; font-weight:bold; margin-bottom:6px;"><span id="w-money-val">50</span> 🪙</div>
-        <button onclick="mineCoin()" style="width:100%; padding:6px; font-size:12px; background:var(--accent); color:#000; letter-spacing:0.5px;">Майнить валюту</button>
-    </div>
-
-    <div id="desktop" onclick="closeMenus()">
+    <div class="footer-container">
+        <div></div> <!-- Пустой блок для выталкивания кнопки вправо -->
         
-        <div class="shortcut" id="sh-explorer" style="left:25px; top:25px;" onmousedown="shortcutDragStart(event, 'sh-explorer')" ondblclick="openWindow('win-explorer')">
-            <div class="shortcut-icon">📂</div><div>Проводник</div>
-        </div>
-        <div class="shortcut" id="sh-gemetube" style="left:25px; top:135px;" onmousedown="shortcutDragStart(event, 'sh-gemetube')" ondblclick="openWindow('win-gemetube')">
-            <div class="shortcut-icon">📺</div><div>Gemetube</div>
-        </div>
-        <div class="shortcut" id="sh-game_space" style="left:25px; top:245px;" onmousedown="shortcutDragStart(event, 'sh-game_space')" ondblclick="openWindow('win-game_space')">
-            <div class="shortcut-icon">🚀</div><div>Space Click</div>
-        </div>
-        <div class="shortcut" id="sh-trash" style="left:25px; top:355px;" onmousedown="shortcutDragStart(event, 'sh-trash')" ondblclick="openWindow('win-trash')">
-            <div class="shortcut-icon">🗑️</div><div>Корзина</div>
-        </div>
-        <div class="shortcut" id="sh-paint" style="left:145px; top:25px;" onmousedown="shortcutDragStart(event, 'sh-paint')" ondblclick="openWindow('win-paint')">
-            <div class="shortcut-icon">🎨</div><div>Paint Pro</div>
-        </div>
-        <div class="shortcut" id="sh-ai" style="left:145px; top:135px;" onmousedown="shortcutDragStart(event, 'sh-ai')" ondblclick="openWindow('win-ai')">
-            <div class="shortcut-icon">🧠</div><div>Gemeni AI</div>
-        </div>
-        <div class="shortcut" id="sh-notes" style="left:145px; top:245px;" onmousedown="shortcutDragStart(event, 'sh-notes')" ondblclick="openWindow('win-notes')">
-            <div class="shortcut-icon">📝</div><div>Заметки</div>
-        </div>
-        <div class="shortcut" id="sh-browser" style="left:145px; top:355px;" onmousedown="shortcutDragStart(event, 'sh-browser')" ondblclick="openWindow('win-browser')">
-            <div class="shortcut-icon">🌐</div><div>Браузер</div>
-        </div>
-        <div class="shortcut" id="sh-settings" style="left:265px; top:25px;" onmousedown="shortcutDragStart(event, 'sh-settings')" ondblclick="openWindow('win-settings')">
-            <div class="shortcut-icon">⚙️</div><div>Настройки</div>
-        </div>
-        <div class="shortcut" id="sh-cmd" style="left:265px; top:135px;" onmousedown="shortcutDragStart(event, 'sh-cmd')" ondblclick="openWindow('win-cmd')">
-            <div class="shortcut-icon">📟</div><div>CMD Реестр</div>
-        </div>
-        <div class="shortcut" id="sh-taskmgr" style="left:265px; top:245px;" onmousedown="shortcutDragStart(event, 'sh-taskmgr')" ondblclick="openWindow('win-taskmgr')">
-            <div class="shortcut-icon">📊</div><div>Диспетчер</div>
-        </div>
-
-        <div class="window" id="win-settings" style="top:70px; left:280px; width:620px; height:430px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-settings')">
-                <div class="window-title">⚙️ Панель управления Системой</div>
-                <div class="win-btn-group">
-                    <div class="win-btn" onclick="toggleMaximize('win-settings')">🔲</div>
-                    <div class="win-btn close-btn" onclick="closeWin('win-settings')">✕</div>
-                </div>
-            </div>
-            <div class="window-body">
-                <div class="settings-layout">
-                    <div class="settings-sidebar">
-                        <button class="setting-category-btn active" id="cat-btn-system" onclick="changeSettingsCategory('system')">🟣 Система</button>
-                        <button class="setting-category-btn" id="cat-btn-security" onclick="changeSettingsCategory('security')">🟢 Безопасность</button>
-                        <button class="setting-category-btn" id="cat-btn-personal" onclick="changeSettingsCategory('personal')">🟪 Темы / Стили</button>
-                    </div>
-
-                    <div class="settings-main-area">
-                        <div id="cat-content-system" class="settings-panel-content active">
-                            <div class="subtabs-bar">
-                                <button class="subtab-btn active" id="subtab-sys-info" onclick="changeSubTab('sys', 'info')">Информация</button>
-                                <button class="subtab-btn" id="subtab-sys-apps" onclick="changeSubTab('sys', 'apps')">Приложения</button>
-                                <button class="subtab-btn" id="subtab-sys-time" onclick="changeSubTab('sys', 'time')">Часы и язык</button>
-                                <button class="subtab-btn" id="subtab-sys-destroy" onclick="changeSubTab('sys', 'destroy')" style="color:#ef4444; font-weight:bold;">Реестр</button>
-                            </div>
-                            
-                            <div id="subcontent-sys-info" class="subpanel-content">
-                                <ul class="specs-list">
-                                    <li><span>Имя Системы:</span> <span>GemeniOS KSU Ultimate</span></li>
-                                    <li><span>Версия сборки:</span> <span>v13.7.9-Build Heavy Core</span></li>
-                                    <li><span>Локальный Диск C:</span> <span>1 TB (1000 GB)</span></li>
-                                    <li><span>Процессор вычислений:</span> <span>Google TPU v5p Core x256</span></li>
-                                    <li><span>НейроЯдро связи:</span> <span>Gemeni AI 3.5 Flash Connected</span></li>
-                                    <li><span>Выделенная ОЗУ ядра:</span> <span>50 GB Fast RAM</span></li>
-                                    <li><span>Разрядность архитектуры:</span> <span>64-разрядная ОС</span></li>
-                                </ul>
-                            </div>
-                            <div id="subcontent-sys-apps" class="subpanel-content" style="display:none;">
-                                <p style="font-weight:bold; font-size:12px; margin-bottom:4px; color:#475569;">Контроль выполнения подсистем:</p>
-                                <select id="app-permission-select" style="width:100%;">
-                                    <option value="all">Разрешить выполнение всех бинарных скриптов</option>
-                                    <option value="restricted">Запуск только изолированных песочниц ИИ</option>
-                                </select>
-                            </div>
-                            <div id="subcontent-sys-time" class="subpanel-content" style="display:none;">
-                                <label style="font-weight:bold; font-size:12px; color:#475569;">Часовой кварц ядра:</label>
-                                <input type="text" id="sys-time-sync" value="По умолчанию: RTC Внутренний Кварц" style="width:100%;">
-                                <label style="font-weight:bold; font-size:12px; margin-top:6px; color:#475569;">Региональный язык интерфейса:</label>
-                                <select id="sys-lang-select" onchange="changeSystemLang(this.value)" style="width:100%;">
-                                    <option value="ru">Русский (RU)</option>
-                                    <option value="en">English (EN)</option>
-                                </select>
-                            </div>
-                            <div id="subcontent-sys-destroy" class="subpanel-content" style="display:none; text-align:center; padding:15px;">
-                                <p style="color:#ef4444; font-weight:bold; margin-bottom:12px; font-size:13px;">⚠️ КРИТИЧЕСКОЕ ДЕЙСТВИЕ: Будет полностью очищен Локальный Реестр!</p>
-                                <button onclick="destroySystemData()" style="background:#ef4444; width:100%; padding:14px; letter-spacing:1px;">СТЕРЕТЬ ВСЕ ДАННЫЕ ЯДРА И ПЕРЕЗАГРУЗИТЬ</button>
-                            </div>
-                        </div>
-
-                        <div id="cat-content-security" class="settings-panel-content">
-                            <div class="subtabs-bar">
-                                <button class="subtab-btn active" id="subtab-sec-acc" onclick="changeSubTab('sec', 'acc')">Учетная запись</button>
-                                <button class="subtab-btn" id="subtab-sec-kids" onclick="changeSubTab('sec', 'kids')">Детская среда</button>
-                                <button class="subtab-btn" id="subtab-sec-pass" onclick="changeSubTab('sec', 'pass')">Безопасность</button>
-                            </div>
-                            <div id="subcontent-sec-acc" class="subpanel-content">
-                                <label style="font-weight:bold; font-size:12px; color:#475569;">Переименовать администратора системы:</label>
-                                <input type="text" id="sec-username-input" value="Admin" style="width:100%;">
-                                <button onclick="updateUsername()" style="background:#10b981; margin-top:6px;">Записать новое имя в реестр</button>
-                            </div>
-                            <div id="subcontent-sec-kids" class="subpanel-content" style="display:none; text-align:center; padding:10px;">
-                                <p style="margin-bottom:12px; font-size:13px; color:#475569;">Запуск изолированной детской среды Gemekids с фильтрацией системных утилит.</p>
-                                <button onclick="enterKidsMode()" style="background:#ff477e; width:100%; padding:12px; font-weight:bold;">Активировать среду Gemekids 🧸</button>
-                            </div>
-                            <div id="subcontent-sec-pass" class="subpanel-content" style="display:none;">
-                                <label style="font-weight:bold; font-size:12px; color:#475569;">Пароль экрана блокировки и реестра:</label>
-                                <input type="password" id="sec-password-input" placeholder="Введите новый мастер-пароль" style="width:100%;">
-                                <button onclick="updatePassword()" style="background:#2563eb; margin-top:6px;">Обновить хэш пароля</button>
-                            </div>
-                        </div>
-
-                        <div id="cat-content-personal" class="settings-panel-content">
-                            <div class="subtabs-bar">
-                                <button class="subtab-btn active" id="subtab-per-wall" onclick="changeSubTab('per', 'wall')">Фон рабочего стола</button>
-                                <button class="subtab-btn" id="subtab-per-theme" onclick="changeSubTab('per', 'theme')">Стиль оболочки</button>
-                            </div>
-                            <div id="subcontent-per-wall" class="subpanel-content" style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                                <button onclick="changeSystemTheme('space')" style="background:#4c1d95; padding:15px; border-radius:8px;">Космическая туманность 🌌</button>
-                                <button onclick="changeSystemTheme('sky')" style="background:#0284c7; padding:15px; border-radius:8px;">Дневной небосвод 🌤️</button>
-                                <button onclick="changeSystemTheme('office')" style="background:#64748b; padding:15px; border-radius:8px;">Строгий офис 🏢</button>
-                                <button onclick="changeSystemTheme('default')" style="background:#1e3a8a; padding:15px; border-radius:8px;">Стандартный Аэро 🔵</button>
-                            </div>
-                            <div id="subcontent-per-theme" class="subpanel-content" style="display:none; flex-direction:column; gap:10px;">
-                                <button onclick="changeSystemTheme('default')" style="background:#1e3a8a; padding:12px; border-radius:8px;">Интерфейс GemeniOS Default</button>
-                                <button onclick="changeSystemTheme('v1cod')" style="background:#000; color:#00ffcc; border:2px solid #00ffcc; padding:16px; font-weight:bold; font-size:14px; border-radius:8px; letter-spacing:1px;">📟 СЕТЕВАЯ ТЕМА v1-cod (РЕЖИМ БИТВЫ ИИ) 📟</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-explorer" style="top:50px; left:50px; width:450px; height:350px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-explorer')">
-                <div class="window-title">📂 Проводник Диска C:</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-explorer')">✕</div></div>
-            </div>
-            <div class="window-body" style="padding:0;">
-                <div class="exp-layout">
-                    <div class="exp-tree" style="padding:10px 0 10px 10px;">
-                        <div class="exp-node" onclick="renderExplorer('docs')" style="cursor:none;">📝 Документы</div>
-                        <div class="exp-node" onclick="renderExplorer('sys')" style="cursor:none; color:#ef4444;">💾 Логи Системы</div>
-                    </div>
-                    <div class="exp-content" id="explorer-grid" style="padding:12px; background:#f8fafc;"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-gemetube" style="top:60px; left:220px; width:520px; height:400px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-gemetube')">
-                <div class="window-title">📺 Gemetube Hub Video Player</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-gemetube')">✕</div></div>
-            </div>
-            <div class="window-body" style="padding: 8px;">
-                <div class="gemetube-layout">
-                    <div style="display:flex; flex-direction:column; gap:8px;">
-                        <video id="gemetube-player" src="https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" controls style="width:100%; max-height:220px; border-radius:8px; background:#000; box-shadow:0 4px 10px rgba(0,0,0,0.3);"></video>
-                        <h4 id="video-playing-title" style="font-size:13px; padding:4px; color:#334155; font-weight:600;">В эфире: Big Buck Bunny</h4>
-                    </div>
-                    <div class="video-playlist" id="gemetube-feed"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-game_space" style="top:90px; left:240px; width:360px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-game_space')">
-                <div class="window-title">🚀 Space Clicker Universe</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-game_space')">✕</div></div>
-            </div>
-            <div class="window-body game-canvas-area">
-                <div style="font-size:14px; font-weight:bold; letter-spacing:0.5px;">Собрано космической пыли: <span id="space-clicks" style="color:var(--accent); font-size:18px;">0</span></div>
-                <div id="space-planet" onclick="playSpaceClicker()" style="font-size:64px; margin:15px 0; transition: transform 0.05s; cursor:none;">🪐</div>
-                <button onclick="buySpaceUpgrade()" id="space-up-btn" style="font-size:12px; background:#2563eb; width:85%; letter-spacing:0.5px;">Купить исследовательский спутник (Цена: 20)</button>
-            </div>
-        </div>
-
-        <div class="window" id="win-trash" style="top:120px; left:120px; width:440px; height:320px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-trash')">
-                <div class="window-title">🗑️ Корзина очистки файлов</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-trash')">✕</div></div>
-            </div>
-            <div class="window-body" style="background:#f8fafc; padding:15px; display:flex; flex-direction:column; justify-content:space-between;">
-                <div style="display:flex; align-items:center; gap:12px; border:1px dashed #cbd5e1; padding:12px; border-radius:8px; background:#fff;">
-                    <span style="font-size:28px;">📄</span>
-                    <div>
-                        <h4 style="font-size:13px; color:#334155;">old_chat_gpt_logs.bak</h4>
-                        <p style="font-size:11px; color:#94a3b8;">Размер: 45 KB | Свалено после победы v1-cod</p>
-                    </div>
-                </div>
-                <button onclick="alert('Корзина успешно очищена ядрами ИИ!')" style="background:#ef4444; width:100%; letter-spacing:0.5px;">ПОЛНОСТЬЮ ОЧИСТИТЬ КОРЗИНУ</button>
-            </div>
-        </div>
-
-        <div class="window" id="win-browser" style="top:80px; left:160px; width:500px; height:380px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-browser')">
-                <div class="window-title">🌐 Сетевой Навигатор GemeniBrowser</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-browser')">✕</div></div>
-            </div>
-            <div class="window-body" style="padding:10px; display:flex; flex-direction:column; gap:8px; background:#f1f5f9;">
-                <div style="display:flex; gap:6px;">
-                    <input type="text" id="browser-url-bar" value="https://google.com/search?q=chess+theory" style="flex:1;">
-                    <button onclick="navigateFakeBrowser()" style="background:#2563eb;">Перейти</button>
-                </div>
-                <div class="browser-layout">
-                    <div class="browser-viewport" id="browser-core-view">
-                        <h3 style="color:#1e3a8a; margin-bottom:6px;">Результаты поиска по запросу "chess theory"</h3>
-                        <p style="color:#334155; margin-bottom:10px;">Теория дебютов, миттельшпильные структуры и расчетные алгоритмы для Google TPU плат...</p>
-                        <hr style="margin-bottom:8px; border-color:#e2e8f0;">
-                        <h4 style="color:#2563eb; cursor:none; text-decoration:underline;">1. Сицилианская защита: Острые варианты 2026</h4>
-                        <p style="color:#64748b; font-size:11px;">Разбор глубоких компьютерных линий и систем защиты королевского фланга.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-paint" style="top:60px; left:320px; width:460px; height:360px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-paint')">
-                <div class="window-title">🎨 Paint Pro Engine</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-paint')">✕</div></div>
-            </div>
-            <div class="window-body" style="display: flex; flex-direction: column; padding:10px;">
-                <div class="paint-toolbar">
-                    <input type="color" id="paintColor" value="#00f0ff">
-                    <select id="paintSize"><option value="3">3px Слайдер</option><option value="6" selected>6px Толстый</option><option value="12">12px Кисть-Маркер</option></select>
-                    <button onclick="clearCanvas()" style="background:#ef4444;">Очистить холст</button>
-                </div>
-                <canvas id="paintCanvas" width="422" height="250"></canvas>
-            </div>
-        </div>
-
-        <div class="window" id="win-ai" style="top:120px; left:340px; width:420px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-ai')">
-                <div class="window-title">🧠 Gemeni AI Локальный Сопроцессор</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-ai')">✕</div></div>
-            </div>
-            <div class="window-body">
-                <div class="ai-layout">
-                    <div class="ai-chat-box" id="ai-messages">
-                        <div class="ai-bubble bot">Локальный сопроцессор ядра успешно развернут. Оболочка v1-cod синхронизирована с реестром. Защита от DDoS флуда активна на уровне 0x00F5FF.</div>
-                    </div>
-                    <div style="display:flex; gap:8px;">
-                        <input type="text" id="ai-input" placeholder="Введите команду или запрос к ИИ ядра..." style="flex:1;" onkeydown="if(event.key==='Enter') sendToAI()">
-                        <button onclick="sendToAI()" style="background:#0284c7; letter-spacing:0.5px;">Запрос</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-notes" style="top:150px; left:180px; width:400px; height:320px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-notes')">
-                <div class="window-title">📝 Системный Блокнот (Заметки)</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-notes')">✕</div></div>
-            </div>
-            <div class="window-body" style="padding:10px; display:flex; flex-direction:column; gap:8px;">
-                <textarea id="notes-textarea" style="flex:1; width:100%; resize:none; font-family:monospace; font-size:12px; line-height:1.4;" placeholder="Сюда можно записывать планы по обновлению GemeniOS..."></textarea>
-                <button onclick="alert('Заметка успешно сохранена в зашифрованный сектор диска C!')" style="background:#10b981;">Сохранить сектор</button>
-            </div>
-        </div>
-
-        <div class="window" id="win-cmd" style="top:90px; left:300px; width:460px; height:330px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-cmd')">
-                <div class="window-title">📟 CMD Терминал Управления Реестром</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-cmd')">✕</div></div>
-            </div>
-            <div class="window-body" style="background:#000; color:#00ffcc; font-family:monospace; font-size:12px; padding:12px; display:flex; flex-direction:column; gap:8px;">
-                <div id="cmd-history" style="flex:1; overflow-y:auto; line-height:1.5;">
-                    <div>GemeniOS Kernel Terminal [Version 13.7.9]</div>
-                    <div>(c) Google TPU Cloud Compute Corporation. Все права защищены.</div>
-                    <br>
-                    <div>Введите 'help' для вывода списка системных бинарников или 'ddos' для стресс-теста ядра.</div>
-                </div>
-                <div style="display:flex; align-items:center; gap:6px; border-top:1px solid #003326; padding-top:6px;">
-                    <span>C:\Users\Admin></span>
-                    <input type="text" id="cmd-input" style="flex:1; background:transparent; border:none; color:#00ffcc; font-family:monospace; font-size:12px; padding:0;" onkeydown="if(event.key==='Enter') executeCmdCommand()">
-                </div>
-            </div>
-        </div>
-
-        <div class="window" id="win-taskmgr" style="top:160px; left:260px; width:460px; height:340px;">
-            <div class="window-header" onmousedown="dragStart(event, 'win-taskmgr')">
-                <div class="window-title">📊 Диспетчер Системных Ресурсов</div>
-                <div class="win-btn-group"><div class="win-btn close-btn" onclick="closeWin('win-taskmgr')">✕</div></div>
-            </div>
-            <div class="window-body" style="padding:0;">
-                <table class="task-mgr-table">
-                    <thead><tr><th>Имя Процесса</th><th>Память ОЗУ</th><th>Статус Ядра</th></tr></thead>
-                    <tbody id="taskmgr-rows">
-                        <tr><td>GemeniOS Core Kernel</td><td>12.4 GB</td><td style="color:#10b981; font-weight:bold;">Выполнение</td></tr>
-                        <tr><td>Local AI Companion Subsystem</td><td>8.1 GB</td><td style="color:#10b981; font-weight:bold;">Ожидание</td></tr>
-                        <tr><td>Gemetube Hub Buffer</td><td>4.5 GB</td><td style="color:#10b981; font-weight:bold;">Выполнение</td></tr>
-                        <tr><td>DDoS Security Watchdog</td><td>1.2 GB</td><td id="taskmgr-sec-status" style="color:#10b981; font-weight:bold;">Сканирование</td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div id="start-menu">
-            <div class="start-header">
-                <div style="width:34px; height:34px; background:var(--accent); border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:16px;">👤</div>
-                <div style="font-weight:bold; font-size:14px;" id="start-user-label">Admin</div>
-            </div>
-            <div class="start-apps" id="start-apps-list"></div>
-            <div class="start-footer">
-                <button class="btn-power" id="pwr-off-btn" style="background:#dc2626;" onclick="powerOffSystem()">Выключить ОС</button>
-                <button class="btn-power" id="pwr-rb-btn" style="background:#d97706;" onclick="triggerDdosAttack()">DDoS Ребут</button>
-                <button class="btn-power" id="pwr-kid-btn" style="background:#ff477e;" onclick="enterKidsMode()">Kids Mode 🧸</button>
-            </div>
-        </div>
-
-    </div>
-
-    <div id="taskbar">
-        <div id="start-button" onclick="event.stopPropagation(); document.getElementById('start-menu').style.display='flex'"></div>
-        <div id="taskbar-apps"></div>
-        <div id="system-tray-quick">
-            <span id="tray-clock-time" style="font-weight:bold; color:var(--accent);">00:00</span>
-        </div>
-    </div>
-
-    <div id="kids-bar">
-        <button class="kids-btn" onclick="exitKidsMode()">Выйти из среды Gemekids 🚪</button>
-        <div id="kids-time">👶 Изолированная детская программная среда активна</div>
+        <!-- Кнопка в стиле плашки из правого нижнего угла image_918101.png -->
+        <button id="download-btn" class="logo-btn" disabled onclick="triggerDownload()">
+            OPENFIRST
+        </button>
     </div>
 
     <script>
-        // === ЛОКАЛЬНЫЙ РЕЕСТР И СОСТОЯНИЯ СИСТЕМЫ ===
-        let systemLang = "ru"; 
-        let systemTheme = "default"; 
-        let balance = 50;
-        let activeUser = "Admin"; 
-        let activePass = "admin"; 
-        let isKidsMode = false;
-        let openedWindows = new Set(); 
-        let isPowerOff = false; 
-        let keysPressed = {};
-
-        // === ПЕРЕМЕННЫЕ ЗАЩИТЫ ОТ DDOS ФЛУДА И СЧЕТЧИКИ ===
-        let securityFloodCounter = 0; 
-        let lastClickTime = Date.now();
-        let isCrashed = false;
-
-        // ВЫЗОВ СИСТЕМНОГО СБОЯ С ГЕНЕРАЦИЕЙ БЕГУЩИХ ХАКЕРСКИХ ЛОГОВ АТАКИ
-        function triggerKernelPanic() {
-            if(isCrashed) return;
-            isCrashed = true;
-            document.getElementById("crash-screen").style.display = "flex";
-            
-            // Начинаем спамить строчки логов взлома в реальном времени
-            const logBox = document.getElementById("crash-log-box");
-            let logLines = [
-                "CRITICAL WARNING: NETWORK BUFFER OVERFLOW AT PROCESS THREAD [0x00F5FF]",
-                "ERR: Google TPU core boards received too many reload requests!",
-                "PACKET FLOOD DETECTED: 450000req/sec -> Target interface: mineCoin()",
-                "SECURITY TRIGGER: Freezing file system registry allocation to prevent burn...",
-                "Dumping heap memory block: 0xFFAA0022 0x0033BCFF 0xDEADEFFE",
-                "Disconnecting Gemeni AI 3.5 Flash server synchronization link...",
-                "SYSTEM REBOOT LOOPS DETECTED! INVOCATION FROM START MENU DIRECTLY",
-                "CRITICAL EXCEPTION: System memory corrupted. Core temperature maxed out.",
-                "Kernel Panic deployment completed. System frozen."
-            ];
-
-            let lineIndex = 0;
-            setInterval(() => {
-                if(lineIndex < logLines.length) {
-                    logBox.innerHTML += `<div>[${new Date().toLocaleTimeString()}] ${logLines[lineIndex]}</div>`;
-                    lineIndex++;
-                } else {
-                    // Бесконечный цикл генерации мусорных пакетов DDoS атаки для тяжести экрана
-                    logBox.innerHTML += `<div>[${new Date().toLocaleTimeString()}] FLOOD PACKET INBOUND: 0x${Math.floor(Math.random()*16777215).toString(16).toUpperCase()} -> DROP</div>`;
-                }
-                logBox.scrollTop = logBox.scrollHeight;
-            }, 150);
+        function toggleDownload() {
+            const checkbox = document.getElementById('license-check');
+            const btn = document.getElementById('download-btn');
+            btn.disabled = !checkbox.checked;
         }
 
-        // ТРИГГЕР DDOS АТАКИ ИЗ МЕНЮ ПУСК (ОРАНЖЕВАЯ КНОПКА)
-        function triggerDdosAttack() {
-            securityFloodCounter += 8;
-            if(securityFloodCounter >= 8) {
-                triggerKernelPanic();
-            } else {
-                rebootSystem();
-            }
+        function triggerDownload() {
+            // Так как ты на GitHub, просто укажи путь к архиву в репозитории:
+            window.location.href = 'OPENFIRST.zip'; 
         }
-
-        // УПРАВЛЕНИЕ УМНЫМ НЕЙРОННЫМ КУРСОРОМ МЫШИ
-        const cursorElement = document.getElementById("custom-cursor");
-        document.addEventListener("mousemove", (e) => {
-            cursorElement.style.left = e.clientX + "px";
-            cursorElement.style.top = e.clientY + "px";
-        });
-        document.addEventListener("mousedown", () => cursorElement.classList.add("click"));
-        document.addEventListener("mouseup", () => cursorElement.classList.remove("click"));
-
-        // ПЕРЕХВАТ ПРАВОЙ КНОПКИ МЫШИ ДЛЯ ВЫЗОВА КОНТЕКСТНОГО МЕНЮ
-        document.addEventListener("contextmenu", (e) => {
-            e.preventDefault(); 
-            if (isKidsMode || isCrashed) return;
-            const ctxMenu = document.getElementById("ctx-menu");
-            ctxMenu.style.display = "block";
-            ctxMenu.style.left = e.clientX + "px";
-            ctxMenu.style.top = e.clientY + "px";
-        });
-
-        // СМЕНА КАТЕГОРИЙ В ДВУХПАНЕЛЬНЫХ НАСТРОЙКАХ
-        function changeSettingsCategory(categoryName) {
-            document.querySelectorAll('.setting-category-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.settings-panel-content').forEach(p => p.classList.remove('active'));
-            document.getElementById(`cat-btn-${categoryName}`).classList.add('active');
-            document.getElementById(`cat-content-${categoryName}`).classList.add('active');
-        }
-
-        function changeSubTab(categoryPrefix, tabName) {
-            let catId = categoryPrefix === 'sys' ? 'system' : (categoryPrefix === 'sec' ? 'security' : 'personal');
-            document.querySelectorAll(`#cat-content-${catId} .subtab-btn`).forEach(b => b.classList.remove('active'));
-            document.querySelectorAll(`#cat-content-${catId} .subpanel-content`).forEach(p => p.style.display = 'none');
-            document.getElementById(`subtab-${categoryPrefix}-${tabName}`).classList.add('active');
-            document.getElementById(`subcontent-${categoryPrefix}-${tabName}`).style.display = 'flex';
-        }
-
-        // УТИЛИТЫ НАСТРОЕК И РЕЕСТРА
-        function destroySystemData() { location.reload(); }
-        function updateUsername() { activeUser = document.getElementById("sec-username-input").value; document.getElementById("start-user-label").innerText = activeUser; }
-        function updatePassword() { activePass = document.getElementById("sec-password-input").value; alert("Хэш пароля успешно обновлен в реестре системы!"); }
-        function changeSystemTheme(theme) { systemTheme = theme; document.body.className = 'theme-' + theme; }
-        function changeSystemLang(val) { systemLang = val; alert(val === "ru" ? "Язык переключен на Русский!" : "System language switched to English!"); }
-        function showSystemPropertiesAlert() { alert("GemeniOS KSU Ultimate Edition\nВерсия: 13.7.9-Heavy Core\nРазработчик: Хакерская Среда JavaScript"); }
-
-        function closeMenus() {
-            document.getElementById("ctx-menu").style.display = "none";
-            document.getElementById("start-menu").style.display = "none";
-        }
-
-        // КЛИКЕР ВАЛЮТЫ С ЗАЩИТОЙ И СЧЕТЧИКОМ DDOS СПАМА КЛИКОВ
-        function mineCoin() {
-            if(isCrashed) return;
-            let currentTime = Date.now();
-            
-            // Если интервал между кликами меньше 220мс — фиксируем флуд ядра пакетами!
-            if(currentTime - lastClickTime < 220) {
-                securityFloodCounter++;
-            } else {
-                if(securityFloodCounter > 0) securityFloodCounter--; // Система остывает, если кликать размеренно
-            }
-            lastClickTime = currentTime;
-
-            // Если флуд зашкаливает за критический предел 10 единиц — крашим ядро
-            if(securityFloodCounter > 10) {
-                triggerKernelPanic();
-                return;
-            }
-
-            balance++; 
-            document.getElementById("w-money-val").innerText = balance; 
-            
-            // Нагружаем интерфейс ОЗУ диспетчера при кликах
-            let ramVal = Math.min(34 + securityFloodCounter * 6, 100);
-            document.getElementById("w-ram-val").innerText = ramVal + "%";
-            document.getElementById("w-ram-bar").style.width = ramVal + "%";
-            
-            // Динамически меняем строчку в диспетчере задач, симулируя нагрузку флуда
-            const secRow = document.getElementById("taskmgr-sec-status");
-            if(secRow) {
-                if(securityFloodCounter > 5) {
-                    secRow.innerText = "OVERFLOW FLOOD!";
-                    secRow.style.color = "#ef4444";
-                } else {
-                    secRow.innerText = "Сканирование";
-                    secRow.style.color = "#10b981";
-                }
-            }
-        }
-
-        // ФИЛЬТР БЕЗОПАСНОСТИ ДЛЯ ВЫЗОВА ИЗОЛИРОВАННОЙ СРЕДЫ GEMEKIDS
-        function applyDesktopSecurityFilter() {
-            const dangerousShortcuts = ['sh-settings', 'sh-cmd', 'sh-taskmgr', 'sh-browser', 'sh-trash', 'sh-explorer', 'sh-notes'];
-            dangerousShortcuts.forEach(id => {
-                let node = document.getElementById(id);
-                if(node) node.style.display = isKidsMode ? 'none' : 'flex';
-            });
-
-            const startApps = document.getElementById("start-apps-list");
-            if(isKidsMode) {
-                startApps.innerHTML = `
-                    <div class="start-app-item" onclick="openWindow('win-gemetube')">📺 Gemetube Hub</div>
-                    <div class="start-app-item" onclick="openWindow('win-game_space')">🚀 Space Clicker Universe</div>
-                    <div class="start-app-item" onclick="openWindow('win-paint')">🎨 Paint Pro Engine</div>
-                    <div class="start-app-item" onclick="openWindow('win-ai')">🧠 Gemeni AI Компаньон</div>
-                `;
-                document.getElementById('pwr-off-btn').style.display = 'none';
-                document.getElementById('pwr-rb-btn').style.display = 'none';
-            } else {
-                startApps.innerHTML = `
-                    <div class="start-app-item" onclick="openWindow('win-explorer')">📂 Проводник Диска C</div>
-                    <div class="start-app-item" onclick="openWindow('win-gemetube')">📺 Gemetube Hub</div>
-                    <div class="start-app-item" onclick="openWindow('win-game_space')">🚀 Space Clicker Universe</div>
-                    <div class="start-app-item" onclick="openWindow('win-paint')">🎨 Paint Pro Engine</div>
-                    <div class="start-app-item" onclick="openWindow('win-ai')">🧠 Gemeni AI Компаньон</div>
-                    <div class="start-app-item" onclick="openWindow('win-settings')">⚙️ Системные Настройки</div>
-                    <div class="start-app-item" onclick="openWindow('win-cmd')">📟 CMD Терминал Реестра</div>
-                `;
-                document.getElementById('pwr-off-btn').style.display = 'inline-block';
-                document.getElementById('pwr-rb-btn').style.display = 'inline-block';
-            }
-
-            for(let i=1; i<=5; i++) {
-                let widget = document.getElementById(`w-node-${i}`);
-                if(widget) widget.style.display = isKidsMode ? 'none' : 'block';
-            }
-        }
-
-        function enterKidsMode() {
-            isKidsMode = true;
-            document.getElementById('taskbar').style.display = 'none';
-            document.getElementById('kids-bar').style.display = 'flex';
-            openedWindows.forEach(id => closeWin(id));
-            changeSystemTheme('kids');
-            applyDesktopSecurityFilter();
-            closeMenus();
-        }
-
-        function exitKidsMode() {
-            if(prompt("Введите мастер-пароль администратора реестра:") === activePass) {
-                isKidsMode = false;
-                document.getElementById('taskbar').style.display = 'flex';
-                document.getElementById('kids-bar').style.display = 'none';
-                changeSystemTheme('default');
-                applyDesktopSecurityFilter();
-            } else { alert("Ошибка доступа! Программная среда заблокирована."); }
-        }
-
-        // МОДУЛЬ УПРАВЛЕНИЯ ОКНАМИ СИСТЕМЫ
-        function openWindow(id) { if(isCrashed) return; document.getElementById(id).style.display = "flex"; openedWindows.add(id); renderTabs(); }
-        function closeWin(id) { document.getElementById(id).style.display = "none"; openedWindows.delete(id); renderTabs(); }
-        function toggleMaximize(id) { document.getElementById(id).classList.toggle('maximized'); }
-
-        function renderTabs() {
-            const container = document.getElementById("taskbar-apps"); container.innerHTML = "";
-            openedWindows.forEach(id => {
-                const tab = document.createElement("div"); tab.className = "taskbar-tab";
-                tab.innerText = id.replace("win-", "🔹 ");
-                container.appendChild(tab);
-            });
-        }
-
-        function unlockOS() { document.getElementById("lock-screen").style.transform = "translateY(-100vh)"; }
-        function powerOffSystem() { isPowerOff = true; document.getElementById("shutdown-screen").style.display = "flex"; }
-        function rebootSystem() { document.body.style.filter = "brightness(0.05)"; setTimeout(() => { location.reload(); }, 250); }
-
-        // ОБРАБОТЧИК КЛАВИАТУРЫ И СЕКРЕТНЫХ ХОТКЕЕВ ЗАПУСКА ЯДРА
-        function handleGlobalKeys(e) {
-            keysPressed[e.key.toLowerCase()] = true;
-            if(isPowerOff && keysPressed['o'] && keysPressed['s']) { 
-                isPowerOff = false; 
-                document.getElementById("shutdown-screen").style.display = "none"; 
-                rebootSystem(); 
-            }
-        }
-        document.addEventListener("keyup", (e) => { delete keysPressed[e.key.toLowerCase()]; });
-
-        // ИГРОВОЙ МОДУЛЬ: SPACE CLICKER
-        let spaceScore = 0; let satellites = 0;
-        function playSpaceClicker() { 
-            spaceScore += (1 + satellites); 
-            document.getElementById("space-clicks").innerText = spaceScore; 
-            const planet = document.getElementById("space-planet");
-            planet.style.transform = "scale(0.9)";
-            setTimeout(() => planet.style.transform = "scale(1)", 50);
-        }
-        function buySpaceUpgrade() { if(spaceScore >= 20) { spaceScore -= 20; satellites++; document.getElementById("space-up-btn").innerText = `Спутники автоматизации: ${satellites} (Купить +1 за 20)`; document.getElementById("space-clicks").innerText = spaceScore; } }
-
-        // ЭМУЛЯЦИЯ СЕТЕВОГО ПЕРЕХОДА В БРАУЗЕРЕ
-        function navigateFakeBrowser() {
-            const barVal = document.getElementById("browser-url-bar").value;
-            const view = document.getElementById("browser-core-view");
-            view.innerHTML = `<h3 style='color:#b45309;'>Переход по адресу безопасного прокси: ${barVal}</h3><p style='margin-top:6px; color:#475569;'>Подключение защищено сквозным шифрованием ИИ ядра...</p>`;
-        }
-
-        // МОДУЛЬ ТЕРМИНАЛА CMD С ОБРАБОТКОЙ КРИТИЧЕСКИХ КОМАНД
-        function executeCmdCommand() {
-            const inp = document.getElementById("cmd-input");
-            const hist = document.getElementById("cmd-history");
-            if(!inp.value.trim()) return;
-            
-            let val = inp.value.trim().toLowerCase();
-            hist.innerHTML += `<div>C:\\Users\\Admin> ${inp.value}</div>`;
-            
-            if(val === "help") {
-                hist.innerHTML += `<div>Доступные бинарники: 'help', 'cls', 'registry_status', 'ddos'</div>`;
-            } else if(val === "cls") {
-                hist.innerHTML = "";
-            } else if(val === "registry_status") {
-                hist.innerHTML += `<div style='color:#34d399;'>Реестр GemeniOS полностью стабилен. Выделено секторов: 0x00F5FF.</div>`;
-            } else if(val === "ddos") {
-                hist.innerHTML += `<div style='color:#ef4444;'>Инициация DDoS Flooding атаки на ядро...</div>`;
-                setTimeout(() => { triggerKernelPanic(); }, 600);
-            } else {
-                hist.innerHTML += `<div>'${inp.value}' не является внутренней или внешней командой, исполняемой программой или пакетным файлом.</div>`;
-            }
-            inp.value = "";
-            hist.scrollTop = hist.scrollHeight;
-        }
-
-        // ДИНАМИЧЕСКИЙ РЕНДЕРИНГ ФАЙЛОВОЙ СИСТЕМЫ ПРОВОДНИКА
-        function renderExplorer(dir) {
-            const grid = document.getElementById("explorer-grid");
-            grid.innerHTML = "";
-            if(dir === 'docs') {
-                grid.innerHTML = `
-                    <div class="exp-item" ondblclick="openWindow('win-notes')"><span style='font-size:28px;'>📄</span><div>заметки.txt</div></div>
-                    <div class="exp-item" ondblclick="openWindow('win-game_space')"><span style='font-size:28px;'>🎮</span><div>space_cl.exe</div></div>
-                `;
-            } else if(dir === 'sys') {
-                grid.innerHTML = `
-                    <div class="exp-item" onclick="alert('Внимание! Файл ядра заблокирован от чтения.')"><span style='font-size:28px;'>⚙️</span><div>kernel.sys</div></div>
-                    <div class="exp-item" onclick="triggerKernelPanic()"><span style='font-size:28px;'>📟</span><div>ddos_test.bat</div></div>
-                `;
-            }
-        }
-
-        // КРАФТ-КИСТЬ ГРАФИЧЕСКОГО РЕДАКТОРА PAINT PRO
-        const canvas = document.getElementById('paintCanvas'); const ctx = canvas.getContext('2d'); let drawing = false;
-        canvas.addEventListener('mousedown', () => drawing = true); canvas.addEventListener('mouseup', () => { drawing = false; ctx.beginPath(); });
-        canvas.addEventListener('mousemove', (e) => {
-            if(!drawing) return; const rect = canvas.getBoundingClientRect();
-            ctx.lineWidth = document.getElementById('paintSize').value; ctx.strokeStyle = document.getElementById('paintColor').value;
-            ctx.lineCap = 'round';
-            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top); ctx.stroke(); ctx.beginPath(); ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-        });
-        function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
-
-        // ЭМУЛЯЦИЯ ИИ ДИАЛОГОВ
-        function sendToAI() {
-            let inp = document.getElementById("ai-input"); let box = document.getElementById("ai-messages");
-            if(!inp.value.trim()) return;
-            box.innerHTML += `<div class="ai-bubble user">${inp.value}</div>`; 
-            let userText = inp.value;
-            inp.value = "";
-            
-            setTimeout(() => {
-                box.innerHTML += `<div class="ai-bubble bot">Обработал твой запрос "${userText}". Локальный реестр подтверждает стабильность структуры. DDoS фильтры находятся в режиме ожидания потока кликов.</div>`;
-                box.scrollTop = box.scrollHeight;
-            }, 400);
-            box.scrollTop = box.scrollHeight;
-        }
-
-        // МОДУЛЬ ЛИНЕЙНОГО ПЕРЕМЕЩЕНИЯ ЯРЛЫКОВ И ОКНО-ДРАГ
-        let dragObject = null; let dX = 0, dY = 0;
-        function shortcutDragStart(e, id) { dragObject = { node: document.getElementById(id) }; dX = e.clientX - dragObject.node.offsetLeft; dY = e.clientY - dragObject.node.offsetTop; document.addEventListener("mousemove", objectDragMove); document.addEventListener("mouseup", objectDragEnd); }
-        function widgetDragStart(e, id) { if(isKidsMode) return; dragObject = { node: document.getElementById(id) }; dX = e.clientX - dragObject.node.offsetLeft; dY = e.clientY - dragObject.node.offsetTop; document.addEventListener("mousemove", objectDragMove); document.addEventListener("mouseup", objectDragEnd); }
-        function objectDragMove(e) { if(dragObject) { dragObject.node.style.left = (e.clientX - dX) + "px"; dragObject.node.style.top = (e.clientY - dY) + "px"; } }
-        function objectDragEnd() { document.removeEventListener("mousemove", objectDragMove); document.removeEventListener("mouseup", objectDragEnd); dragObject = null; }
-
-        let activeDragWin = null; let winX = 0, winY = 0;
-        function dragStart(e, id) { if(document.getElementById(id).classList.contains('maximized')) return; activeDragWin = document.getElementById(id); winX = e.clientX - activeDragWin.offsetLeft; winY = e.clientY - activeDragWin.offsetTop; document.addEventListener("mousemove", windowDragMove); document.addEventListener("mouseup", windowDragEnd); }
-        function windowDragMove(e) { if(activeDragWin) { activeDragWin.style.left = (e.clientX - winX) + "px"; activeDragWin.style.top = (e.clientY - winY) + "px"; } }
-        function windowDragEnd() { document.removeEventListener("mousemove", windowDragMove); document.removeEventListener("mouseup", windowDragEnd); activeDragWin = null; }
-
-        // ПОДКЛЮЧЕНИЕ ПЛЕЙЛИСТА GEMETUBE FEED
-        const videos = [
-            { t: "Big Buck Bunny", url: "https://storage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" },
-            { t: "Elephants Dream", url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" },
-            { t: "For Bigger Blazes", url: "https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" }
-        ];
-        
-        function initGemetube() {
-            const feed = document.getElementById("gemetube-feed");
-            feed.innerHTML = "";
-            videos.forEach((v, idx) => {
-                let div = document.createElement("div");
-                div.className = "video-track" + (idx === 0 ? " active-track" : "");
-                div.innerText = v.t;
-                div.onclick = () => {
-                    document.querySelectorAll(".video-track").forEach(t => t.classList.remove("active-track"));
-                    div.classList.add("active-track");
-                    document.getElementById("gemetube-player").src = v.url;
-                    document.getElementById("video-playing-title").innerText = "В эфире: " + v.t;
-                };
-                feed.appendChild(div);
-            });
-        }
-
-        // ЦИКЛ СИНХРОНИЗАЦИИ ЧАСОВ ЯДРА
-        setInterval(() => { 
-            let d = new Date(); document.getElementById("w-time").innerText = d.toTimeString().split(" ")[0];
-            document.getElementById("tray-clock-time").innerText = d.toTimeString().split(" ")[0].substring(0, 5);
-        }, 1000);
-
-        // ИНИЦИАЛИЗАЦИЯ ЯДРА ПРИ СТАРТЕ СТРАНИЦЫ
-        window.onload = () => { 
-            applyDesktopSecurityFilter(); 
-            unlockOS(); 
-            renderExplorer('docs');
-            initGemetube();
-        };
     </script>
+
 </body>
 </html>
