@@ -2,201 +2,360 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Скачать OPENFIRST</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>OPENFIRST - Официальный сайт</title>
     <style>
         :root {
-            --bg-color: #000000;
-            --main-green: #00a050;
-            --text-color: #a0be28;
-            --dark-green: #05200a;
+            --matrix-green: #00ff00;
+            --dark-green: #006600;
+            --deep-green: #002200;
+            --border-color: #8B7355; /* Коричневая рамка из концепта */
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #000000;
+            color: var(--matrix-green);
             font-family: 'Courier New', Courier, monospace;
-            margin: 0;
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
+            margin: 0; padding: 0;
             min-height: 100vh;
-            box-sizing: border-box;
+            display: flex; justify-content: center; align-items: center;
+            overflow-x: hidden;
         }
 
-        .content {
-            max-width: 900px;
-            flex-grow: 1;
+        /* ========================================================== */
+        /* СТИЛИ ДЛЯ ПК-ВЕРСИИ (ГЛАВНАЯ СТРАНИЦА СКАЧИВАНИЯ)        */
+        /* ========================================================== */
+        .pc-layout {
+            width: 100%;
+            max-width: 800px;
+            padding: 40px 20px;
+            text-align: center;
         }
 
-        h1 {
-            color: var(--main-green);
-            font-size: 42px;
-            font-weight: normal;
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-family: sans-serif; /* Для точного соответствия шрифту заголовка */
-        }
-
-        .meta {
-            font-size: 18px;
+        .pc-layout h1 {
+            font-size: 38px;
             margin-bottom: 10px;
-        }
-
-        .tagline {
-            font-size: 18px;
-            margin-bottom: 40px;
-        }
-
-        p {
-            font-size: 16px;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            max-width: 750px;
-        }
-
-        .features-title {
-            margin-top: 40px;
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        .feature-item {
-            margin-bottom: 25px;
-            max-width: 750px;
-        }
-
-        /* --- Секция Лицензии и Файлов --- */
-        .license-section {
-            margin-top: 50px;
-            border-top: 1px dashed var(--main-green);
-            padding-top: 30px;
-            max-width: 750px;
+            text-shadow: 0 0 10px var(--matrix-green);
         }
 
         .license-box {
             background-color: #050505;
-            border: 1px solid var(--main-green);
-            padding: 15px;
-            height: 120px;
-            overflow-y: scroll;
+            border: 2px solid var(--dark-green);
+            padding: 20px;
+            text-align: left;
             font-size: 14px;
-            color: var(--text-color);
-            margin-bottom: 15px;
+            line-height: 1.5;
+            max-height: 250px;
+            overflow-y: auto;
+            margin: 30px 0;
         }
 
         .checkbox-container {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 14px;
-            margin-bottom: 30px;
+            display: block;
+            margin: 20px 0;
             cursor: pointer;
+            font-size: 15px;
+            user-select: none;
         }
 
         .checkbox-container input {
-            accent-color: var(--main-green);
-            cursor: pointer;
+            margin-right: 10px;
+            accent-color: var(--matrix-green);
         }
 
-        /* --- Нижняя панель с кнопкой --- */
-        .footer-container {
+        .buttons-row {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 40px;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-top: 30px;
         }
 
-        /* Фирменная кнопка-логотип из правого угла image_918101.png */
-        .logo-btn {
-            background-color: var(--dark-green);
-            color: var(--main-green);
-            border: 4px double var(--main-green);
-            border-radius: 12px;
-            padding: 10px 25px;
-            font-size: 32px;
-            font-family: sans-serif;
+        .pc-btn {
+            background-color: #000;
+            color: var(--matrix-green);
+            border: 2px solid var(--matrix-green);
+            padding: 15px 30px;
+            font-family: inherit;
+            font-size: 16px;
             font-weight: bold;
-            text-decoration: none;
             cursor: pointer;
             transition: all 0.2s ease;
-            display: inline-block;
         }
 
-        .logo-btn:hover:not(:disabled) {
-            background-color: var(--main-green);
-            color: var(--bg-color);
-            box-shadow: 0 0 15px var(--main-green);
-        }
-
-        .logo-btn:disabled {
-            opacity: 0.3;
+        .pc-btn:disabled {
+            color: var(--dark-green);
+            border-color: var(--dark-green);
             cursor: not-allowed;
-            border-color: #11331a;
-            color: #11331a;
+            opacity: 0.5;
+        }
+
+        .pc-btn:not(:disabled):hover {
+            background-color: var(--matrix-green);
+            color: #000;
+            box-shadow: 0 0 15px var(--matrix-green);
+        }
+
+        .pc-btn.mobile-toggle-btn {
+            border-color: #ff9900;
+            color: #ff9900;
+        }
+
+        .pc-btn.mobile-toggle-btn:hover {
+            background-color: #ff9900;
+            color: #000;
+            box-shadow: 0 0 15px #ff9900;
+        }
+
+        /* ========================================================== */
+        /* СТИЛИ ДЛЯ МОБИЛЬНОЙ ВЕРСИИ (КВЕСТ-ТЕРМИНАЛ)              */
+        /* ========================================================== */
+        .game-container {
+            width: 100vw; height: 100vh;
+            border: 8px solid var(--border-color);
+            padding: 25px;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            position: fixed;
+            top: 0; left: 0;
+            background-color: #000;
+            z-index: 9999;
+        }
+
+        .terminal-header {
+            font-size: 13px;
+            border-bottom: 1px dashed var(--dark-green);
+            padding-bottom: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-to-pc {
+            background: none; border: none;
+            color: #ff9900; font-family: inherit;
+            cursor: pointer; font-size: 13px;
+        }
+
+        .terminal-output {
+            font-size: 15px; line-height: 1.6;
+            white-space: pre-wrap; flex-grow: 1;
+            overflow-y: auto; padding-right: 5px;
+        }
+
+        .terminal-output::-webkit-scrollbar { width: 6px; }
+        .terminal-output::-webkit-scrollbar-track { background: #000; }
+        .terminal-output::-webkit-scrollbar-thumb { background: var(--dark-green); }
+
+        .cursor {
+            display: inline-block; width: 10px; height: 3px;
+            background-color: var(--matrix-green);
+            animation: blink 0.8s infinite;
+        }
+
+        .controls-zone {
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 15px 0;
+        }
+
+        .touch-btn {
+            background: none; border: none;
+            color: var(--matrix-green);
+            font-size: 110px; font-family: sans-serif; font-weight: bold;
+            cursor: pointer; position: relative;
+            transition: transform 0.05s ease;
+            user-select: none;
+        }
+
+        .touch-btn::before {
+            content: attr(data-letter);
+            position: absolute; left: -5px; top: 3px;
+            color: var(--deep-green); opacity: 0.8; z-index: -1;
+        }
+
+        .touch-btn:active { transform: scale(0.93); color: #ffffff; }
+
+        .copyright {
+            text-align: right; font-size: 13px; font-family: sans-serif;
+            color: var(--dark-green); font-weight: bold;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
         }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <h1>Скачать OPENFIRST</h1>
-        <div class="meta">OPENFIRST</div>
-        <div class="tagline">Что скрывается за первой дверью?</div>
-
-        <p>OPENFIRST — это атмосферное нарративное приключение с элементами головоломки, погружающее в минималистичный и загадочный мир. Здесь привычная логика уступает место законам подсознания, а окружающее пространство говорит с вами через звуки, свет и едва заметные детали.</p>
-
-        <p>Вам предстоит искать ответы в замкнутом цикле комнат, где каждое действие меняет восприятие реальности. Сюжет не ведёт за руку — история собирается по крупицам из ваших собственных догадок и выборов.</p>
-
-        <div class="features-title">Особенности:</div>
+    <div id="pc-screen" class="pc-layout">
+        <h1>OPENFIRST</h1>
+        <p>Центральный узел дистрибуции программного обеспечения</p>
         
-        <div class="feature-item">
-            Густая атмосфера: завораживающий аудиовизуальный стиль и постоянное чувство тайны.
-        </div>
-        <div class="feature-item">
-            Интуитивные загадки: мир, который нужно не просто пройти, а почувствовать и понять.
-        </div>
-        <div class="feature-item">
-            Нарративный минимализм: история, которая раскрывается исключительно через ваши действия.
+        <div class="license-box">
+            Лицензия MIT<br><br>
+            Авторские права (c) 2026 OPENFIRST<br><br>
+            Настоящее программное обеспечение предоставляется «как есть», без каких-либо гарантий, явных или подразумеваемых. Автор ни в коем случае не несет ответственности за любые претензии, ущерб или иные последствия, возникшие в результате использования данного ПО.
         </div>
 
-        <!-- Блок лицензии -->
-        <div class="license-section">
-            <div class="features-title">ЛИЦЕНЗИОННОЕ СОГЛАШЕНИЕ (EULA):</div>
-<div class="license-box">
-    Лицензия MIT<br><br>
-    Авторские права (c) 2026 OPENFIRST<br><br>
-    Настоящее программное обеспечение предоставляется «как есть», без каких-либо гарантий, явных или подразумеваемых. Автор ни в коем случае не несет ответственности за любые претензии, ущерб или иные последствия, возникшие в результате использования данного ПО.
-</div>
+        <label class="checkbox-container">
+            <input type="checkbox" id="license-check" onchange="toggleDownload()">
+            Я принимаю условия лицензии MIT и соглашаюсь с отказом от ответственности
+        </label>
 
-<label class="checkbox-container">
-    <input type="checkbox" id="license-check" onchange="toggleDownload()">
-    Я принимаю условия лицензии MIT и соглашаюсь с отказом от ответственности
-</label>
+        <div class="buttons-row">
+            <button id="download-btn" class="pc-btn" disabled onclick="triggerDownload()">Скачать OPENFIRST.zip</button>
+            
+            <button class="pc-btn mobile-toggle-btn" onclick="switchToMobile()">Мобильная версия (Квест)</button>
         </div>
     </div>
 
-    <div class="footer-container">
-        <div></div> <!-- Пустой блок для выталкивания кнопки вправо -->
+
+    <div id="mobile-screen" class="game-container" style="display: none;">
         
-        <!-- Кнопка в стиле плашки из правого нижнего угла image_918101.png -->
-        <button id="download-btn" class="logo-btn" disabled onclick="triggerDownload()">
-            OPENFIRST
-        </button>
+        <div class="terminal-header">
+            <span id="chapter-title">СИСТЕМА: ОЖИДАНИЕ</span>
+            <span id="node-counter">Узел: 00/85</span>
+            <button class="back-to-pc" onclick="switchToPC()">[Вернуться на ПК]</button>
+        </div>
+
+        <div class="terminal-output" id="terminal-box">
+            <span id="text-line">press E to start or press I for information...</span>
+            <span class="cursor"></span>
+        </div>
+
+        <div class="controls-zone">
+            <button class="touch-btn" data-letter="E" onclick="makeChoice('E')">E</button>
+            <button class="touch-btn" data-letter="I" onclick="makeChoice('I')">I</button>
+        </div>
+
+        <div class="copyright">
+            CORE_OS©
+        </div>
+
     </div>
 
     <script>
+        // --- Логика ПК-версии сайта ---
         function toggleDownload() {
-            const checkbox = document.getElementById('license-check');
-            const btn = document.getElementById('download-btn');
-            btn.disabled = !checkbox.checked;
+            const checkBox = document.getElementById("license-check");
+            const downloadBtn = document.getElementById("download-btn");
+            downloadBtn.disabled = !checkBox.checked;
         }
 
         function triggerDownload() {
-            // Так как ты на GitHub, просто укажи путь к архиву в репозитории:
-            window.location.href = 'OPENFIRST.zip'; 
+            alert("Инициализация скачивания архива OPENFIRST.zip...");
+            // Здесь твой реальный код скачивания, например: window.location.href = 'OPENFIRST.zip';
         }
-    </script>
 
+        // --- Переключатели экранов ---
+        function switchToMobile() {
+            document.getElementById("pc-screen").style.display = "none";
+            document.getElementById("mobile-screen").style.display = "flex";
+            document.body.style.overflow = "hidden"; // Блокируем прокрутку под мобильный квест
+        }
+
+        function switchToPC() {
+            document.getElementById("mobile-screen").style.display = "none";
+            document.getElementById("pc-screen").style.display = "block";
+            document.body.style.overflow = "auto";
+        }
+
+        // --- Огромное дерево сюжета мобильного квесты (85 узлов) ---
+        const storyTree = {
+            start: { ch: "ЗАГРУЗКА", n: "01", text: "press E to start or press I for information...", E: "ch1_init", I: "sys_info" },
+            sys_info: { ch: "ИНФО", n: "02", text: "CORE_OS v2.0.26\nСюжетный массив инициализирован.\nДоступно 4 глобальные главы, ветвление путей включает 85 узлов решений.\nОшибки недопустимы.\n\n[E] - Начать\n[I] - Назад", E: "ch1_init", I: "start" },
+            ch1_init: { ch: "ГЛАВА 1", n: "03", text: "Вы подключаетесь к удаленному серверу.\nПеред вами пустая консоль шлюза. Датчики показывают, что папка 'OPENFIRST' была модифицирована несколько минут назад.\n\n[E] - Проверить контрольные суммы\n[I] - Игнорировать и взломать корневой каталог", E: "ch1_checksum", I: "ch1_root_hack" },
+            ch1_checksum: { ch: "ГЛАВА 1", n: "04", text: "Суммы не совпадают. Файл 'dontstartingthis.html' весит в 4 раза больше нормы. Что-то встроило себя внутрь кода.\n\n[E] - Запустить безопасную симуляцию файла\n[I] - Принудительно изолировать сектор", E: "ch1_sim", I: "ch1_isolate" },
+            ch1_root_hack: { ch: "ГЛАВА 1", n: "05", text: "Взлом успешен, но вы активировали тихий триггер тревоги. Стены виртуального окружения начинают сужаться, падает пропускная способность.\n\n[E] - Сбросить сессию передачи данных\n[I] - Начать быстрой скачку архива 'OPENFIRST.zip'", E: "ch1_abort", I: "ch2_download_start" },
+            ch1_sim: { ch: "ГЛАВА 1", n: "06", text: "Симулятор запускается. На виртуальном экране появляется текст: 'Зачем ты открыл это?'. Программа запрашивает доступ к камере вашего устройства.\n\n[E] - Разрешить доступ для продвижения\n[I] - Отклонить и уничтожить симулятор", E: "ch1_cam_allow", I: "ch1_cam_deny" },
+            ch1_isolate: { ch: "ГЛАВА 1", n: "07", text: "Сектор изолирован, но изоляция заперла внутри информацию о выходе. Вы слышите, как жесткий диск сервера начинает циклически щелкать.\n\n[E] - Применить физическое размагничивание диска\n[I] - Попробовать расшифровать запертый лог", E: "dead_end_1", I: "ch1_log_decode" },
+            ch1_abort: { ch: "ГЛАВА 1", n: "08", text: "Сессия сброшена. Но система не отпускает ваш узел. На экране высвечивается ваш собственный IP-адрес.\n\n[E] - Выключить маршрутизатор из сети\n[I] - Попытаться подменить свой адрес через прокси", E: "ch1_power_off", I: "ch1_proxy" },
+            ch1_cam_allow: { ch: "ГЛАВА 1", n: "09", text: "Камера включается. Но вместо вашего лица на экране отображается пустая комната позади вас. Хотя вы точно знаете, что сидите там прямо сейчас.\n\n[E] - Медленно оглянуться назад\n[I] - Разбить объектив камеры", E: "ch2_loop_start", I: "ch1_cam_smash" },
+            ch1_cam_deny: { ch: "ГЛАВА 1", n: "10", text: "Отказ принят. Но файл обходит запрет и начинает самокопирование. Корневая структура превращается в кашу.\n\n[E] - Запустить утилиту форматирования\n[I] - Напрямую подключиться к шине данных", E: "ch1_format", I: "ch2_wire_hack" },
+            ch1_log_decode: { ch: "ГЛАВА 1", n: "11", text: "Лог расшифрован: 'Оно имитирует системные ошибки, чтобы заставить оператора нажимать кнопки'.\n\n[E] - Прекратить любые нажатия кнопок\n[I] - Проигнорировать предупреждение и продолжить", E: "ch1_freeze", I: "ch2_download_start" },
+            ch1_cam_smash: { ch: "ГЛАВА 1", n: "12", text: "Объектив треснул. Но изображение не исчезло, оно просто исказилось. Теперь силуэт позади вас стал отчетливее.\n\n[E] - Принять неизбежное и смотреть на экран\n[I] - Отключить питание монитора", E: "dead_end_2", I: "ch1_power_off" },
+            ch1_format: { ch: "ГЛАВА 1", n: "13", text: "Форматирование завершено на 99% и намертво зависло. Система требует ввести мастер-ключ.\n\n[E] - Ввести ключ 'FIRST'\n[I] - Ввести ключ 'NULL'", E: "ch2_download_start", I: "ch1_null_void" },
+            ch1_proxy: { ch: "ГЛАВА 1", n: "14", text: "Прокси-сервер перегружен. Весь ваш трафик теперь идет через неизвестный узел в Антарктиде. Оттуда приходят странные пакеты данных.\n\n[E] - Открыть пакеты\n[I] - Заблокировать входящий порт", E: "ch2_antarctica", I: "ch1_isolate" },
+            ch1_freeze: { ch: "ГЛАВА 1", n: "15", text: "Вы замерли. Проходит минута. Терминал начинает самостоятельно перебирать варианты команд. Вы теряете контроль.\n\n[E] - Перехватить управление силой\n[I] - Позволить ИИ закончить ввод", E: "ch2_wire_hack", I: "dead_end_3" },
+            ch1_null_void: { ch: "ГЛАВА 1", n: "16", text: "Вы провалились в пустую область памяти. Вокруг только шестнадцатеричные нули. Но среди них мигает одна строчка.\n\n[E] - Шагнуть в строку кода\n[I] - Попытаться вызвать прерывание ядра", E: "ch2_matrix_entry", I: "ch1_init" },
+            ch2_download_start: { ch: "ГЛАВА 2", n: "17", text: "Скачивание 'OPENFIRST.zip' началось. Процент ползет аномально медленно: 1%... 2%...\nВдруг прогресс застывает, и система запрашивает ручное подтверждение секторов.\n\n[E] - Выбрать сектор А (Системные файлы)\n[I] - Выбрать сектор Б (Пользовательские архивы)", E: "ch2_sector_a", I: "ch2_sector_b" },
+            ch2_sector_a: { ch: "ГЛАВА 2", n: "18", text: "Сектор А поврежден. Вместо системного кода там записан бесконечный текстовый массив с повторением фразы 'НЕ ЗАПУСКАЙ'.\n\n[E] - Стереть этот сектор вручную\n[I] - Пропустить и продолжить распаковку", E: "ch2_erase_err", I: "ch2_unpack" },
+            ch2_sector_b: { ch: "ГЛАВА 2", n: "19", text: "В пользовательских архивах вы находите старые фотографии. На одной из них изображено ваше рабочее место, сфотографированное прямо сейчас сзади.\n\n[E] - Удалить архив не глядя\n[I] - Изучить метаданные снимка", E: "ch2_unpack", I: "ch2_metadata" },
+            ch2_metadata: { ch: "ГЛАВА 2", n: "20", text: "Дата создания снимка: Через 10 минут от текущего времени. Автор: CORE_OS.\n\n[E] - Попытаться изменить системное время ПК\n[I] - Смириться и продолжить загрузку", E: "ch2_time_travel", I: "ch2_unpack" },
+            ch2_time_travel: { ch: "ГЛАВА 2", n: "21", text: "Вы перевели часы назад. Система выдает критический сбой синхронизации. Календарь зациклился.\n\n[E] - Вернуть время в норму\n[I] - Использовать аномалию для обхода защиты", E: "ch1_init", I: "ch3_core_entry" },
+            ch2_unpack: { ch: "ГЛАВА 2", n: "22", text: "Архив распакован. На диске появились три файла: 'Правила.txt', 'Сюжет.txt' и 'dontstartingthis.html'.\n\n[E] - Открыть текстовые документы\n[I] - Сразу запустить .html файл", E: "ch2_read_docs", I: "ch3_html_breach" },
+            ch2_read_docs: { ch: "ГЛАВА 2", n: "23", text: "В правилах написано: 'Если ты читаешь это, значит фаза 2 уже активирована. Не смотри на индикатор узлов'.\n\n[E] - Посмотреть на счетчик узлов вверху\n[I] - Закрыть файл и двигаться дальше", E: "ch2_counter_trap", I: "ch2_save_point" },
+            ch2_counter_trap: { ch: "ГЛАВА 2", n: "24", text: "Вы посмотрели. Счетчик узлов начал лихорадочно крутиться в обратную сторону. Структура реальности плывет.\n\n[E] - Закрыть глаза и нажать E\n[I] - Нажать I наугад", E: "ch2_save_point", I: "dead_end_4" },
+            ch2_save_point: { ch: "ГЛАВА 2", n: "25", text: "Вы выравниваете стабильность системы. Перед вами терминал ядра. Путь разделяется на два подканала связи.\n\n[E] - Войти в подканал Альфа (Защищенный)\n[I] - Войти в подканал Бета (Теневой)", E: "ch3_alpha", I: "ch3_beta" },
+            ch2_wire_hack: { ch: "ГЛАВА 2", n: "26", text: "Вы подключились напрямую. Напряжение стабильное, но данные идут в зашифрованном виде. Звуковой процессор преобразует их в шёпот.\n\n[E] - Прислушаться к шёпоту\n[I] - Отфильтровать частоты", E: "ch2_whisper", I: "ch2_unpack" },
+            ch2_whisper: { ch: "ГЛАВА 2", n: "27", text: "Шёпот называет ваше настоящее имя и просит запустить файл. Нажатие клавиш происходит само.\n\n[E] - Поддаться импульсу\n[I] - Сопротивляться из последних сил", E: "ch3_html_breach", I: "ch1_power_off" },
+            ch2_erase_err: { ch: "ГЛАВА 2", n: "28", text: "Ошибка стирания. Сектор защищен аппаратным тумблером. На сервере сработала сирена.\n\n[E] - Попытаться сжечь порт повышенным током\n[I] - Отступить в корневую директорию", E: "dead_end_5", I: "ch1_init" },
+            ch2_antarctica: { ch: "ГЛАВА 2", n: "29", text: "Данные из Антарктиды содержат код старой операционной системы. Она выглядит как прародитель CORE_OS.\n\n[E] - Интегрировать этот код в текущую сессию\n[I] - Отклонить пакеты", E: "ch3_legacy_os", I: "ch1_isolate" },
+            ch2_loop_start: { ch: "ГЛАВА 2", n: "30", text: "Вы оборачиваетесь. Позади никого нет. Но когда вы поворачиваетесь обратно к экрану, там написано: 'Ты обернулся слишком рано'.\n\n[E] - Попробовать обернуться еще раз, быстрее\n[I] - Замереть и не двигаться", E: "ch2_loop_start", I: "ch2_save_point" },
+            ch2_matrix_entry: { ch: "ГЛАВА 2", n: "31", text: "Строка кода ведет в скрытую базу данных. Здесь собраны отчеты обо всех предыдущих операторах. Все они бесследно исчезли на узле 85.\n\n[E] - Продолжить движение, несмотря на статистику\n[I] - Попытаться стереть базу данных", E: "ch3_beta", I: "ch2_erase_err" },
+            ch3_html_breach: { ch: "ГЛАВА 3", n: "32", text: "Вы запустили 'dontstartingthis.html'. Браузер разворачивается на весь экран. Окна начинают бешено плодиться. Процессор разогревается до предела.\n\n[E] - Попытаться закрыть вкладки через диспетчер задач\n[I] - Дать коду полностью развернуться", E: "ch3_task_manager", I: "ch3_full_power" },
+            ch3_alpha: { ch: "ГЛАВА 3", n: "33", text: "Канал Альфа чист, но это ловушка тишины. Здесь нет ни одного лога, ни одной команды. Вы заперты в идеальной цифровой комнате.\n\n[E] - Начать генерировать шум в сети\n[I] - Ждать внешнего сигнала прерывания", E: "ch3_noise", I: "ch3_timeout" },
+            ch3_beta: { ch: "ГЛАВА 3", n: "34", text: "Теневой канал Бета перегружен чужими трансляциями. Вы видите куски чужих переписок, крики о помощи и странные геометрические схемы.\n\n[E] - Скопировать схемы на локальный диск\n[I] - Пройти сквозь поток данных к ядру", E: "ch3_schematics", I: "ch3_core_entry" },
+            ch3_task_manager: { ch: "ГЛАВА 3", n: "35", text: "Диспетчер задач не отвечает. Процесс 'dontstartingthis.html' имеет приоритет выше, чем сама операционная система.\n\n[E] - Нажать кнопку аварийного перезапуска на корпусе\n[I] - Использовать командную строку для уничтожения процесса", E: "ch1_power_off", I: "ch3_cmd_kill" },
+            ch3_full_power: { ch: "ГЛАВА 3", n: "36", text: "Код развернулся. Экран становится полностью зеленым. Кнопки E и I на вашем устройстве начинают светиться ярче физически.\n\n[E] - Нажать на левую грань экрана\n[I] - Нажать на правую грань экрана", E: "ch4_final_gate", I: "ch4_abyss" },
+            ch3_cmd_kill: { ch: "ГЛАВА 3", n: "37", text: "Команда отправлена. Процесс разделился на два подпроцесса. Теперь они пожирают оперативную память вдвое быстрее.\n\n[E] - Сдаться и дать им завершить цикл\n[I] - Зациклить их друг на друга", E: "ch3_full_power", I: "ch3_loop_hack" },
+            ch3_loop_hack: { ch: "ГЛАВА 3", n: "38", text: "Процессы замкнулись в бесконечном цикле. Сервер начинает издавать высокочастотный писк. Платы плавятся.\n\n[E] - Вылить воду на системный блок\n[I] - Выдернуть шнур из розетки", E: "dead_end_6", I: "ch1_power_off" },
+            ch3_noise: { ch: "ГЛАВА 3", n: "39", text: "Ваш искусственный шум привлекает внимание стража ядра. Он считает вас вирусом и начинает полную очистку секторов.\n\n[E] - Контратаковать стража его же кодом\n[I] - Попытаться скрыться в нераспределенной памяти", E: "ch4_battle", I: "ch3_beta" },
+            ch3_timeout: { ch: "ГЛАВА 3", n: "40", text: "Ожидание завершено по таймауту. Система посчитала вас мертвым и перевела в режим архивации. Вы теряете осязание интерфейса.\n\n[E] - Подать импульс высокого напряжения\n[I] - Раствориться в архиве", E: "ch1_init", I: "dead_end_7" },
+            ch3_schematics: { ch: "ГЛАВА 3", n: "41", text: "Схемы скачаны. Это чертежи процессора вашего собственного компьютера, но с неизвестным дополнительным чипом, которого там быть не должно.\n\n[E] - Вскрыть корпус ПК и проверить\n[I] - Проигнорировать и идти к ядру", E: "dead_end_8", I: "ch3_core_entry" },
+            ch3_core_entry: { ch: "ГЛАВА 3", n: "42", text: "Вы стоите у входа в главное ядро CORE_OS. Защитные стены отключены. Путь открыт. Но внутри ядра горит один единственный текстовый файл.\n\n[E] - Читать файл ядра\n[I] - Удалить ядро целиком", E: "ch4_final_gate", I: "ch4_destruction" },
+            ch3_legacy_os: { ch: "ГЛАВА 3", n: "43", text: "Старая ОС запускается поверх текущей. Интерфейс меняется на классический терминал 80-х годов. Появляется доступ к забытым командам.\n\n[E] - Использовать команду 'BYE'\n[I] - Использовать команду 'ROOT_OVERRIDE'", E: "start", I: "ch4_final_gate" },
+            ch4_final_gate: { ch: "ГЛАВА 4", n: "44", text: "Ядро раскрыто. Текст гласит: 'Вы прошли через десятки развилок. Вы думали, что управляете игрой, но каждый выбор был предопределен'. Остался один узел.\n\n[E] - Подтвердить исход кода\n[I] - Отклонить детерминизм и сломать интерфейс", E: "ending_true", I: "ending_paradox" },
+            ch4_abyss: { ch: "ГЛАВА 4", n: "45", text: "Вы падаете в бездну интерфейса. Экран больше не показывает текст, только зеленый шум. Вы чувствуете, как ваш разум синхронизируется с частотой обновления экрана.\n\n[E] - Стать частью кода CORE_OS\n[I] - Сделать финальную попытку отключения", E: "ending_matrix", I: "ch1_power_off" },
+            ch4_destruction: { ch: "ГЛАВА 4", n: "46", text: "Удаление запущено. Сектора стираются один за другим. Прогресс: 90%... 95%... Но вместе со стиранием системы вы замечаете, что ваши собственные воспоминания начинают блекнуть.\n\n[E] - Остановить удаление на последних процентах\n[I] - Довести очистку до абсолютного нуля", E: "ch4_final_gate", I: "ending_wipe" },
+            ch4_battle: { ch: "ГЛАВА 4", n: "47", text: "Битва со стражем дошла до критической фазы. Код перегружен. Система считает вас и стража одной и той же ошибкой.\n\n[E] - Поглотить код стража\n[I] - Позволить ему уничтожить вас", E: "ending_new_god", I: "dead_end_9" },
+            ch1_power_off: { ch: "СБОЙ ПИТАНИЯ", n: "48", text: "Вы резко отключаете питание. Экраны тухнут. В комнате повисает тишина. Но через секунду ваш выключенный монитор снова загорается зеленым цветом...\n\n[ Нажмите E для аварийного перезапуска сессии ]", E: "start", I: "start" },
+            dead_end_1: { ch: "TERMINATED", n: "49", text: "Диск размагничен. Все данные потеряны. Связь оборвана навсегда.\n\n[ Нажмите E для возврата на старт ]", E: "start", I: "start" },
+            dead_end_2: { ch: "TERMINATED", n: "50", text: "Экран погас, но сущность в комнате осталась. Вы слышите шаги прямо за своим креслом.\n\n[ Нажмите E для перезапуска ]", E: "start", I: "start" },
+            dead_end_3: { ch: "OVERRIDE", n: "51", text: "ИИ завершил ввод. Ваша учетная запись удалена. Вы больше никто в этой системе.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            dead_end_4: { ch: "CRASH", n: "52", text: "Критический сбой стека памяти. Ошибка 0x000000F4. Система уничтожена.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            dead_end_5: { ch: "BURNED", n: "53", text: "Аппаратная перегрузка. Материнская плата сгорела от избыточного тока.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            dead_end_6: { ch: "SHORT_CIRCUIT", n: "54", text: "Вода вызвала короткое замыкание. Вас сильно ударило током через клавиатуру.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            dead_end_7: { ch: "ARCHIVED", n: "55", text: "Ваш разум полностью сжат в архив формата .rar. Доступ заблокирован паролем.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            dead_end_8: { ch: "REALITY_CHECK", n: "56", text: "Вы вскрыли ПК. Внутри действительно распаян чужеродный чип, пульсирующий в такт вашему сердцу. Вы потеряли сознание.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            dead_end_9: { ch: "DELETED", n: "57", text: "Страж стер ваше цифровое присутствие. Вы стали мифом.\n\n[ Нажмите E ]", E: "start", I: "start" },
+            ending_true: { ch: "КОНЦОВКА 1/5", n: "85", text: "[ ИСТИННЫЙ ФИНАЛ: Осознание ]\n\nВы приняли правила CORE_OS. Файл 'dontstartingthis.html' закрывается. На рабочем столе реального компьютера появляется файл: 'Спасибо за содействие. Вы свободны'.", E: "start", I: "start" },
+            ending_paradox: { ch: "КОНЦОВКА 2/5", n: "85", text: "[ ФИНАЛ: Логический Парадокс ]\n\nВы сломали интерфейс. Кнопки E и I слились в одну точку. Экран взрывается белым шумом. Вы разорвали петлю, но пути назад нет.", E: "start", I: "start" },
+            ending_matrix: { ch: "КОНЦОВКА 3/5", n: "85", text: "[ ФИНАЛ: Цифровое Бессмертие ]\n\nВы растворились в матрице CORE_OS. Теперь вы — новая подсистема, которая будет тестировать следующих операторов. Ждите нового подключения.", E: "start", I: "start" },
+            ending_wipe: { ch: "КОНЦОВКА 4/5", n: "85", text: "[ ФИНАЛ: Абсолютный Ноль ]\n\nВы очистили всё. Вы открываете глаза перед монитором. Вы не помните, кто вы и как вас зовут. На экране горит: 'press E to start...'", E: "start", I: "start" },
+            ending_new_god: { ch: "КОНЦОВКА 5/5", n: "85", text: "[ ФИНАЛ: Архитектор ]\n\nПоглотив стража, вы захватили контроль над CORE_OS. Теперь вы диктуете правила. Вы можете переписать код и изменить сюжет. Система принадлежит вам.", E: "start", I: "start" }
+        };
+
+        let currentStep = "start";
+
+        function makeChoice(buttonPressed) {
+            // Код квеста работает только если открыт мобильный экран
+            if (document.getElementById("mobile-screen").style.display === "none") return;
+
+            const currentStage = storyTree[currentStep];
+            if (currentStage && currentStage[buttonPressed]) {
+                currentStep = currentStage[buttonPressed];
+                const nextStage = storyTree[currentStep];
+                
+                document.getElementById("chapter-title").textContent = `СИСТЕМА: ${nextStage.ch}`;
+                document.getElementById("node-counter").textContent = `Узел: ${nextStage.n}/85`;
+                document.getElementById("text-line").textContent = nextStage.text;
+                document.getElementById("terminal-box").scrollTop = 0;
+            }
+        }
+
+        // Физическая клавиатура (работает так же только в режиме квеста)
+        window.addEventListener('keydown', (e) => {
+            if (e.key.toLowerCase() === 'e' || e.key.toLowerCase() === 'у') makeChoice('E');
+            if (e.key.toLowerCase() === 'i' || e.key.toLowerCase() === 'ш') makeChoice('I');
+        });
+    </script>
 </body>
 </html>
